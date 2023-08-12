@@ -1,0 +1,88 @@
+/* body{
+    background-color: rgb(32,32,32);
+} */
+/* p,h1,h2,h3,h4,h5,h6,span,div,th,tr{
+    color: white;
+} */
+
+.bg-prime{
+    background-color: rgb(255,88,33) !important;
+    color: white !important;
+}
+.text-prime{
+  color: rgb(255,88,33);
+}
+.btn-outline-prime:hover{
+  background-color: rgb(255,88,33) !important;
+  color: black !important;
+}
+.btn-outline-prime{
+  border: 2px solid rgb(255,88,33) !important;
+  color: rgb(255,88,33) !important;
+}
+.bg-black{
+    background-color: black;
+}
+.pk-pointer{
+    cursor: pointer;
+}
+
+.bg-footer{
+    background-color: #313B47 !important;
+}
+
+.s-div::-webkit-scrollbar {
+    width: 15px !important;
+  }
+  /* Track */
+  .s-div::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    /* border-radius: 5px; */
+  }
+   
+  /* Handle */
+  .s-div::-webkit-scrollbar-thumb {
+    background: rgb(32,32,32);
+    /* border-radius: 5px; */
+  }
+  
+  /* Handle on hover */
+  .s-div::-webkit-scrollbar-thumb:hover {
+    background: #5e4e4e; 
+  }
+
+  .text-capt{
+    text-transform: capitalize;
+  }
+  .text-upper{
+    text-transform: uppercase;
+  }
+  .text-lower{
+    text-transform: lowercase;
+  }
+  .text-deco-none{
+    text-decoration: none;
+  }
+  #main-nav{
+    min-height: 80px !important;
+  }
+  .nav-bg{
+     background-color:#00424A;
+  }
+  #main-logo{
+    position: absolute;
+    top: 10px;
+    transition: height 0.5s ease-out;
+  }
+  .lg-logo{
+    height: 200px;
+  }
+  .sm-logo{
+    height: 60px;
+  }
+
+  @media (max-width: 768px) {
+    .mobile-hide {
+      display: none !important;
+    }
+  }

@@ -1,0 +1,8 @@
+{
+    "require": {
+        "cboden/ratchet": "^0.4.4",
+        "google/apiclient": "^2.15",
+        "phpmailer/phpmailer": "^6.8",
+        "vlucas/phpdotenv": "^5.5"
+    }
+}
