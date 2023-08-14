@@ -16,7 +16,6 @@
         height: 300px;
         object-fit: cover;
         border-radius: 50%;
-        
     }
     .frnd-icons{
         display: flex;

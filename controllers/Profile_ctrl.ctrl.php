@@ -417,6 +417,7 @@ class Profile_ctrl
         $friend_id = $req->receiver_id;
         $db = new Dbobjects;
         $hisarr = [];
+        $hisarr['profile_link'] = home . route('showPublicProfile', ['profile_id' => $req->receiver_id]);
         try {
             $sql = "SELECT * FROM chat_history
             WHERE (JSON_UNQUOTE(JSON_EXTRACT(users, '$[0]')) = '$my_id'
@@ -441,7 +442,7 @@ class Profile_ctrl
                         );
                     }
                 };
-                $hisarr[] = array(
+                $hisarr['data'][] = array(
                     'id' => $his['id'],
                     'created_at' => $his['created_at'],
                     'sender_id' => $his['sender_id'],

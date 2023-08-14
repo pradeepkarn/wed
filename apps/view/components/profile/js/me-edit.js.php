@@ -1,3 +1,6 @@
+<?php 
+$prof = $context->prof;
+?>
 <script>
     // for relations
     const elmnts = `<div class="col-md-6">
@@ -103,5 +106,38 @@
                 return;
             }
         }
+    }
+</script>
+
+<script>
+    const districtSelect = document.querySelector("#district-select");
+    document.addEventListener('DOMContentLoaded', () => {
+        const stateSelect = document.querySelector("#state-select");
+        setDistric(stateSelect);
+        stateSelect.addEventListener('change', () => {
+            setDistric(stateSelect);
+        });
+    });
+    // set the distrct
+    const setDistric = (stateSelect) => {
+        const selectedOption = stateSelect.options[stateSelect.selectedIndex];
+        const districtsData = selectedOption.getAttribute('data-districts');
+        const districts = JSON.parse(districtsData);
+        updateDistrictOptions(districts, districtSelect);
+    }
+    // set the distric according to state
+    function updateDistrictOptions(districts, districtSelect) {
+        // Clear existing options
+        districtSelect.innerHTML = "";
+        // Add new options based on the selected state's districts
+        districts.forEach(district => {
+            const option = document.createElement("option");
+            option.value = district;
+            option.textContent = district;
+            if (district=="<?php echo $prof->city; ?>") {
+                option.selected = true;
+            }
+            districtSelect.appendChild(option);
+        });
     }
 </script>

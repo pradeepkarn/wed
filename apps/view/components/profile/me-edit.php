@@ -173,12 +173,12 @@ import(
                                             <div class="mb-3">
                                                 <label for="caste" class="form-label">Castse:</label>
                                                 <?php
-                                                    $jsncaste = json_decode(jsonData($file = "/caste/caste.json"));
-                                                    $allCastes =  ($jsncaste->religion[0]->castes); ?>
+                                                $jsncaste = json_decode(jsonData($file = "/caste/caste.json"));
+                                                $allCastes =  ($jsncaste->religion[0]->castes); ?>
                                                 <select name="caste" id="caste" class="form-select my-2">
-                                                <?php foreach ($allCastes as $key => $cst) { ?>
-                                                      <option <?php echo $cst->name == $prof->caste?'selected':null; ?> value="<?php echo $cst->name; ?>"><?php echo $cst->name; ?></option>
-                                                  <?php  }
+                                                    <?php foreach ($allCastes as $key => $cst) { ?>
+                                                        <option <?php echo $cst->name == $prof->caste ? 'selected' : null; ?> value="<?php echo $cst->name; ?>"><?php echo $cst->name; ?></option>
+                                                    <?php  }
                                                     ?>
                                                 </select>
                                             </div>
@@ -239,7 +239,47 @@ import(
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
+
+
+
+                                        <div class="row">
+                                            <div class="col-6 my-2">
+                                                <div class="form-floating">
+                                                    <select class="form-select" name="state" id="state-select" aria-label="Floating label select example">
+                                                        <?php
+                                                        $data = json_decode(jsonData('/india/states-and-districts.json'));
+                                                        foreach ($data->states as $key => $st) {
+                                                            $st = obj($st);
+                                                        ?>
+                                                            <option <?php echo $prof->state == $st->state ? 'selected' : null; ?> data-districts='<?php echo json_encode($st->districts); ?>' value="<?php echo $st->state; ?>"><?php echo $st->state; ?></option>
+                                                        <?php  } ?>
+                                                    </select>
+                                                    <label for="state-select">State</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-6 my-2">
+                                                <div class="form-floating">
+                                                    <select class="form-select" name="city" id="district-select" aria-label="Floating label select example">
+                                                        
+                                                    </select>
+                                                    <label for="district-select">City</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        <!-- <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label for="city" class="form-label">City:</label>
                                                 <input type="text" class="form-control my-2" id="city" name="city" value="<?php echo $prof->city; ?>">
@@ -250,7 +290,7 @@ import(
                                                 <label for="state" class="form-label">State:</label>
                                                 <input type="text" class="form-control my-2" id="state" name="state" value="<?php echo $prof->state; ?>">
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label for="country" class="form-label">Country:</label>
@@ -369,8 +409,9 @@ import(
     </div>
 </section>
 
+
 <?php
-import("apps/view/components/profile/js/me-edit.js.php");
+import("apps/view/components/profile/js/me-edit.js.php",obj(['prof'=>$prof]));
 ajaxActive('#profile-update-spinner');
 pkAjax_form("#profile-img-fileInput", "#profile-img-form", "#res", "change", true);
 pkAjax_form("#cover-img-fileInput", "#cover-img-form", "#res", "change", true);

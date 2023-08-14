@@ -72,7 +72,7 @@ import(
             </div>
         </div>
     </section>
-<?php endif; ?>
+
 
 <?php
 $users = $context->user_list;
@@ -81,3 +81,4 @@ import(
     obj([])
 );
 ?>
+<?php endif; ?>

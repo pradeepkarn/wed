@@ -29,17 +29,22 @@ $prof = $context->prof;
             dataType: 'JSON',
             success: await
             function(res) {
+                $("#profile-link").attr("href", `/${res['profile_link']}`);
                 let messageElement = '';
-                res.forEach(msg => {
-                    if (msg.sender_id == <?php echo $prof->id; ?>) {
-                        messageElement += `<div class="its-me chat-bubble">${msg.message}</div>`;
-                    } else {
-                        messageElement += `<div class="other chat-bubble">${msg.message}</div>`;
-                    }
-                });
+                try {
+                    res['data'].forEach(msg => {
+                        if (msg.sender_id == <?php echo $prof->id; ?>) {
+                            messageElement += `<div class="its-me chat-bubble">${msg.message}</div>`;
+                        } else {
+                            messageElement += `<div class="other chat-bubble">${msg.message}</div>`;
+                        }
+                    });
+                } catch (error) {
+
+                }
+
                 $("#chatBox").attr("data-chayBoxHis-id", obj.receiver_id);
                 $("#message-box").html(messageElement)
-                // console.log(res);
             }
         });
 
@@ -96,7 +101,7 @@ $prof = $context->prof;
                     messageElement = `<div class="other chat-bubble">${chat}</div>`;
                 }
                 chayBoxHisId = $("#chatBox").attr("data-chayBoxHis-id");
-                if (chayBoxHisId==msg.content.sender_id) {
+                if (chayBoxHisId == msg.content.sender_id) {
                     $("#message-box").append(messageElement);
                     const messageBox = document.getElementById('message-box');
                     scrollToBottom(messageBox);

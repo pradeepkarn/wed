@@ -12,6 +12,7 @@
 
       # Users
       import("apps/view/components/home/users.php", $context->data);
+      // import("apps/view/components/home/user-cards.php", $context->data);
       # valuse
       // import("apps/view/components/home/values.php", $context->data);
 

@@ -145,7 +145,7 @@ import(
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        
+
                                         <h3>Personal details:</h3>
                                     </div>
                                     <div class="row">
@@ -302,7 +302,7 @@ import(
                                     <div>
                                         <span id="friend-div-id-<?php echo $frnd->id; ?>"></span>
                                         <img class="friend-user-img" src="/<?php echo MEDIA_URL; ?>/images/profiles/<?php echo $frnd->image; ?>" alt="<?php echo $frnd->first_name; ?>">
-                                        <?php echo $frnd->username; ?>
+                                        <?php echo $frnd->first_name; ?>
                                     </div>
                                 </li>
                             <?php endforeach; ?>
@@ -313,16 +313,22 @@ import(
                 </div>
 
                 <div class="chat-box" id="chatBox">
+
                     <div class="show-hide-icons">
                         <div>
-                            <img id="current-user-img" src="/<?php echo MEDIA_URL; ?>/images/profiles/default-user.png" alt="">
-                            <b id="chatUserName" class="ps-1"></b>
+                            <a id="profile-link" href="">
+                                <img id="current-user-img" src="/<?php echo MEDIA_URL; ?>/images/profiles/default-user.png" alt="">
+                                <b id="chatUserName" class="ps-1"></b>
+                            </a>
+
                         </div>
                         <div id="min-close-icon">
                             <i id="minimize-chat" class="bi bi-dash"></i>
                             <i id="hide-chat" class="bi bi-x"></i>
                         </div>
                     </div>
+
+
                     <div class="messages" id="message-box">
                         <!-- <div class="its-me chat-bubble">
                             HI there adkjhdk hkjsdh hksdh
@@ -355,13 +361,13 @@ import(
     import(
         "apps/view/components/profile/js/chatbox.js.php",
         obj([
-            'prof' => $prof
+            'prof' => obj(USER)
         ])
     );
     import(
         "apps/view/components/profile/js/ws.p2p.js.php",
         obj([
-            'prof' => $prof
+            'prof' => obj(USER)
         ])
     );
     ?>
