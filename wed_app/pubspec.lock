@@ -75,6 +75,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  get:
+    dependency: "direct main"
+    description:
+      name: get
+      sha256: "2ba20a47c8f1f233bed775ba2dd0d3ac97b4cf32fc17731b3dfc672b06b0e92a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.6.5"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.18.1"
   js:
     dependency: transitive
     description:
@@ -83,6 +99,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.7"
+  kd_utils:
+    dependency: "direct main"
+    description:
+      name: kd_utils
+      sha256: c4f89e53fe214308263d4294283f09c1115da297a6be0213e73080c71092a96a
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.0+4"
   lints:
     dependency: transitive
     description:
@@ -186,3 +210,4 @@ packages:
     version: "2.1.4"
 sdks:
   dart: ">=3.0.3 <4.0.0"
+  flutter: ">=3.10.2"
