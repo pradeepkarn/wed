@@ -25,7 +25,7 @@ class Search_users_ctrl
         $filter->age_from = $req->age_from;
         $filter->age_to = $req->age_to;
         $users = $this->user_list($filter = $filter, $ord = "DESC", $limit = 5, $active = 1);
-        // myprint($posts);
+        myprint($users);
         $context = (object) array(
             'page' => 'search.php',
             'data' => (object) array(
@@ -56,6 +56,7 @@ class Search_users_ctrl
         AND state = '$state'
         ORDER BY id $ord LIMIT $limit;
         ;";
+        echo $sql;
         return $cntobj->show($sql);
     }
     public function render_main($context = null)

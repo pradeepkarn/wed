@@ -1041,3 +1041,17 @@ function getDOBFromAge($age) {
 
   return $dob;
 }
+
+function gender_view($gender)  {
+  switch (strtolower($gender)) {
+    case 'm':
+      return 'Male';
+      break;
+    case 'f':
+      return 'Female';
+      break;
+    default:
+      return 'NA';
+      break;
+  }
+}

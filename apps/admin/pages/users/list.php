@@ -49,6 +49,7 @@ $req->ug = $ug;
                                 <th scope="col">Id</th>
                                 <th scope="col">Image</th>
                                 <th scope="col">First name</th>
+                                <th scope="col">Gender</th>
                                 <th scope="col">Username</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Role</th>
@@ -88,6 +89,7 @@ $req->ug = $ug;
                                         <img style="width:40px; height:40px; object-fit:cover; border-radius:50%;" src="/<?php echo MEDIA_URL; ?>/images/profiles/<?php echo $pv->image; ?>" alt="<?php echo $pv->image; ?>">
                                     </th>
                                     <td><?php echo $pv->first_name; ?></td>
+                                    <td><?php echo gender_view($pv->gender); ?></td>
                                     <td><?php echo $pv->username; ?></td>
                                     <td><?php echo $pv->email; ?></td>
                                     <td><?php echo $pv->role; ?></td>
