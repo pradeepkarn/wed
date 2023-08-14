@@ -25,7 +25,7 @@ class Search_users_ctrl
         $filter->age_from = $req->age_from;
         $filter->age_to = $req->age_to;
         $users = $this->user_list($filter = $filter, $ord = "DESC", $limit = 5, $active = 1);
-        myprint($users);
+        // myprint($users);
         $context = (object) array(
             'page' => 'search.php',
             'data' => (object) array(
@@ -50,13 +50,13 @@ class Search_users_ctrl
         $state = sanitize_remove_tags($filter->state);
         $sql = "SELECT * FROM pk_user WHERE `is_active`= $active $search_gender 
         AND dob IS NOT NULL 
-        AND dob >= '$dobfrom' 
-        AND dob <= '$dobto'
+        AND dob >= '$dobto' 
+        AND dob <= '$dobfrom'
         AND city = '$city'
         AND state = '$state'
         ORDER BY id $ord LIMIT $limit;
         ;";
-        echo $sql;
+        // echo $sql;
         return $cntobj->show($sql);
     }
     public function render_main($context = null)
