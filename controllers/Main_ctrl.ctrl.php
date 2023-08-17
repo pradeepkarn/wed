@@ -1,10 +1,12 @@
 <?php 
 class Main_ctrl
 {
-    protected $req;
-    protected $files;
+    public $post;
+    public $get;
+    public $files;
     public function __construct() {
-        $this->req = obj($_POST);
+        $this->post = obj($_POST);
+        $this->get = obj($_GET);
         $this->files = isset($_FILES)?obj($_FILES):null;
     }
 

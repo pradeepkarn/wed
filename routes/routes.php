@@ -15,11 +15,11 @@ $login_routes = [
     "/user-registration-ajax" => 'Auth@register@name.registerAjax',
 ];
 $public_routes = [
-    // "" => "HomeController@redirect_to_lang@name.homeNolang",
-    // "/" => "HomeController@redirect_to_lang@name.homeSlashNoLang",
-    "" => "HomeController@index@name.home",
-    "/" => "HomeController@index@name.homeSlash",
-    "/about" => "AboutController@index@name.about",
+    // "" => "Home_ctrl@redirect_to_lang@name.homeNolang",
+    // "/" => "Home_ctrl@redirect_to_lang@name.homeSlashNoLang",
+    "" => "Home_ctrl@index@name.home",
+    "/" => "Home_ctrl@index@name.homeSlash",
+    "/about" => "About_ctrl@index@name.about",
     "/contact" => "ContactController@index@name.contact",
     "/category/{slug}" => "CategoryController@index@name.category",
     "/category/{slug}/load-page-on-scroll" => "CategoryController@load_cat_on_scroll@name.catOnScroll",
@@ -40,6 +40,9 @@ $user_routes = [
     "/dashboard/upload-user-profile-ajax" => 'Profile_ctrl@update_my_profile_ajax@name.updateMyProfileAjax',
     "/dashboard/send-request-ajax" => 'Profile_ctrl@send_request_ajax@name.sendRequestAjax',
     "/dashboard/like-unlike-ajax" => 'Profile_ctrl@like_unlike_ajax@name.likeUnlikeProfileAjax',
+];
+$api_routes = [
+    "/api/v1/user-list"=> 'Users_api@load_users@name.loadUsersApi',
 ];
 $chat_routes = [
     "/chat/populate-messages"=> 'Profile_ctrl@message_history@name.messageHistoryAjax',
@@ -126,7 +129,8 @@ $routes = array_merge(
     $public_routes,
     $user_routes,
     $admin_routes,
-    $chat_routes
+    $chat_routes,
+    $api_routes,
 );
 // define('ROUTES',$routes);
 
@@ -207,6 +211,10 @@ foreach ($routes as $route => $handler) {
 
         // Apply middleware for user authentication to the routes in the $user_routes array
         if (in_array($route, array_keys($user_routes))) {
+            $controller = userAuthMiddleware($controller);
+        }
+        // Apply middleware for chat message authentication to the routes in the $user_routes array
+        if (in_array($route, array_keys($chat_routes))) {
             $controller = userAuthMiddleware($controller);
         }
 

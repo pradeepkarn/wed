@@ -1,5 +1,5 @@
 <?php
-class AboutController
+class About_ctrl
 {
     public function index($req=null)
     {

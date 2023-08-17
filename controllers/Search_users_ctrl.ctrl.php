@@ -42,6 +42,7 @@ class Search_users_ctrl
 
         $dobfrom = getDOBFromAge($filter->age_from);
         $dobto = getDOBFromAge($filter->age_to);
+        $search_gender = null;
         if (USER) {
             $s_gender = USER['gender']=='m'?'f':'m';
             $search_gender = "AND gender = '$s_gender'";

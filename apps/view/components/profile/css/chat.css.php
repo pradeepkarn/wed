@@ -9,6 +9,7 @@
         border-radius: 5px;
         /* padding: 0 5px 0 5px; */
         display: none;
+        z-index: +100;
     }
 
     #user-icon {

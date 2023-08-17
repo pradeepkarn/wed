@@ -135,6 +135,7 @@ class Profile_ctrl
     }
     function send_request_ajax($req = null)
     {
+        header('Content-Type: application/json');
         $req = obj($req);
         if (USER) {
             $post = obj($_POST);
@@ -218,6 +219,7 @@ class Profile_ctrl
     }
     function like_unlike_ajax($req = null)
     {
+        header('Content-Type: application/json');
         $req = obj($req);
 
         if (USER) {

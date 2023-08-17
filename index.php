@@ -3,6 +3,7 @@ require_once(__DIR__ . "/config.php");
 require_once(__DIR__ . "/settings.php");
 import("/includes/class-autoload.inc.php");
 import("functions.php");
+import("settings.php");
 define("direct_access", 1);
 // import('/vendor/autoload.php');
 define('DEFAULT_LANG', 'hi');

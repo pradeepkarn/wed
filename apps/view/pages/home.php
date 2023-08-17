@@ -8,7 +8,7 @@
       # Home Hero component
       import("apps/view/components/common/home-hero.php", $context->data->hero);
       # About
-      import("apps/view/components/home/about.php", $context->data);
+      // import("apps/view/components/home/about.php", $context->data);
 
       # Users
       import("apps/view/components/home/users.php", $context->data);

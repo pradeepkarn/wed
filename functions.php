@@ -1041,6 +1041,12 @@ function getDOBFromAge($age) {
 
   return $dob;
 }
+function getAgeFromDOB($birthdate) {
+    $today = new DateTime();
+    $birthdate = new DateTime($birthdate);
+    $age = $today->diff($birthdate)->y;
+    return $age;
+}
 
 function gender_view($gender)  {
   switch (strtolower($gender)) {
@@ -1049,6 +1055,19 @@ function gender_view($gender)  {
       break;
     case 'f':
       return 'Female';
+      break;
+    default:
+      return 'NA';
+      break;
+  }
+}
+function bride_or_grom($gender)  {
+  switch (strtolower($gender)) {
+    case 'm':
+      return 'Groom';
+      break;
+    case 'f':
+      return 'Bride';
       break;
     default:
       return 'NA';
