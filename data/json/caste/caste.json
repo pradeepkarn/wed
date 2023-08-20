@@ -6,10 +6,6 @@
             "castealias":"Caste",
             "castes": [
                 {
-                    "id": "0",
-                    "name": "-- Select --"
-                },
-                {
                     "id": "1",
                     "name": "Ad Dharmi"
                 },

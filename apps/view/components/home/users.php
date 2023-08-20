@@ -89,9 +89,9 @@ import(
                                         <i class="bi bi-person-check-fill"></i>
                                     <?php else : ?>
                                         <?php if ($myreq->success == true) : ?>
-                                            <i data-request="cancel" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-dash"></i>
+                                            <i data-request="cancel" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-dash" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" data-bs-title="<b>Interest</b>"></i>
                                         <?php else : ?>
-                                            <i data-request="send" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-plus"></i>
+                                            <i data-request="send" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-plus" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" data-bs-title="<b>Interest</b>"></i>
                                         <?php endif; ?>
                                     <?php endif; ?>
 

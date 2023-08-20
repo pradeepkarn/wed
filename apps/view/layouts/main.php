@@ -39,7 +39,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
 
     <script src="/<?php echo STATIC_URL; ?>/view/js/jq.3.5.js"></script>
     <script src="/<?php echo STATIC_URL; ?>/view/js/main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script> -->
 </head>
 
 <body>
@@ -229,6 +229,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
 
     <!-- Template Main JS File -->
     <script src="/<?php echo STATIC_URL; ?>/view/assets/js/main.js"></script>
+    
     <script>
         <?php
         $gctrl = new Fb_auth_ctlr;

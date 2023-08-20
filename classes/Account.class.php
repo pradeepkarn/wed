@@ -211,7 +211,7 @@ class Account
                     $qry['username'] = generate_username_by_email($email,1000);
                     // $qry['username'] = explode("@",$email)[0].rand(0,100);
                     $db->insertData = $qry;
-                    $id = $db->transact();
+                    $id = $db->create();
                     $newuser = $db->pk($id);
                     $_SESSION['user_id'] = $id;
                     $_SESSION['email'] = $newuser['email'];

@@ -224,7 +224,6 @@ import(
                                     <?php echo $prof->bio; ?>
                                 </div>
                                 <hr>
-
                                 <div class="col-md-12">
                                     <h3>Family details:</h3>
                                     <div class="row">

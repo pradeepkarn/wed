@@ -216,7 +216,7 @@ function generate_username_by_email($email, $try = 100, $db = null)
 }
 function generate_dummy_email($prefix = null)
 {
-  return rand(1000, 9999) . "_" . uniqid($prefix) . "@example.com";
+  return uniqid($prefix."_".rand(1, 50)). "@example.com";
 }
 function bsmodal($id = "", $title = "", $body = "", $btn_id, $btn_text = "Action", $btn_class = "btn btn-primary", $size = "modal-sm", $modalclasses = "")
 {
