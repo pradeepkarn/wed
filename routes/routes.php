@@ -28,12 +28,12 @@ $public_routes = [
     "/read/{slug}/post-comment-ajax" => "PostComment_ctrl@comment@name.postCommentAjax",
     "/search" => "Search_users_ctrl@index@name.search",
     "/privacy-policy" => "PrivacyPolicy_ctrl@index@name.privacyPolicy",
+    "/dashboard/profile/{profile_id}" => 'Profile_ctrl@show_public_profile@name.showPublicProfile',
 ];
 $user_routes = [
     // '/dashboard' => 'DashboardController@index@name.dashboard',
     "/dashboard/profile" => 'Profile_ctrl@index@name.userProfile',
     "/dashboard/news-feeds" => 'News_feeds_ctrl@index@name.newsFeeds',
-    "/dashboard/profile/{profile_id}" => 'Profile_ctrl@show_public_profile@name.showPublicProfile',
     "/dashboard/profile-edit" => 'Profile_ctrl@edit@name.userProfileEdit',
     "/dashboard/upload-user-cover-image-ajax" => 'Profile_ctrl@upload_cover_image_ajax@name.uploadUserCoverImageAjax',
     "/dashboard/upload-user-profile-image-ajax" => 'Profile_ctrl@upload_profile_image_ajax@name.uploadUserProfileImageAjax',
@@ -145,6 +145,18 @@ function userAuthMiddleware($next)
     // Call the next middleware or route handler
     return $next;
 }
+function userProfileCompleteMiddleware($next)
+{
+    if (authenticate()) {
+        $completed = profile_completed(USER['id']);
+        if ($completed<80) {
+            header("Location: /" . home . route('userProfileEdit'));
+            exit;
+        }
+    }
+    // Call the next middleware or route handler
+    return $next;
+}
 
 // Define middleware for admin authentication
 function adminAuthMiddleware($next)
@@ -221,6 +233,10 @@ foreach ($routes as $route => $handler) {
         // Apply middleware for admin authentication to the routes in the $admin_routes array
         if (in_array($route, array_keys($admin_routes))) {
             $controller = adminAuthMiddleware($controller);
+        }
+        // Apply middleware for profile complete in public routes
+        if (in_array($route, array_keys($public_routes))) {
+            $controller = userProfileCompleteMiddleware($controller);
         }
 
         // Call the method with any named parameters and GET parameters

@@ -7,6 +7,10 @@ class Profile_ctrl
         $prof = null;
         if (USER) {
             $prof = $this->profile_detail($id = USER['id']);
+            if ($prof==null) {
+                header("Location:/" . home.route('home'));
+                return;
+            }
             $myfrnds = $this->my_friend_list($my_id = USER['id']);
         }
         $context = (object) array(
@@ -25,6 +29,10 @@ class Profile_ctrl
         $prof = null;
         if (USER) {
             $prof = $this->profile_detail($id = USER['id']);
+            if ($prof==null) {
+                header("Location:/" . home.route('home'));
+                return;
+            }
             $myfrnds = $this->my_friend_list($my_id = USER['id']);
         }
         $context = (object) array(
@@ -41,15 +49,18 @@ class Profile_ctrl
     {
         $req = obj($req);
         $prof = null;
+        $myfrnds = null;
         if (isset($req->profile_id) && intval($req->profile_id)) {
+            $prof = $this->profile_detail($id = $req->profile_id);
             if (USER) {
-                $prof = $this->profile_detail($id = $req->profile_id);
+                if ($prof==null) {
+                    header("Location:/" . home.route('home'));
+                    return;
+                }
                 $myfrnds = $this->my_friend_list($my_id = USER['id']);
+                
             }
-        } else {
-            header("Location/" . home);
-            exit;
-        }
+        } 
         $context = (object) array(
             'page' => 'public-profile.php',
             'data' => (object) array(
@@ -339,6 +350,7 @@ class Profile_ctrl
             $db->insertData['state'] = sanitize_remove_tags($post->state);
             $db->insertData['country'] = sanitize_remove_tags($post->country);
             $db->insertData['bio'] = sanitize_remove_tags($post->about_me);
+            $db->insertData['is_public']  = isset($post->is_public)?1:0;
 
             if (isset($post->mool)) {
                 $db->insertData['mool'] = sanitize_remove_tags($post->mool);
@@ -385,6 +397,13 @@ class Profile_ctrl
             $db->pk(USER['id']);
             try {
                 $db->update();
+                $completed_percentage = profile_completed($id=USER['id']);
+                if ($completed_percentage==0) {
+                    msg_set("check your date of birth and gender");
+                    msg_set("Your age must be grater than or equals to 18");
+                }
+                msg_set("Profile $completed_percentage % completed");
+                echo js_alert(msg_ssn(return: true));
                 echo RELOAD;
             } catch (PDOException $th) {
                 msg_set('Please login first');
@@ -406,7 +425,12 @@ class Profile_ctrl
         $db = new Dbobjects;
         $db->tableName = 'pk_user';
         try {
-            return $db->pk($id);
+            $user = $db->pk($id);
+            if ($user['user_group']=='user') {
+                return $user;
+            }else{
+                return null;
+            }
         } catch (PDOException $th) {
             return null;
         }

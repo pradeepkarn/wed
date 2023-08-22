@@ -4,12 +4,16 @@ class Dummy_data
 {
     public $castes;
     public $area;
+    public $income;
     public function __construct()
     {
         $caste_file = RPATH . "/data/json/caste/caste.json";
-        $this->castes = json_decode(file_get_contents($caste_file));
         $location_file = RPATH . "/data/json/india/states-and-districts.json";
+        $income_file = RPATH . "/data/json/income/income.json";
+
+        $this->castes = json_decode(file_get_contents($caste_file));
         $this->area = json_decode(file_get_contents($location_file), true);
+        $this->income = json_decode(file_get_contents($income_file));
     }
 
     function generate_user()
@@ -49,7 +53,27 @@ class Dummy_data
             "Varma", "Kapoor", "Batra", "Sengupta", "Goswami", "Ranganathan", "Krishnan", "Ganguly", "Kulkarni",
             "Kamble", "Bhagat", "Lal", "Saxena", "Jha", "Roy", "Roy Chowdhury", "Bose", "karn"
         ];
+        $education = [
+            "MBA", "M.Sc.", "BTECH", "B.Ed.", "Graduation", "12th", "Matric"
+        ];
+        $languages = [
+            "Hindi", "Maithili", "English", "Bhojpuri"
+        ];
+        $jobs = [
+            "Graphic Designer", "Web Developer", "Software Developer", "Sales Manage", "Bank PO", "Engineer", "Govt. Teacher", "Pvt Teacher", "Pvt Job", "Business", "Self Employed"
+        ];
+        $heights = [
+            167.67,160,168,165,158,169,170,166.65
+        ];
 
+        $father = $fnamesM[array_rand($fnamesM)];
+        $mother = $fnamesF[array_rand($fnamesF)];
+        $grand_father = $fnamesM[array_rand($fnamesM)];
+        $income = $this->income[array_rand($this->income)]->range;
+        $edu = $education[array_rand($education)];
+        $job = $jobs[array_rand($jobs)];
+        $lang = $languages[array_rand($languages)];
+        $height = $heights[array_rand($heights)];
 
         $mixedNames = array_merge(
             array_map(function ($name) {
@@ -72,7 +96,7 @@ class Dummy_data
         $email = generate_dummy_email(strtolower($firstName));
         $username = strtolower(generate_username_by_email($email));
         $mobile = time();
-        $dob = date("Y-m-d", mt_rand(strtotime("1950-01-01"), strtotime("2003-12-31")));
+        $dob = date("Y-m-d", mt_rand(strtotime("1980-01-01"), strtotime("2003-12-31")));
 
         $casteDetail = "Some caste details";
         $area = $this->area;
@@ -81,24 +105,34 @@ class Dummy_data
         // Randomly choose a district from the selected state
         $city = $randomState['districts'][array_rand($randomState['districts'])];
         $state = $randomState['state'];
-        
+
         $country = "India";
 
         $userData = [
             'username' => $username,
             'email' => $email,
             'mobile' => $mobile,
+            'occupation' => $job,
+            'education' => $edu,
+            'annual_income' => $income,
+            'height' => $height,
+            'language' => $lang,
             'first_name' => $firstName,
             'last_name' => $lastName,
             'gender' => $gender,
             'dob' => $dob,
+            'father' => "{$father} {$lastName}",
+            'mother' => "{$mother} {$lastName}",
+            'grand_father' => "{$grand_father} {$lastName}",
             'caste' => $caste,
             'caste_detail' => $casteDetail,
+            'mool' => null,
             'state' => $state,
             'city' => $city,
             'country' => $country,
             'password' => md5(123),
-            'is_active' => 1
+            'is_active' => 1,
+            'is_public' => 1
         ];
 
         return obj($userData);

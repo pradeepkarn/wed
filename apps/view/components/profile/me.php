@@ -147,6 +147,7 @@ import(
                                     <div class="col-md-12">
 
                                         <h3>Personal details:</h3>
+                                        <b>Profile ID: <?php echo $prof->id; ?></b>
                                     </div>
                                     <div class="row">
                                         <div class="col my-2">

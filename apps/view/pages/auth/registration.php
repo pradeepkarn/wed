@@ -8,10 +8,10 @@
             Registration <div id="res"></div>
           </div>
           <div class="card-body">
-            <form id="my-form" action="/<?php echo home.route('registerAjax'); ?>" method="post">
+            <form id="my-form" action="/<?php echo home . route('registerAjax'); ?>" method="post">
               <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
-                <input type="email" class="form-control" id="username" name="email" required>
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -23,12 +23,10 @@
               </div>
               <div class="d-grid gap-2">
                 <button id="login-btn" type="button" class="btn btn-primary">Register</button>
-              
-                <button class="btn btn-primary" onclick="openFacebookLoginPopup()">
-                <i class="bi bi-facebook"></i>
-              </button>
 
-                
+                <button class="btn btn-primary" onclick="openFacebookLoginPopup()">
+                  <i class="bi bi-facebook"></i>
+                </button>
               </div>
             </form>
           </div>

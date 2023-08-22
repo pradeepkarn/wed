@@ -1,0 +1,26 @@
+[
+    {
+        "range": "0-2",
+        "description": "Less than 2 lakh"
+    },
+    {
+        "range": "2-5",
+        "description": "2 to 5 lakh"
+    },
+    {
+        "range": "5-10",
+        "description": "5 to 10 lakh"
+    },
+    {
+        "range": "10-20",
+        "description": "10 to 20 lakh"
+    },
+    {
+        "range": "20-50",
+        "description": "20 to 50 lakh"
+    },
+    {
+        "range": "50-100",
+        "description": "50 to 100 lakh"
+    }
+]

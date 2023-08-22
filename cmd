@@ -6,23 +6,32 @@ import("functions.php");
 import("settings.php");
 define("direct_access", 1);
 ###########################################################################
-
+// exit;
 $dd = new Dummy_data;
-$data = $dd->generate_user();
-
-print_r($data);
-exit;
-
 $db = new Dbobjects;
 $db->conn->beginTransaction();
-$db->tableName = 'genre';
-$db->insertData['genre'] = 'fiction';
-$db->insertData['content_group'] = 'novel';
-$db->filter($db->insertData);
-//$db->delete();
-$db->conn->rollBack();
-//$db->conn->commit();
+$db->tableName = 'pk_user';
+try {
+    $user_num = 100;
+    for ($i = 0; $i < $user_num; $i++) {
+        $db->insertData = arr($dd->generate_user());
+        $db->create();
+        updateProgressBar($i, $totalIterations=$user_num);
+    }
+    $db->conn->commit();
+} catch (PDOException $th) {
+    $db->conn->rollBack();
+}
+
+function updateProgressBar($current, $total)
+{
+    $percent = ($current / $total) * 100;
+    $barWidth = 50;
+    $numBars = (int) ($percent / (100 / $barWidth));
+    $progressBar = "[" . str_repeat("=", $numBars) . str_repeat(" ", $barWidth - $numBars) . "] $percent%";
+    echo "\r$progressBar";
+    // flush();
+}
 
 
-
-// print_r($data);
+echo "\nTask complete!\n";

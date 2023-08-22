@@ -18,8 +18,12 @@ class Auth
                 msg_ssn();
                 exit;
             }
+            if (!email_has_valid_dns($data->email)) {
+                $_SESSION['msg'][] = 'Please provide a working email';
+                echo js_alert(msg_ssn(return:true));
+                exit;
+            }
             $obj = new stdClass;
-
             $obj->col = 'email';
             $obj->val = $data->email;
             $emailcheck = $this->check_dup($obj);

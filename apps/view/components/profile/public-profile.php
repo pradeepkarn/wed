@@ -1,9 +1,16 @@
 <?php
 $prof = obj($context->data->my_profile);
-$frnds = obj($context->data->my_friends);
-$me = obj(USER);
+$frnds = $context->data->my_friends ? obj($context->data->my_friends) : null;
+$me = null;
+if (authenticate()) {
+    $me = USER ? obj(USER) : null;
+    $myreq = obj(check_request($myid = USER['id'], $req_to = $prof->id));
+    $is_liked = is_liked($myid = USER['id'], $obj_id = $prof->id, $obj_group = 'profile');
+    $frnd = (object)check_request($myid = USER['id'], $req_to = $prof->id);
+}
+
 // myprint($frnds);
-$frnd = (object)check_request($myid = USER['id'], $req_to = $prof->id);
+
 if ($prof->cover != '') {
     $imagePath = MEDIA_ROOT . "images/profiles/" . $prof->cover;
     if (file_exists($imagePath)) {
@@ -119,8 +126,7 @@ import(
     "apps/view/components/profile/css/chat.css.php",
     obj([])
 );
-$myreq = obj(check_request($myid = USER['id'], $req_to = $prof->id));
-$is_liked = is_liked($myid = USER['id'], $obj_id = $prof->id, $obj_group = 'profile');
+
 ?>
 
 
@@ -132,7 +138,7 @@ $is_liked = is_liked($myid = USER['id'], $obj_id = $prof->id, $obj_group = 'prof
     </div>
     <div class="container-fluid pb-5">
         <div class="row justify-content-center">
-            <div class="col-md-10" style="height: 100vh; overflow-y:scroll;">
+            <div class="col-md-10" style="min-height: 100vh;">
                 <div class="card shadow" style="border: transparent;">
 
                     <div id="user-profile-cover" class="col-md-12 profile-cover">
@@ -161,26 +167,29 @@ $is_liked = is_liked($myid = USER['id'], $obj_id = $prof->id, $obj_group = 'prof
                                             <?php // echo  $frnd->is_accepted == true ? "<i class='bi bi-person-check-fill'></i> Connected" : null; 
                                             ?>
                                         </h4> -->
-                                        <div class="frnd-icons">
-                                            <?php if ($myreq->is_accepted == true) : ?>
-                                                <i class="bi bi-person-check-fill"></i>
-                                            <?php else : ?>
-                                                <?php if ($myreq->success == true) : ?>
-                                                    <i data-request="cancel" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-dash"></i>
+                                        <?php if (authenticate()) : ?>
+
+
+                                            <div class="frnd-icons">
+                                                <?php if ($myreq->is_accepted == true) : ?>
+                                                    <i class="bi bi-person-check-fill"></i>
                                                 <?php else : ?>
-                                                    <i data-request="send" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-plus"></i>
+                                                    <?php if ($myreq->success == true) : ?>
+                                                        <i data-request="cancel" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-dash"></i>
+                                                    <?php else : ?>
+                                                        <i data-request="send" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-plus"></i>
+                                                    <?php endif; ?>
                                                 <?php endif; ?>
-                                            <?php endif; ?>
 
 
-                                            <?php if ($is_liked == true) : ?>
-                                                <i data-request="unlike" data-user-id="<?php echo $prof->id; ?>" class="my-icons heart-icon bi bi-heart-fill"></i>
-                                            <?php else : ?>
-                                                <i data-request="like" data-user-id="<?php echo $prof->id; ?>" class="my-icons heart-icon bi bi-heart"></i>
-                                            <?php endif; ?>
+                                                <?php if ($is_liked == true) : ?>
+                                                    <i data-request="unlike" data-user-id="<?php echo $prof->id; ?>" class="my-icons heart-icon bi bi-heart-fill"></i>
+                                                <?php else : ?>
+                                                    <i data-request="like" data-user-id="<?php echo $prof->id; ?>" class="my-icons heart-icon bi bi-heart"></i>
+                                                <?php endif; ?>
 
-                                        </div>
-
+                                            </div>
+                                        <?php endif; ?>
                                     </div>
                                     <div class="row">
                                         <div class="col my-2">
@@ -323,72 +332,74 @@ $is_liked = is_liked($myid = USER['id'], $obj_id = $prof->id, $obj_group = 'prof
 
 
             </div>
-            <div class="col-md-2">
-               <!-- Contact List -->
-               <img id="user-icon" src="/<?php echo MEDIA_URL; ?>/images/profiles/default-user.png" alt="">
-                <div class="row">
+            <?php if (authenticate()) : ?>
+                <div class="col-md-2">
+                    <!-- Contact List -->
+                    <img id="user-icon" src="/<?php echo MEDIA_URL; ?>/images/profiles/default-user.png" alt="">
+                    <div class="row">
 
-                    <div class="col-md-12">
-                        <h3>Contact List</h3>
-                        <ul class="list-group user-list">
-                            <?php
-                            foreach ($frnds as $key => $frn) :
-                                $frn = obj($frn);
-                            ?>
-                                <li data-chat-friendName="<?php echo $frn->first_name; ?>" data-chat-myId="<?php echo $me->id; ?>" data-chat-friendId="<?php echo $frn->id; ?>" data-chat-friendDp="/<?php echo MEDIA_URL; ?>/images/profiles/<?php echo $frn->image; ?>" class="list-group-item friends">
-                                    <div>
-                                        <span id="friend-div-id-<?php echo $frn->id; ?>"></span>
-                                        <img class="friend-user-img" src="/<?php echo MEDIA_URL; ?>/images/profiles/<?php echo $frn->image; ?>" alt="<?php echo $frn->first_name; ?>">
-                                        <?php echo $frn->first_name; ?>
-                                    </div>
-                                </li>
-                            <?php endforeach; ?>
-                            <!-- Add more users here -->
-                        </ul>
+                        <div class="col-md-12">
+                            <h3>Contact List</h3>
+                            <ul class="list-group user-list">
+                                <?php
+                                foreach ($frnds as $key => $frn) :
+                                    $frn = obj($frn);
+                                ?>
+                                    <li data-chat-friendName="<?php echo $frn->first_name; ?>" data-chat-myId="<?php echo $me->id; ?>" data-chat-friendId="<?php echo $frn->id; ?>" data-chat-friendDp="/<?php echo MEDIA_URL; ?>/images/profiles/<?php echo $frn->image; ?>" class="list-group-item friends">
+                                        <div>
+                                            <span id="friend-div-id-<?php echo $frn->id; ?>"></span>
+                                            <img class="friend-user-img" src="/<?php echo MEDIA_URL; ?>/images/profiles/<?php echo $frn->image; ?>" alt="<?php echo $frn->first_name; ?>">
+                                            <?php echo $frn->first_name; ?>
+                                        </div>
+                                    </li>
+                                <?php endforeach; ?>
+                                <!-- Add more users here -->
+                            </ul>
 
-                    </div>
-                </div>
-
-                <div class="chat-box" id="chatBox">
-
-                    <div class="show-hide-icons">
-                        <div>
-                            <a id="profile-link" href="">
-                                <img id="current-user-img" src="/<?php echo MEDIA_URL; ?>/images/profiles/default-user.png" alt="">
-                                <b id="chatUserName" class="ps-1"></b>
-                            </a>
-
-                        </div>
-                        <div id="min-close-icon">
-                            <i id="minimize-chat" class="bi bi-dash"></i>
-                            <i id="hide-chat" class="bi bi-x"></i>
                         </div>
                     </div>
 
+                    <div class="chat-box" id="chatBox">
 
-                    <div class="messages" id="message-box">
-                        <!-- <div class="its-me chat-bubble">
+                        <div class="show-hide-icons">
+                            <div>
+                                <a id="profile-link" href="">
+                                    <img id="current-user-img" src="/<?php echo MEDIA_URL; ?>/images/profiles/default-user.png" alt="">
+                                    <b id="chatUserName" class="ps-1"></b>
+                                </a>
+
+                            </div>
+                            <div id="min-close-icon">
+                                <i id="minimize-chat" class="bi bi-dash"></i>
+                                <i id="hide-chat" class="bi bi-x"></i>
+                            </div>
+                        </div>
+
+
+                        <div class="messages" id="message-box">
+                            <!-- <div class="its-me chat-bubble">
                             HI there adkjhdk hkjsdh hksdh
                         </div>
                         <div class="other chat-bubble">
                             hello jkgkdsg hkjdsh kjh kjhds
                         </div> -->
 
-                    </div>
-                    <div id="write-msg">
-
-                        <div id="writing-box">
-                            <textarea id="write-msg-input" placeholder="Type your message..." class="form-control" name="message" rows="1"></textarea>
                         </div>
-                        <div data-chat-myId="" data-chat-friendId="" id="send-msg-icon">
-                            <i class="bi bi-send"></i>
-                        </div>
-                    </div>
+                        <div id="write-msg">
 
+                            <div id="writing-box">
+                                <textarea id="write-msg-input" placeholder="Type your message..." class="form-control" name="message" rows="1"></textarea>
+                            </div>
+                            <div data-chat-myId="" data-chat-friendId="" id="send-msg-icon">
+                                <i class="bi bi-send"></i>
+                            </div>
+                        </div>
+
+
+                    </div>
 
                 </div>
-
-            </div>
+            <?php endif; ?>
         </div>
     </div>
     </div>
@@ -400,16 +411,19 @@ $is_liked = is_liked($myid = USER['id'], $obj_id = $prof->id, $obj_group = 'prof
 
 <?php
 import("apps/view/components/profile/js/public-profile.js.php");
-import(
-    "apps/view/components/profile/js/chatbox.js.php",
-    obj([
-        'prof' => obj(USER)
-    ])
-);
-import(
-    "apps/view/components/profile/js/ws.p2p.js.php",
-    obj([
-        'prof' => $me
-    ])
-);
+if (authenticate()) {
+    import(
+        "apps/view/components/profile/js/chatbox.js.php",
+        obj([
+            'prof' => $me ? $me : null
+        ])
+    );
+    import(
+        "apps/view/components/profile/js/ws.p2p.js.php",
+        obj([
+            'prof' => $me ? $me : null
+        ])
+    );
+}
+
 ?>

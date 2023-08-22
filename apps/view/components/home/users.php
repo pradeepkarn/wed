@@ -103,9 +103,9 @@ import(
                                     <?php endif; ?>
 
 
-                                    <a class="text-decoration-none" href="/<?php echo home . route('showPublicProfile', ['profile_id' => $prof->id]); ?>">
+                                    <!-- <a class="text-decoration-none" href="/<?php //echo home . route('showPublicProfile', ['profile_id' => $prof->id]); ?>">
                                         <i class="my-icons door-icon bi-door-closed-fill"></i>
-                                    </a>
+                                    </a> -->
                                 </div>
                                 <?php
 

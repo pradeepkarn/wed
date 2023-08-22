@@ -142,14 +142,25 @@ import(
                                             <i id="profile-img-camera-btn" class="bi bi-camera-fill"></i>
                                         </div>
                                     </div>
-                                    <h3 id="profile-name">
-                                        <?php echo $prof->first_name; ?> <?php echo $prof->last_name; ?>
-                                    </h3>
+                                    <div>
+                                        <h3 id="profile-name">
+                                            <?php echo $prof->first_name; ?> <?php echo $prof->last_name; ?>
+                                        </h3>
+                                        <b>
+                                            <small>(Profile completed : <?php echo profile_completed($prof->id); ?>%)</small>
+                                        </b>
+                                    </div>
+                                    
+
                                 </div>
+
                                 <form id="update-my-profile-form" action="/<?php echo home . route('updateMyProfileAjax'); ?>">
                                     <div class="row">
+                                       
                                         <div class="col-md-12">
                                             <h3>Personal details:</h3>
+                                            <input type="checkbox" name="is_public" value="1" <?php echo $prof->is_public?'checked':null; ?>> Public
+                                            <b>Profile ID: <?php echo $prof->id; ?></b>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
@@ -163,10 +174,19 @@ import(
                                                 <input type="text" class="form-control my-2" id="first_name" name="last_name" value="<?php echo $prof->last_name; ?>">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-3">
                                             <div class="mb-3">
                                                 <label for="dob" class="form-label">Date of birth:</label>
                                                 <input type="date" value="<?php echo $prof->dob; ?>" name="dob" class="form-control my-2" id="dob">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="mb-3">
+                                                <label for="gender" class="form-label">Gender:</label>
+                                                <select name="gender" id="gender" class="form-select my-2">
+                                                    <option <?php echo $prof->gender == 'm' ? 'selected' : null; ?> value="m">Male</option>
+                                                    <option <?php echo $prof->gender == 'f' ? 'selected' : null; ?> value="f">Female</option>
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
@@ -221,15 +241,7 @@ import(
                                             <button id="add-more-mobiles" type="button" class="btn btn-primary">Add More Number</button>
                                         </div>
 
-                                        <div class="col-md-6">
-                                            <div class="mb-3">
-                                                <label for="gender" class="form-label">Gender:</label>
-                                                <select name="gender" id="gender" class="form-select my-2">
-                                                    <option <?php echo $prof->gender == 'm' ? 'selected' : null; ?> value="m">Male</option>
-                                                    <option <?php echo $prof->gender == 'f' ? 'selected' : null; ?> value="f">Female</option>
-                                                </select>
-                                            </div>
-                                        </div>
+
 
 
                                         <div class="col-md-12">
@@ -242,64 +254,38 @@ import(
 
 
 
-                                        <div class="row">
-                                            <div class="col-6 my-2">
-                                                <div class="form-floating">
-                                                    <select class="form-select" name="state" id="state-select" aria-label="Floating label select example">
-                                                        <?php
-                                                        $data = json_decode(jsonData('/india/states-and-districts.json'));
-                                                        foreach ($data->states as $key => $st) {
-                                                            $st = obj($st);
-                                                        ?>
-                                                            <option <?php echo $prof->state == $st->state ? 'selected' : null; ?> data-districts='<?php echo json_encode($st->districts); ?>' value="<?php echo $st->state; ?>"><?php echo $st->state; ?></option>
-                                                        <?php  } ?>
-                                                    </select>
-                                                    <label for="state-select">State</label>
-                                                </div>
+
+                                        <div class="col-6 my-2">
+                                            <div class="form-floating">
+                                                <select class="form-select" name="state" id="state-select" aria-label="Floating label select example">
+                                                    <?php
+                                                    $data = json_decode(jsonData('/india/states-and-districts.json'));
+                                                    foreach ($data->states as $key => $st) {
+                                                        $st = obj($st);
+                                                    ?>
+                                                        <option <?php echo $prof->state == $st->state ? 'selected' : null; ?> data-districts='<?php echo json_encode($st->districts); ?>' value="<?php echo $st->state; ?>"><?php echo $st->state; ?></option>
+                                                    <?php  } ?>
+                                                </select>
+                                                <label for="state-select">State</label>
                                             </div>
-                                            <div class="col-6 my-2">
-                                                <div class="form-floating">
-                                                    <select class="form-select" name="city" id="district-select" aria-label="Floating label select example">
-                                                        
-                                                    </select>
-                                                    <label for="district-select">City</label>
-                                                </div>
+                                        </div>
+                                        <div class="col-6 my-2">
+                                            <div class="form-floating">
+                                                <select class="form-select" name="city" id="district-select" aria-label="Floating label select example">
+
+                                                </select>
+                                                <label for="district-select">City</label>
                                             </div>
                                         </div>
 
 
 
-
-
-
-
-
-
-
-
-
-
-                                        <!-- <div class="col-md-4">
-                                            <div class="mb-3">
-                                                <label for="city" class="form-label">City:</label>
-                                                <input type="text" class="form-control my-2" id="city" name="city" value="<?php echo $prof->city; ?>">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="mb-3">
-                                                <label for="state" class="form-label">State:</label>
-                                                <input type="text" class="form-control my-2" id="state" name="state" value="<?php echo $prof->state; ?>">
-                                            </div>
-                                        </div> -->
                                         <div class="col-md-4">
                                             <div class="mb-3">
                                                 <label for="country" class="form-label">Country:</label>
                                                 <input type="text" class="form-control my-2" id="country" name="country" value="<?php echo $prof->country; ?>">
                                             </div>
                                         </div>
-
-
-
 
                                         <div class="col-md-12">
                                             <div class="mb-3">
@@ -326,7 +312,7 @@ import(
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <label for="abtgf" class="form-label">About grand father (Details):</label>
-                                                        <textarea class="form-control" id="abtgf" name="about_grand_father" rows="4"><?php echo $prof->about_grand_father; ?></textarea>
+                                                        <textarea class="form-control my-2" id="abtgf" name="about_grand_father" rows="4"><?php echo $prof->about_grand_father; ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -338,7 +324,7 @@ import(
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <label for="abtfather" class="form-label">About father (Details):</label>
-                                                        <textarea class="form-control" id="abtfather" name="about_father" rows="4"><?php echo $prof->about_father; ?></textarea>
+                                                        <textarea class="form-control my-2" id="abtfather" name="about_father" rows="4"><?php echo $prof->about_father; ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
@@ -350,7 +336,7 @@ import(
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
                                                         <label for="abtmother" class="form-label">About mother (Details):</label>
-                                                        <textarea class="form-control" id="abtmother" name="about_mother" rows="4"><?php echo $prof->about_mother; ?></textarea>
+                                                        <textarea class="form-control my-2" id="abtmother" name="about_mother" rows="4"><?php echo $prof->about_mother; ?></textarea>
                                                     </div>
                                                     <hr>
                                                 </div>
@@ -374,7 +360,7 @@ import(
                                                         <div class="col-md-12">
                                                             <div class="mb-3">
                                                                 <label class="form-label">Details:</label>
-                                                                <textarea class="form-control" placeholder="Work details or any other related information" name="about_rel[]" rows="4"><?php echo $rlv->about; ?></textarea>
+                                                                <textarea class="form-control my-2" placeholder="Work details or any other related information" name="about_rel[]" rows="4"><?php echo $rlv->about; ?></textarea>
                                                             </div>
                                                             <hr>
                                                         </div>
@@ -411,7 +397,7 @@ import(
 
 
 <?php
-import("apps/view/components/profile/js/me-edit.js.php",obj(['prof'=>$prof]));
+import("apps/view/components/profile/js/me-edit.js.php", obj(['prof' => $prof]));
 ajaxActive('#profile-update-spinner');
 pkAjax_form("#profile-img-fileInput", "#profile-img-form", "#res", "change", true);
 pkAjax_form("#cover-img-fileInput", "#cover-img-form", "#res", "change", true);

@@ -363,6 +363,12 @@ class Dbobjects extends Dbh
         $cnt = $stmt->rowCount();
         return $cnt;
     }
+    public function execSql($sql)
+    {
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute();
+        return $stmt->rowCount();
+    }
     // delete end
 
 

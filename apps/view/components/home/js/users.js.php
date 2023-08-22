@@ -1,15 +1,15 @@
 <script>
     // door open close
-    document.querySelectorAll(".door-icon").forEach((e) => {
-        e.addEventListener('mouseover', () => {
-            e.classList.remove('bi-door-closed-fill');
-            e.classList.add('bi-door-open-fill');
-        })
-        e.addEventListener('mouseout', () => {
-            e.classList.add('bi-door-closed-fill');
-            e.classList.remove('bi-door-open-fill');
-        })
-    })
+    // document.querySelectorAll(".door-icon").forEach((e) => {
+    //     e.addEventListener('mouseover', () => {
+    //         e.classList.remove('bi-door-closed-fill');
+    //         e.classList.add('bi-door-open-fill');
+    //     })
+    //     e.addEventListener('mouseout', () => {
+    //         e.classList.add('bi-door-closed-fill');
+    //         e.classList.remove('bi-door-open-fill');
+    //     })
+    // })
     // person check unchek
     // document.querySelectorAll(".person-icon").forEach((e) => {
     //     e.addEventListener('mouseover', () => {

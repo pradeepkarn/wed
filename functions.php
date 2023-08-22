@@ -216,7 +216,7 @@ function generate_username_by_email($email, $try = 100, $db = null)
 }
 function generate_dummy_email($prefix = null)
 {
-  return uniqid($prefix."_".rand(1, 50)). "@example.com";
+  return uniqid($prefix . "_" . rand(1, 50)) . "@example.com";
 }
 function bsmodal($id = "", $title = "", $body = "", $btn_id, $btn_text = "Action", $btn_class = "btn btn-primary", $size = "modal-sm", $modalclasses = "")
 {
@@ -987,7 +987,7 @@ function check_request($myid, $req_to)
     );
   }
 }
-function is_liked($myid, $obj_id, $obj_group='profile')
+function is_liked($myid, $obj_id, $obj_group = 'profile')
 {
   if (intval($myid)) {
     $db = new Dbobjects;
@@ -1000,16 +1000,16 @@ function is_liked($myid, $obj_id, $obj_group='profile')
     } else {
       return false;
     }
-  }else{
+  } else {
     return false;
   }
 }
-function jsonData($file="") {
-  $fl = RPATH."/data/json".$file;
-  if($file!='' && file_exists($fl)) {
+function jsonData($file = "")
+{
+  $fl = RPATH . "/data/json" . $file;
+  if ($file != '' && file_exists($fl)) {
     return file_get_contents($fl);
   }
-  
 }
 function img_or_null($img = null)
 {
@@ -1029,7 +1029,8 @@ function dp_or_null($img = null)
     return "/media/images/profiles/" . $img;
   }
 }
-function getDOBFromAge($age) {
+function getDOBFromAge($age)
+{
   // Get the current date
   $currentDate = new DateTime();
 
@@ -1041,14 +1042,16 @@ function getDOBFromAge($age) {
 
   return $dob;
 }
-function getAgeFromDOB($birthdate) {
-    $today = new DateTime();
-    $birthdate = new DateTime($birthdate);
-    $age = $today->diff($birthdate)->y;
-    return $age;
+function getAgeFromDOB($birthdate)
+{
+  $today = new DateTime();
+  $birthdate = new DateTime($birthdate);
+  $age = $today->diff($birthdate)->y;
+  return $age;
 }
 
-function gender_view($gender)  {
+function gender_view($gender)
+{
   switch (strtolower($gender)) {
     case 'm':
       return 'Male';
@@ -1061,7 +1064,8 @@ function gender_view($gender)  {
       break;
   }
 }
-function bride_or_grom($gender)  {
+function bride_or_grom($gender)
+{
   switch (strtolower($gender)) {
     case 'm':
       return 'Groom';
@@ -1073,4 +1077,52 @@ function bride_or_grom($gender)  {
       return 'NA';
       break;
   }
+}
+function profile_completed($id)
+{
+  $db = new Dbobjects;
+  $db->tableName = 'pk_user';
+  $user = $db->pk($id);
+
+  $userarr['first_name'] = $user['first_name'];
+  $userarr['last_name'] = $user['last_name'];
+  $userarr['occupation'] = $user['occupation'];
+  $userarr['mobile'] = $user['mobile'];
+  $userarr['gender'] = $user['gender'];
+  $userarr['address'] = $user['address'];
+  $userarr['dob'] = $user['dob'];
+  $userarr['caste'] = $user['caste'];
+  $userarr['caste_detail'] = $user['caste_detail'];
+  $userarr['city'] = $user['city'];
+  $userarr['state'] = $user['state'];
+  $userarr['country'] = $user['country'];
+  $userarr['bio'] = $user['bio'];
+  $userarr['mool'] = $user['mool'];
+  $userarr['father'] = $user['father'];
+  $userarr['mother'] = $user['mother'];
+  $userarr['about_mother'] = $user['about_mother'];
+  $userarr['about_father'] = $user['about_father'];
+  $userarr['grand_father'] = $user['grand_father'];
+  $userarr['about_grand_father'] = $user['about_grand_father'];
+  $userarr['jsn'] = $user['jsn'];
+
+  $full = count($userarr);
+  $completed = 0;
+  foreach ($userarr as $li) {
+    if ($li != '') {
+      $completed += 1;
+    }
+  }
+
+  if (!in_array($userarr['gender'], ['m', 'f'])) {
+    return 0;
+  }
+  if (getAgeFromDOB($userarr['dob']) < 18) {
+    return 0;
+  }
+  return round(($completed / $full) * 100);
+}
+function email_has_valid_dns($email = 'email@example.com'): bool
+{
+  return (new Email_validator_lcl)->validate($email);
 }

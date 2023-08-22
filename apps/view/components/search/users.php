@@ -29,14 +29,58 @@ import(
                     // myprint($myreq);
                     $is_liked = is_liked($myid = USER['id'], $obj_id = $prof->id, $obj_group = 'profile');
                 ?>
-                    <div class="col">
+                   <div class="col-md-6">
                         <div class="card shadow h-100">
-                            <a class="text-decoration-none" href="/<?php echo home . route('showPublicProfile', ['profile_id' => $prof->id]); ?>">
-                                <img src="/<?php echo MEDIA_URL; ?>/images/profiles/<?php echo $prof->image; ?>" class="card-img-top profile-card-img" alt="<?php echo $prof->first_name; ?> <?php echo $prof->last_name; ?>">
-                            </a>
+
+
                             <div class="card-body">
-                                <h5 class="card-title"><?php echo $prof->first_name; ?> <?php echo $prof->last_name; ?></h5>
-                                <p class="card-text"><?php echo $prof->occupation; ?></p>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <a class="text-decoration-none profile-link" href="/<?php echo home . route('showPublicProfile', ['profile_id' => $prof->id]); ?>">
+                                            <img src="/<?php echo MEDIA_URL; ?>/images/profiles/<?php echo $prof->image; ?>" class="card-img-top profile-card-img" alt="<?php echo $prof->first_name; ?> <?php echo $prof->last_name; ?>">
+                                        </a>
+                                    </div>
+                                    <div class="col-8">
+                                        <h5 class="card-title"><?php echo $prof->first_name; ?> <?php echo $prof->last_name; ?>
+                                            <small>(<?php echo bride_or_grom($prof->gender); ?>)</small>
+                                        </h5>
+                                        <div class="row">
+                                            <div class="col">Age:</div>
+                                            <div class="col">
+                                                <?php echo getAgeFromDOB($prof->dob); ?> Yrs
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">Religion:</div>
+                                            <div class="col"><?php echo $prof->religion; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">Caste:</div>
+                                            <div class="col"><?php echo $prof->caste; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">Caste details:</div>
+                                            <div class="col"><?php echo $prof->caste_detail; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">Location:</div>
+                                            <div class="col"><?php echo $prof->address; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">Education:</div>
+                                            <div class="col"><?php echo $prof->education; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">Profession:</div>
+                                            <div class="col"><?php echo $prof->occupation; ?></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">Annual Income:</div>
+                                            <div class="col"><?php echo $prof->annual_income; ?> LPA</div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                             <div class="icon-footer card-footer">
                                 <div class="frnd-icons">
@@ -44,9 +88,9 @@ import(
                                         <i class="bi bi-person-check-fill"></i>
                                     <?php else : ?>
                                         <?php if ($myreq->success == true) : ?>
-                                        <i data-request="cancel" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-dash"></i>
+                                            <i data-request="cancel" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-dash" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" data-bs-title="<b>Interest</b>"></i>
                                         <?php else : ?>
-                                        <i data-request="send" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-plus"></i>
+                                            <i data-request="send" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-plus" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" data-bs-title="<b>Interest</b>"></i>
                                         <?php endif; ?>
                                     <?php endif; ?>
 
@@ -58,14 +102,15 @@ import(
                                     <?php endif; ?>
 
 
-                                    <a class="text-decoration-none" href="/<?php echo home . route('showPublicProfile', ['profile_id' => $prof->id]); ?>">
+                                    <!-- <a class="text-decoration-none" href="/<?php //echo home . route('showPublicProfile', ['profile_id' => $prof->id]); ?>">
                                         <i class="my-icons door-icon bi-door-closed-fill"></i>
-                                    </a>
+                                    </a> -->
                                 </div>
                                 <?php
 
                                 ?>
                             </div>
+
                         </div>
                     </div>
                 <?php endforeach ?>

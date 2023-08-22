@@ -194,5 +194,18 @@
         /* Define the gradient background for the right side */
         background: linear-gradient(to bottom, <?php echo $rgb_right; ?>, rgb(0, 0, 0));
     }
+    select.form-select,textarea.form-control,input[type='text'],input[type='number'],input[type='date']{
+        border: 1px solid green;
+    }
+    /* .is_public_div{
+        position: relative;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+    } */
+    /* .is_public_div input[type='checkbox']{
+        position: absolute;
+        
+    } */
 </style>
 
