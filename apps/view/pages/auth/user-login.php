@@ -8,9 +8,9 @@
             Login <div id="res"></div>
           </div>
           <div class="card-body">
-            <form id="my-form" action="/<?php echo home.route('userLoginAjax'); ?>" method="post">
+            <form id="my-form" action="/<?php echo home . route('userLoginAjax'); ?>" method="post">
               <div class="mb-3">
-                <label for="username" class="form-label">Username</label>
+                <label for="username" class="form-label">Email/Username</label>
                 <input type="text" class="form-control" id="username" name="username" required>
               </div>
               <div class="mb-3">
@@ -20,13 +20,13 @@
               <div class="d-grid gap-2">
                 <button id="login-btn" type="button" class="btn btn-primary">Login</button>
                 <button type="button" class="btn btn-primary" onclick="openFacebookLoginPopup()">
-                <i class="bi bi-facebook"></i>
-              </button>
+                  <i class="bi bi-facebook"></i>
+                </button>
 
                 <script>
                   document.getElementById('popup').style.display = 'none';
                 </script>
-
+                <a class="my-3" href="/<?php echo home.route('resetPassword'); ?>">Reset password</a>
               </div>
             </form>
           </div>

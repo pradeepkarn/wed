@@ -1,7 +1,6 @@
 <?php 
 //phpinfo();
 date_default_timezone_set("Asia/Kolkata");
-session_start();
 require_once 'vendor/autoload.php'; // Load Composer's autoloader
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__); // Path to your project root
 $env = (object) $dotenv->load();
@@ -15,7 +14,7 @@ define("PK_DB_NAME",$env->DB_NAME);
 define("PK_DB_USER",$env->DB_USER);
 #Database password
 define("PK_DB_PASS",$env->DB_PASS);
-define("email",$env->EMAIL);
+// define("email",$env->EMAIL);
 #Define real location of file
 define ('RPATH', realpath(dirname(__FILE__)));
 $year = Date('Y');
@@ -24,6 +23,7 @@ define("CREDIT","&copy;".SITE_NAME." {$year}. All Rights Reserved.");
 define("DEV_NOTE","Design & Developed by <a style='text-decoration: none; color: inherit;' href='https://fb.com/itsme.pkarn'>$env->AUTHOR</a>");
 define('home',$env->HOME);
 define('HOME',$env->HOME);
+
 const STATIC_ROOT = RPATH."/static";
 const STATIC_URL = home."/static";
 const MEDIA_ROOT = RPATH."/media/";
@@ -102,5 +102,24 @@ function sanitize_remove_tags($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
-const sitekey = "ksjhdlks0797834hjrgfv3trk43gwugr4gui";
+const sitekey = "37eee8cd266f5a829d6e1a6717492b2b3e4f9317564d39c5617c97c4dca62a8c";
 const token_security = false;
+
+
+define("email", $env->email);
+define("emailhost", $env->emailhost);
+define("emailpass", $env->emailpass);
+
+
+function php_mailer($new_PHPMailer)
+{
+   $mail = $new_PHPMailer;
+   $mail->isSMTP();
+   $mail->Host = emailhost;
+   $mail->SMTPAuth = true;
+   $mail->Username = email;
+   $mail->Password = emailpass;
+   $mail->SMTPSecure = 'tls';
+   $mail->Port = 587;
+   return $mail;
+}

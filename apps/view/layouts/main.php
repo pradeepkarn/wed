@@ -32,6 +32,8 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
     <link href="/<?php echo STATIC_URL; ?>/view/assets/css/style.css" rel="stylesheet">
     <link href="/<?php echo STATIC_URL; ?>/view/css/style.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.27/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting.css" />
     <link rel="stylesheet" href="https://unpkg.com/splitting/dist/splitting-cells.css" />
     <script src="https://unpkg.com/splitting/dist/splitting.min.js"></script>
@@ -226,7 +228,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
     <script src="/<?php echo STATIC_URL; ?>/view/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="/<?php echo STATIC_URL; ?>/view/assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="/<?php echo STATIC_URL; ?>/view/assets/vendor/php-email-form/validate.js"></script>
-
+   
     <!-- Template Main JS File -->
     <script src="/<?php echo STATIC_URL; ?>/view/assets/js/main.js"></script>
     

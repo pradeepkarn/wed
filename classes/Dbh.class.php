@@ -1,4 +1,3 @@
-<?php if(defined("direct_access") != 1){echo "Silenece is awesome"; return;} ?>
 <?php
 #.....................................
 #DO NOT EDIT BELOW
@@ -20,5 +19,4 @@ class Dbh {
     }
     
 }
-$pdo = null;
 ?>

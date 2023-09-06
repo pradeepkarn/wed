@@ -13,6 +13,10 @@ $login_routes = [
     "/admin-login-ajax" => 'Auth@admin_login@name.adminLoginAjax',
     "/register" => 'Auth@registration_page@name.register',
     "/user-registration-ajax" => 'Auth@register@name.registerAjax',
+    "/reset-password" => 'Auth@reset_password_page@name.resetPassword',
+    "/reset-password-ajax" => 'Auth@reset_password_ajax@name.resetPasswordAjax',
+    "/cnp/{prt}" => 'Auth@create_new_password_page@name.createNewPassword',
+    "/send-temp-pass-on-ajax" => 'Auth@send_me_temp_password_ajax@name.sendMeTempPassAjax',
 ];
 $public_routes = [
     // "" => "Home_ctrl@redirect_to_lang@name.homeNolang",

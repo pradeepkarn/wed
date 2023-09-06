@@ -127,6 +127,31 @@ function pkAjax($button, $url, $data, $response, $event = 'click', $method = "po
   }
   echo $ajax;
 }
+function send_to_server($button, $data, $callback, $event = 'click')
+{
+  $ajax = "<script>
+  $(document).ready(function (e) {
+    $('{$data}').on('submit',(function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        $.ajax({
+            type:'POST',
+            url: $('{$data}').attr('action'),
+            data: $('{$data}').serializeArray(),
+            dataType: 'json', // Fixed: dataType should be a string
+            success:function(res){
+              {$callback}(res); // Call the provided callback function
+            }
+        });
+    }));
+    $('{$button}').on('{$event}', function() {
+      $('{$data}').submit();
+  });
+});
+</script>";
+  echo $ajax;
+}
+
 function pkAjax_form($button, $data, $response, $event = 'click', $progress = false)
 {
   $progress_code = "";
@@ -1126,3 +1151,72 @@ function email_has_valid_dns($email = 'email@example.com'): bool
 {
   return (new Email_validator_lcl)->validate($email);
 }
+// function encrypt($message, $key) {
+//   $iv = random_bytes(16);
+//   $cipher_text = openssl_encrypt($message, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+//   $encrypted_message = $iv . $cipher_text;
+//   return urlencode(base64_encode($encrypted_message));
+// }
+
+// function decrypt($encrypted_message, $key) {
+//   $encrypted_message = base64_decode(urldecode($encrypted_message));
+//   $iv = substr($encrypted_message, 0, 16);
+//   $cipher_text = substr($encrypted_message, 16);
+//   $decrypted_message = openssl_decrypt($cipher_text, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+//   return $decrypted_message;
+// }
+
+function base64_url_encode($data) {
+  return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($data));
+}
+
+function base64_url_decode($data) {
+  return base64_decode(str_replace(['-', '_'], ['+', '/'], $data));
+}
+
+function encrypt($message, $key) {
+  $iv = random_bytes(16);
+  $cipher_text = openssl_encrypt($message, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+  $encrypted_message = $iv . $cipher_text;
+  return base64_url_encode($encrypted_message);
+}
+
+function decrypt($encrypted_message, $key) {
+  $encrypted_message = base64_url_decode($encrypted_message);
+  $iv = substr($encrypted_message, 0, 16);
+  $cipher_text = substr($encrypted_message, 16);
+  $decrypted_message = openssl_decrypt($cipher_text, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
+  return $decrypted_message;
+}
+
+function render_template($path,$data) {
+  ob_start();
+  import(var:"/templates/".$path,context:$data,many:true);
+  $data = ob_get_clean();
+  return $data;
+}
+
+function maskEmailBy50Percent($email) {
+  // Check if the input is a valid email address
+  if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      // Split the email address into username and domain
+      list($username, $domain) = explode('@', $email);
+
+      // Calculate the number of characters to mask in each part
+      $usernameToMask = max(0, ceil((strlen($username) - 1) / 2));
+      $domainToMask = max(0, ceil((strlen($domain) - 1) / 2));
+
+      // Mask the username and domain
+      $maskedUsername = $username[0] . substr_replace(substr($username, 1), str_repeat('*', $usernameToMask), 0, $usernameToMask);
+      $maskedDomain = $domain[0] . substr_replace(substr($domain, 1), str_repeat('*', $domainToMask), 0, $domainToMask);
+
+      // Reconstruct the masked email address
+      $maskedEmail = $maskedUsername . '@' . $maskedDomain;
+
+      return $maskedEmail;
+  } else {
+      // Return an error message for invalid email addresses
+      return false;
+  }
+}
+
