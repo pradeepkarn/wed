@@ -4,6 +4,7 @@ spl_autoload_register('controllersLoader');
 spl_autoload_register('adminControllersLoader');
 spl_autoload_register('apiControllersLoader');
 spl_autoload_register('cmdControllersLoader');
+spl_autoload_register('frontControllersLoader');
 
 function classLoader($className){
     $path = RPATH ."/classes/";

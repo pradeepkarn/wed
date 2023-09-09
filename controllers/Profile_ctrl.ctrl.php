@@ -52,17 +52,17 @@ class Profile_ctrl
         $myfrnds = null;
         if (isset($req->profile_id) && intval($req->profile_id)) {
             $prof = $this->profile_detail($id = $req->profile_id);
+            $is_public = $prof['is_public'];
             if (USER) {
                 if ($prof==null) {
                     header("Location:/" . home.route('home'));
                     return;
                 }
                 $myfrnds = $this->my_friend_list($my_id = USER['id']);
-                
             }
         } 
         $context = (object) array(
-            'page' => 'public-profile.php',
+            'page' => $is_public==1?'public-profile.php':'mask-public-profile.php',
             'data' => (object) array(
                 'req' => obj($req),
                 'my_profile' => $prof,
@@ -120,6 +120,7 @@ class Profile_ctrl
                 if ($imgfl->error == 0) {
                     $ext = pathinfo($imgfl->name, PATHINFO_EXTENSION);
                     $imgname = uniqid('profile_') . "_" . $u->id . "." . $ext;
+                    blur_image($tempFile=$imgfl->tmp_name);
                     if (move_uploaded_file($imgfl->tmp_name, MEDIA_ROOT . "images/profiles/$imgname")) {
                         if ($u->image != '') {
                             if (file_exists(MEDIA_ROOT . "images/profiles/$u->image")) {

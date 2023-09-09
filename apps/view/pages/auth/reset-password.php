@@ -51,17 +51,7 @@
     }
   }
 
-  function swalert(obj) {
-    Swal.fire(
-      obj.title,
-      obj.msg,
-      obj.icon
-    ).then(()=>{
-      if (obj.gotoLink) {
-        window.location.href = obj.gotoLink;
-      }
-    })
-  }
+
 </script>
 <?php
 send_to_server("#reset-btn", "#my-form", "handlePassReset");

@@ -42,6 +42,19 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
     <script src="/<?php echo STATIC_URL; ?>/view/js/jq.3.5.js"></script>
     <script src="/<?php echo STATIC_URL; ?>/view/js/main.js"></script>
     <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script> -->
+    <script>
+        function swalert(obj) {
+            Swal.fire(
+                obj.title,
+                obj.msg,
+                obj.icon
+            ).then(() => {
+                if (obj.gotoLink) {
+                    window.location.href = obj.gotoLink;
+                }
+            })
+        }
+    </script>
 </head>
 
 <body>
@@ -52,18 +65,21 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
     <header id="header" class="header fixed-top">
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
-            <a href="/<?php echo home.route('home'); ?>" class="logo d-flex align-items-center">
+            <a href="/<?php echo home . route('home'); ?>" class="logo d-flex align-items-center">
                 <img src="/<?php echo MEDIA_URL; ?>/logo/logo.svg" alt="">
                 <span><?php echo SITE_NAME; ?></span>
             </a>
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="/<?php echo home . route('home'); ?>/#hero"><?php echo lang("nav")->home; ?></a></li>
-                    <li><a class="nav-link scrollto" href="/<?php echo home . route('home'); ?>/#about">About</a></li>
-                    <!-- <li><a class="nav-link scrollto" href="/<?php //echo home . route('home'); ?>/#services">Services</a></li> -->
-                    <!-- <li><a class="nav-link scrollto" href="/<?php //echo home . route('home'); ?>/#portfolio">Portfolio</a></li> -->
-                    <!-- <li><a class="nav-link scrollto" href="/<?php //echo home . route('home'); ?>/#team">Team</a></li> -->
+                    <li><a class="nav-link scrollto active" href="/<?php echo home . route('home'); ?>"><?php echo lang("nav")->home; ?></a></li>
+                    <li><a class="nav-link scrollto" href="/<?php echo home . route('home'); ?>/about">About</a></li>
+                    <!-- <li><a class="nav-link scrollto" href="/<?php //echo home . route('home'); 
+                                                                    ?>/#services">Services</a></li> -->
+                    <!-- <li><a class="nav-link scrollto" href="/<?php //echo home . route('home'); 
+                                                                    ?>/#portfolio">Portfolio</a></li> -->
+                    <!-- <li><a class="nav-link scrollto" href="/<?php //echo home . route('home'); 
+                                                                    ?>/#team">Team</a></li> -->
                     <!-- <li><a href="#">Blog</a></li> -->
 
 
@@ -173,11 +189,10 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
                     <div class="col-lg-4 col-12 footer-links">
                         <h4>Useful Links</h4>
                         <ul>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home.route('home'); ?>">Home</a></li>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home.route('home'); ?>/#about">About us</a></li>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home.route('home'); ?>/#services">Services</a></li>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home.route('home'); ?>/terms-of-services">Terms of service</a></li>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home.route('home'); ?>/privacy-policy">Privacy policy</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('home'); ?>">Home</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'about']); ?>">About us</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'terms-of-use']); ?>">Terms of service</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'privacy-policy']); ?>">Privacy policy</a></li>
                         </ul>
                     </div>
 
@@ -219,7 +234,8 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
     </footer><!-- End Footer -->
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-<?php  //import("apps/view/components/common/chat/chat.php"); ?>
+    <?php  //import("apps/view/components/common/chat/chat.php"); 
+    ?>
     <!-- Vendor JS Files -->
     <script src="/<?php echo STATIC_URL; ?>/view/assets/vendor/purecounter/purecounter_vanilla.js"></script>
     <script src="/<?php echo STATIC_URL; ?>/view/assets/vendor/aos/aos.js"></script>
@@ -228,10 +244,10 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
     <script src="/<?php echo STATIC_URL; ?>/view/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="/<?php echo STATIC_URL; ?>/view/assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="/<?php echo STATIC_URL; ?>/view/assets/vendor/php-email-form/validate.js"></script>
-   
+
     <!-- Template Main JS File -->
     <script src="/<?php echo STATIC_URL; ?>/view/assets/js/main.js"></script>
-    
+
     <script>
         <?php
         $gctrl = new Fb_auth_ctlr;
@@ -273,7 +289,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
             });
         });
     </script>
-    <?php 
+    <?php
     ajaxActive("#global-progress-bar");
     ?>
 </body>

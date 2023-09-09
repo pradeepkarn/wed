@@ -23,19 +23,19 @@ $public_routes = [
     // "/" => "Home_ctrl@redirect_to_lang@name.homeSlashNoLang",
     "" => "Home_ctrl@index@name.home",
     "/" => "Home_ctrl@index@name.homeSlash",
-    "/about" => "About_ctrl@index@name.about",
+    // "/about" => "About_ctrl@index@name.about",
     "/contact" => "ContactController@index@name.contact",
     "/category/{slug}" => "CategoryController@index@name.category",
     "/category/{slug}/load-page-on-scroll" => "CategoryController@load_cat_on_scroll@name.catOnScroll",
     "/read" => "Blogs_ctrl@index@name.allPosts",
     "/read/{slug}" => "ReadPostController@index@name.readPost",
     "/read/{slug}/post-comment-ajax" => "PostComment_ctrl@comment@name.postCommentAjax",
-    "/search" => "Search_users_ctrl@index@name.search",
-    "/privacy-policy" => "PrivacyPolicy_ctrl@index@name.privacyPolicy",
+    // "/privacy-policy" => "PrivacyPolicy_ctrl@index@name.privacyPolicy",
     "/dashboard/profile/{profile_id}" => 'Profile_ctrl@show_public_profile@name.showPublicProfile',
 ];
 $user_routes = [
     // '/dashboard' => 'DashboardController@index@name.dashboard',
+    "/search" => "Search_users_ctrl@index@name.search",
     "/dashboard/profile" => 'Profile_ctrl@index@name.userProfile',
     "/dashboard/news-feeds" => 'News_feeds_ctrl@index@name.newsFeeds',
     "/dashboard/profile-edit" => 'Profile_ctrl@edit@name.userProfileEdit',
@@ -46,10 +46,10 @@ $user_routes = [
     "/dashboard/like-unlike-ajax" => 'Profile_ctrl@like_unlike_ajax@name.likeUnlikeProfileAjax',
 ];
 $api_routes = [
-    "/api/v1/user-list"=> 'Users_api@load_users@name.loadUsersApi',
+    "/api/v1/user-list" => 'Users_api@load_users@name.loadUsersApi',
 ];
 $chat_routes = [
-    "/chat/populate-messages"=> 'Profile_ctrl@message_history@name.messageHistoryAjax',
+    "/chat/populate-messages" => 'Profile_ctrl@message_history@name.messageHistoryAjax',
 ];
 $admin_routes = [
     '/admin' => 'Admin_ctrl@index@name.adminhome',
@@ -128,6 +128,12 @@ $admin_routes = [
     '/admin/comments/{cg}/toggle-spam-comment' => 'Comment_admin_ctrl@toggle_spam@name.commentToggleSpam',
 
 ];
+$ajax = [
+    '/send-contact-message-ajax' => 'Contact_front@send_message@name.sendContactMessageAjax'
+];
+$pages = [
+    "/{slug}" => 'Page_front@index@name.pageBySlug'
+];
 $routes = array_merge(
     $login_routes,
     $public_routes,
@@ -135,6 +141,8 @@ $routes = array_merge(
     $admin_routes,
     $chat_routes,
     $api_routes,
+    $ajax,
+    $pages
 );
 // define('ROUTES',$routes);
 
@@ -153,7 +161,7 @@ function userProfileCompleteMiddleware($next)
 {
     if (authenticate()) {
         $completed = profile_completed(USER['id']);
-        if ($completed<80) {
+        if ($completed < 80) {
             header("Location: /" . home . route('userProfileEdit'));
             exit;
         }

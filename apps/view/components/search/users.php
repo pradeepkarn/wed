@@ -29,7 +29,7 @@ import(
                     // myprint($myreq);
                     $is_liked = is_liked($myid = USER['id'], $obj_id = $prof->id, $obj_group = 'profile');
                 ?>
-                   <div class="col-md-6">
+                    <div class="col-md-6">
                         <div class="card shadow h-100">
 
 
@@ -42,41 +42,44 @@ import(
                                     </div>
                                     <div class="col-8">
                                         <h5 class="card-title"><?php echo $prof->first_name; ?> <?php echo $prof->last_name; ?>
-                                            <small>(<?php echo bride_or_grom($prof->gender); ?>)</small>
+                                            <small>
+                                                (<?php echo bride_or_grom($prof->gender); ?>)
+                                            </small>
                                         </h5>
+                                        <?php echo $prof->is_public == 1 ? null : "<span class='badge text-bg-warning'>Private</span>"; ?>
                                         <div class="row">
                                             <div class="col">Age:</div>
                                             <div class="col">
-                                                <?php echo getAgeFromDOB($prof->dob); ?> Yrs
+                                                <?php echo $prof->is_public == 1 ? $age : "**"; ?> Yrs
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col">Religion:</div>
-                                            <div class="col"><?php echo $prof->religion; ?></div>
+                                            <div class="col"><?php echo $prof->is_public == 1 ? $prof->religion : "****"; ?></div>
                                         </div>
                                         <div class="row">
                                             <div class="col">Caste:</div>
-                                            <div class="col"><?php echo $prof->caste; ?></div>
+                                            <div class="col"><?php echo $prof->is_public == 1 ? $prof->caste : "****"; ?></div>
                                         </div>
                                         <div class="row">
                                             <div class="col">Caste details:</div>
-                                            <div class="col"><?php echo $prof->caste_detail; ?></div>
+                                            <div class="col"><?php echo $prof->is_public == 1 ? $prof->caste_detail:"****"; ?></div>
                                         </div>
                                         <div class="row">
                                             <div class="col">Location:</div>
-                                            <div class="col"><?php echo $prof->address; ?></div>
+                                            <div class="col"><?php echo $prof->is_public == 1 ? $prof->address:"****"; ?></div>
                                         </div>
                                         <div class="row">
                                             <div class="col">Education:</div>
-                                            <div class="col"><?php echo $prof->education; ?></div>
+                                            <div class="col"><?php echo $prof->is_public == 1 ? $prof->education:"****"; ?></div>
                                         </div>
                                         <div class="row">
                                             <div class="col">Profession:</div>
-                                            <div class="col"><?php echo $prof->occupation; ?></div>
+                                            <div class="col"><?php echo $prof->is_public == 1 ? $prof->occupation:"****"; ?></div>
                                         </div>
                                         <div class="row">
                                             <div class="col">Annual Income:</div>
-                                            <div class="col"><?php echo $prof->annual_income; ?> LPA</div>
+                                            <div class="col"><?php echo $prof->is_public == 1 ? $prof->annual_income:"****"; ?> LPA</div>
                                         </div>
                                     </div>
                                 </div>
@@ -102,7 +105,8 @@ import(
                                     <?php endif; ?>
 
 
-                                    <!-- <a class="text-decoration-none" href="/<?php //echo home . route('showPublicProfile', ['profile_id' => $prof->id]); ?>">
+                                    <!-- <a class="text-decoration-none" href="/<?php //echo home . route('showPublicProfile', ['profile_id' => $prof->id]); 
+                                                                                ?>">
                                         <i class="my-icons door-icon bi-door-closed-fill"></i>
                                     </a> -->
                                 </div>
@@ -113,7 +117,7 @@ import(
 
                         </div>
                     </div>
-                <?php endforeach ?>
+                   <?php endforeach ?>
                 <!-- Add more user cards here as needed -->
             </div>
         </div>

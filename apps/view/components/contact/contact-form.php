@@ -13,7 +13,7 @@
             <div class="info-item">
               <i class="bi bi-geo-alt"></i>
               <h3>Address</h3>
-              <address>A108 Adam Street, NY 535022, USA</address>
+              <address>Darbhanga, Bihar</address>
             </div>
           </div><!-- End Info Item -->
 
@@ -21,7 +21,7 @@
             <div class="info-item info-item-borders">
               <i class="bi bi-phone"></i>
               <h3>Phone Number</h3>
-              <p><a href="tel:+155895548855">+1 5589 55488 55</a></p>
+              <p><a href="tel:+918825137323">+91 8825137323</a></p>
             </div>
           </div><!-- End Info Item -->
 
@@ -29,7 +29,7 @@
             <div class="info-item">
               <i class="bi bi-envelope"></i>
               <h3>Email</h3>
-              <p><a href="mailto:info@example.com">info@example.com</a></p>
+              <p><a href="mailto:info@example.com">pkarn@live.in</a></p>
             </div>
           </div><!-- End Info Item -->
 

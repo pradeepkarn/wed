@@ -1,11 +1,11 @@
 <?php
-function msg_ssn($var = 'msg', $return = false)
+function msg_ssn($var = 'msg', $return = false, $lnbrk = "\\n")
 {
   if (isset($_SESSION[$var])) {
     if ($return == true) {
       $returnmsg = null;
       foreach ($_SESSION[$var] as $msg) {
-        $returnmsg .= "{$msg}\\n";
+        $returnmsg .= "{$msg}$lnbrk";
       }
       unset($_SESSION[$var]);
       return $returnmsg;
@@ -130,7 +130,7 @@ function pkAjax($button, $url, $data, $response, $event = 'click', $method = "po
 function send_to_server($button, $data, $callback, $event = 'click')
 {
   $ajax = "<script>
-  $(document).ready(function (e) {
+  $(document).ready(function () {
     $('{$data}').on('submit',(function(e) {
         e.preventDefault();
         var formData = new FormData(this);
@@ -144,7 +144,8 @@ function send_to_server($button, $data, $callback, $event = 'click')
             }
         });
     }));
-    $('{$button}').on('{$event}', function() {
+    $('{$button}').on('{$event}', function(e) {
+      e.preventDefault();
       $('{$data}').submit();
   });
 });
@@ -1166,22 +1167,26 @@ function email_has_valid_dns($email = 'email@example.com'): bool
 //   return $decrypted_message;
 // }
 
-function base64_url_encode($data) {
+function base64_url_encode($data)
+{
   return str_replace(['+', '/', '='], ['-', '_', ''], base64_encode($data));
 }
 
-function base64_url_decode($data) {
+function base64_url_decode($data)
+{
   return base64_decode(str_replace(['-', '_'], ['+', '/'], $data));
 }
 
-function encrypt($message, $key) {
+function encrypt($message, $key)
+{
   $iv = random_bytes(16);
   $cipher_text = openssl_encrypt($message, 'aes-256-cbc', $key, OPENSSL_RAW_DATA, $iv);
   $encrypted_message = $iv . $cipher_text;
   return base64_url_encode($encrypted_message);
 }
 
-function decrypt($encrypted_message, $key) {
+function decrypt($encrypted_message, $key)
+{
   $encrypted_message = base64_url_decode($encrypted_message);
   $iv = substr($encrypted_message, 0, 16);
   $cipher_text = substr($encrypted_message, 16);
@@ -1189,34 +1194,87 @@ function decrypt($encrypted_message, $key) {
   return $decrypted_message;
 }
 
-function render_template($path,$data) {
+function render_template($path, $data)
+{
   ob_start();
-  import(var:"/templates/".$path,context:$data,many:true);
+  import(var: "/templates/" . $path, context: $data, many: true);
   $data = ob_get_clean();
   return $data;
 }
 
-function maskEmailBy50Percent($email) {
+function maskEmailBy50Percent($email)
+{
   // Check if the input is a valid email address
   if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-      // Split the email address into username and domain
-      list($username, $domain) = explode('@', $email);
+    // Split the email address into username and domain
+    list($username, $domain) = explode('@', $email);
 
-      // Calculate the number of characters to mask in each part
-      $usernameToMask = max(0, ceil((strlen($username) - 1) / 2));
-      $domainToMask = max(0, ceil((strlen($domain) - 1) / 2));
+    // Calculate the number of characters to mask in each part
+    $usernameToMask = max(0, ceil((strlen($username) - 1) / 2));
+    $domainToMask = max(0, ceil((strlen($domain) - 1) / 2));
 
-      // Mask the username and domain
-      $maskedUsername = $username[0] . substr_replace(substr($username, 1), str_repeat('*', $usernameToMask), 0, $usernameToMask);
-      $maskedDomain = $domain[0] . substr_replace(substr($domain, 1), str_repeat('*', $domainToMask), 0, $domainToMask);
+    // Mask the username and domain
+    $maskedUsername = $username[0] . substr_replace(substr($username, 1), str_repeat('*', $usernameToMask), 0, $usernameToMask);
+    $maskedDomain = $domain[0] . substr_replace(substr($domain, 1), str_repeat('*', $domainToMask), 0, $domainToMask);
 
-      // Reconstruct the masked email address
-      $maskedEmail = $maskedUsername . '@' . $maskedDomain;
+    // Reconstruct the masked email address
+    $maskedEmail = $maskedUsername . '@' . $maskedDomain;
 
-      return $maskedEmail;
+    return $maskedEmail;
   } else {
-      // Return an error message for invalid email addresses
-      return false;
+    // Return an error message for invalid email addresses
+    return false;
   }
 }
+function isNotSpamEmail($email)
+{
+  // List of commonly used email domains
+  $allowedDomains = [
+    'gmail.com',
+    'yahoo.com',
+    'yahoo.co.uk',
+    'outlook.com',
+    'hotmail.com',
+    'live.com',
+    'live.in',
+    'msn.com',
+    'aol.com',
+    'icloud.com',
+    'protonmail.com',
+    'mail.com',
+    'yandex.com',
+    'yahoo.in',      // Add '.in' domain
+    'yahoo.co.in',   // Add '.co.in' domain
+    'ymail.com'
+    // Add more reputable domains as needed
+  ];
 
+  // Extract the domain part of the email address
+  $parts = explode('@', $email);
+  $domain = end($parts);
+
+  // Check if the extracted domain is in the list of allowed domains
+  return in_array($domain, $allowedDomains);
+}
+
+
+function blur_image($tempFile)
+{
+  $uploadDirectory = RPATH . '/media/images/profiles/blurred/';
+
+  // Create the destination directory if it doesn't exist
+  if (!is_dir($uploadDirectory)) {
+    mkdir($uploadDirectory, 0777, true);
+  }
+
+  // Generate a unique filename for the blurred image
+  $blurredFilename = uniqid('fadded_') . '_' . time() . '.jpg';
+
+  // Set the destination path for the blurred image
+  $fadedPath = $uploadDirectory . $blurredFilename;
+
+  // Load the uploaded image using GD
+  // $command = "convert $tempFile -channel A -evaluate Multiply 0.5 +channel $fadedPath";
+  $command = "convert $tempFile -blur 0x8 $fadedPath";
+  exec($command);
+}

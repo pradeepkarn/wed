@@ -18,7 +18,7 @@ class Home_ctrl extends Main_ctrl
             $load_page = (abs($req->page) - 1) * $data_limit;
             $row_limit = "$load_page,$data_limit";
         }
-        $total_users = $this->user_list(ord: "DESC", limit: 10000, active: 1, is_public:1);
+        $total_users = $this->user_list(ord: "DESC", limit: 10000, active: 1);
         $tu = count($total_users);
         if ($tu %  $data_limit == 0) {
             $tu = $tu / $data_limit;
@@ -26,7 +26,7 @@ class Home_ctrl extends Main_ctrl
             $tu = floor($tu / $data_limit) + 1;
         }
         
-        $user_list = $this->user_list($ord = "DESC", $limit = $row_limit, $active = 1, $is_public=1);
+        $user_list = $this->user_list($ord = "DESC", $limit = $row_limit, $active = 1);
         
         $GLOBALS['meta_seo'] = (object) array('title' => 'Home', 'description' => 'Welcome to our blog', 'keywords' => 'blog, article, education, news');
         $context = (object) array(
@@ -52,7 +52,27 @@ class Home_ctrl extends Main_ctrl
     }
 
     
-    public function user_list($ord = "DESC", $limit = 1, $active = 1, $is_public=1)
+    public function user_list($ord = "DESC", $limit = 1, $active = 1)
+    {
+        $cntobj = new Model('pk_user');
+        if (is_superuser()) {
+            return $cntobj->filter_index(array('user_group' => 'user', 'is_active' => $active), $ord, $limit);
+        }
+        if (USER) {
+            if (USER['gender']=='m') {
+                return $cntobj->filter_index(array('user_group' => 'user', 'gender'=>'f', 'is_active' => $active), $ord, $limit);
+            }
+            elseif (USER['gender']=='f') {
+                return $cntobj->filter_index(array('user_group' => 'user', 'gender'=>'m', 'is_active' => $active), $ord, $limit);
+            }else{
+                return $cntobj->filter_index(array('user_group' => 'user', 'is_active' => $active), $ord, $limit);
+            }
+            
+        }else{
+            return array();
+        }
+    }
+    public function user_list_privacy($ord = "DESC", $limit = 1, $active = 1, $is_public=1)
     {
         $cntobj = new Model('pk_user');
         if (is_superuser()) {

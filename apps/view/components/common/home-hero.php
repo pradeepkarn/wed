@@ -7,7 +7,8 @@
     <div class="container-fluid">
       <div class="row">
       <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-        <?php import('apps/view/components/common/sliders/slider-home.php'); ?>
+        <?php //import('apps/view/components/common/sliders/slider-home.php'); ?>
+        <?php import('apps/view/components/common/sliders/slider-home-users.php'); ?>
           <!-- <img src="/<?php echo STATIC_URL; ?>/view/assets/img/hero-img.png" class="img-fluid" alt=""> -->
         </div>
         <div class="col-lg-6 d-flex flex-column justify-content-center">

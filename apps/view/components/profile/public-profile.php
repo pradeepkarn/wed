@@ -1,6 +1,6 @@
 <?php
 $prof = obj($context->data->my_profile);
-$frnds = $context->data->my_friends ? obj($context->data->my_friends) : null;
+$frnds = $context->data->my_friends ? obj($context->data->my_friends) : [];
 $me = null;
 if (authenticate()) {
     $me = USER ? obj(USER) : null;
@@ -265,7 +265,15 @@ import(
                                 </div>
                                 <div class="col-md-12 my-2">
                                     <b>About me:</b>
-                                    <?php echo $prof->bio; ?>
+                                    <p class="px-5">
+                                        <?php echo $prof->bio; ?>
+                                    </p>
+                                </div>
+                                <div class="col-md-12 my-2">
+                                    <b>Mool:</b>
+                                    <p class="px-5">
+                                        <?php echo $prof->mool; ?>
+                                    </p>
                                 </div>
                                 <hr>
 
