@@ -122,7 +122,7 @@ function php_mailer($new_PHPMailer)
    $mail->SMTPAuth = true;
    $mail->Username = email;
    $mail->Password = emailpass;
-   $mail->SMTPSecure = 'tls';
+   $mail->SMTPSecure = $new_PHPMailer::ENCRYPTION_STARTTLS;
    $mail->Port = 587;
    return $mail;
 }
