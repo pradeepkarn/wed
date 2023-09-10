@@ -4,7 +4,7 @@
     $rgb_left = $context->rgb_left;
     $rgb_right = $context->rgb_right;
     $img_detail_ht = $prof->is_public==1?"100vh":"100%";
-    $prof->cover = $prof->cover;
+    $prof->cover = $prof->is_public==1?$prof->cover:"default-cover.jpg";
     ?>
     #profile-name {
         font-weight: 650;

@@ -120,7 +120,6 @@ class Profile_ctrl
                 if ($imgfl->error == 0) {
                     $ext = pathinfo($imgfl->name, PATHINFO_EXTENSION);
                     $imgname = uniqid('profile_') . "_" . $u->id . "." . $ext;
-                    blur_image($tempFile=$imgfl->tmp_name);
                     if (move_uploaded_file($imgfl->tmp_name, MEDIA_ROOT . "images/profiles/$imgname")) {
                         if ($u->image != '') {
                             if (file_exists(MEDIA_ROOT . "images/profiles/$u->image")) {

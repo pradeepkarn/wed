@@ -1256,25 +1256,3 @@ function isNotSpamEmail($email)
   // Check if the extracted domain is in the list of allowed domains
   return in_array($domain, $allowedDomains);
 }
-
-
-function blur_image($tempFile)
-{
-  $uploadDirectory = RPATH . '/media/images/profiles/blurred/';
-
-  // Create the destination directory if it doesn't exist
-  if (!is_dir($uploadDirectory)) {
-    mkdir($uploadDirectory, 0777, true);
-  }
-
-  // Generate a unique filename for the blurred image
-  $blurredFilename = uniqid('fadded_') . '_' . time() . '.jpg';
-
-  // Set the destination path for the blurred image
-  $fadedPath = $uploadDirectory . $blurredFilename;
-
-  // Load the uploaded image using GD
-  // $command = "convert $tempFile -channel A -evaluate Multiply 0.5 +channel $fadedPath";
-  $command = "convert $tempFile -blur 0x8 $fadedPath";
-  exec($command);
-}

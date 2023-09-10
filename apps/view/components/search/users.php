@@ -10,6 +10,13 @@ import(
     <div id="send-req-response-users-component"></div>
     <section>
         <div class="container py-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <?php 
+                    import("apps/view/components/search/search-partner.php");
+                    ?>
+                </div>
+            </div>
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <?php
                 foreach ($users as $uk => $prof) :

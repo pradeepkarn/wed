@@ -46,15 +46,9 @@
     </div>
     <div class="row">
         <div class="text-center col text-white my-2 d-grid">
-            <button <?php if (authenticate()) {echo "type='submit'";} else{echo "type='button'";} ?> <?php if (!authenticate()) : ?> onclick="openFacebookLoginPopup()" <?php endif; ?> class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                <?php if (authenticate()) : ?>
+            <button type="submit" class="btn btn-primary btn-lg">
                     <span>Search</span>
                     <i class="bi bi-search"></i>
-                <?php else : ?>
-                    <span>Login/Register with facebook</span>
-                    <i class="bi bi-facebook"></i>
-                <?php endif; ?>
-
             </button>
         </div>
 

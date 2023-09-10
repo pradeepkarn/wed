@@ -107,7 +107,7 @@ if ($prof->image != '') {
 }
 ####################################################################
 import(
-    "apps/view/components/profile/css/me-edit.css.php",
+    "apps/view/components/profile/css/me-public.css.php",
     obj([
         'prof' => $prof,
         'rgb_left' => $rgb_left,
