@@ -24,9 +24,10 @@
               <div class="d-grid gap-2">
                 <button id="login-btn" type="button" class="btn btn-primary">Register</button>
 
-                <button class="btn btn-primary" onclick="openFacebookLoginPopup()">
+                <!-- <button class="btn btn-primary" onclick="openFacebookLoginPopup()">
                   <i class="bi bi-facebook"></i>
-                </button>
+                </button> -->
+                <a class="my-3" href="/<?php echo home.route('userLogin'); ?>">Login</a>
               </div>
             </form>
           </div>

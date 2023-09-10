@@ -19,13 +19,14 @@
               </div>
               <div class="d-grid gap-2">
                 <button id="login-btn" type="button" class="btn btn-primary">Login</button>
-                <button type="button" class="btn btn-primary" onclick="openFacebookLoginPopup()">
+                <!-- <button type="button" class="btn btn-primary" onclick="openFacebookLoginPopup()">
                   <i class="bi bi-facebook"></i>
-                </button>
+                </button> -->
 
                 <script>
                   document.getElementById('popup').style.display = 'none';
                 </script>
+                <a class="my-3" href="/<?php echo home.route('register'); ?>">Register</a>
                 <a class="my-3" href="/<?php echo home.route('resetPassword'); ?>">Reset password</a>
               </div>
             </form>
