@@ -18,7 +18,7 @@ try {
                 new MyChatP2P()
             )
         ),
-        8090
+        WS_PORT
     );
 
     $server->run();

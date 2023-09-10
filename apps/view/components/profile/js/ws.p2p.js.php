@@ -2,7 +2,7 @@
 $prof = $context->prof;
 ?>
 <script>
-    const socket = new WebSocket('ws://localhost:8090');
+    const socket = new WebSocket('<?php echo WS_LINK; ?>');
     // Assume sender_id is already defined
 
     // Function to check if element is scrolled to bottom

@@ -14,6 +14,9 @@ define("PK_DB_NAME",$env->DB_NAME);
 define("PK_DB_USER",$env->DB_USER);
 #Database password
 define("PK_DB_PASS",$env->DB_PASS);
+#web socket
+define("WS_LINK",$env->WS_LINK);
+define("WS_PORT",$env->WS_PORT);
 // define("email",$env->EMAIL);
 #Define real location of file
 define ('RPATH', realpath(dirname(__FILE__)));
