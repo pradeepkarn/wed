@@ -144,9 +144,9 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
 
 
     <?php
-    if (USER == false) {
-        import("apps/view/components/common/fb/pop-up.php");
-    }
+    // if (USER == false) {
+    //     import("apps/view/components/common/fb/pop-up.php");
+    // }
     import("apps/view/pages/{$context->page}", $context);
     ?>
 
