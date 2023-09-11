@@ -66,7 +66,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
             <a href="/<?php echo home . route('home'); ?>" class="logo d-flex align-items-center">
-                <img src="/<?php echo MEDIA_URL; ?>/logo/logo.svg" alt="">
+                <!-- <img src="/<?php // echo MEDIA_URL; ?>/logo/logo.svg" alt=""> -->
                 <span><?php echo SITE_NAME; ?></span>
             </a>
 

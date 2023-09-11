@@ -192,12 +192,22 @@ section {
 .header .logo span {
   font-size: 30px;
   font-weight: 700;
-  letter-spacing: 1px;
+  /* letter-spacing: 1px; */
   color: #012970;
   font-family: "Nunito", sans-serif;
   margin-top: 3px;
 }
 
+@media (max-width: 400px) {
+  .header .logo span {
+    font-size: 16px;
+    font-weight: 700;
+    /* letter-spacing: 1px; */
+    color: #012970;
+    font-family: "Nunito", sans-serif;
+    margin-top: 3px;
+  }
+}
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
