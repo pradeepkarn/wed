@@ -1,6 +1,6 @@
 <section style="min-height:100vh;">
   <div class="container mt-5">
-    <div class="row justify-content-center" style="margin-top:150px;">
+    <div class="row justify-content-center" style="margin-top:100px;">
       <div class="col-md-6 col-lg-4">
         <div class="card">
 
