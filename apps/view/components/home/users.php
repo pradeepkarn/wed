@@ -38,12 +38,12 @@ import(
 
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-4">
+                                    <div class="col-md-4">
                                         <a class="text-decoration-none profile-link" href="/<?php echo home . route('showPublicProfile', ['profile_id' => $prof->id]); ?>">
                                             <img src="/<?php echo MEDIA_URL; ?>/images/profiles/<?php echo $prof->image; ?>" class="card-img-top profile-card-img" alt="<?php echo $prof->first_name; ?> <?php echo $prof->last_name; ?>">
                                         </a>
                                     </div>
-                                    <div class="col-8">
+                                    <div class="col-md-8">
                                         <h5 class="card-title"><?php echo $prof->first_name; ?> <?php echo $prof->last_name; ?>
                                             <small>
                                                 (<?php echo bride_or_grom($prof->gender); ?>)
