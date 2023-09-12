@@ -6,6 +6,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__); // Path to your project root
 $env = (object) $dotenv->load();
 #server host name or simply leave it as it is
 define("MY_DOMAIN",$env->MY_DOMAIN);
+define("SERVER_DOMAIN",$env->SERVER_DOMAIN);
 #server host name or simply leave it as it is
 define("PK_DB_HOST",$env->DB_HOST);
 #Database name

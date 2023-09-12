@@ -471,7 +471,7 @@ class Auth extends Main_ctrl
     {
         $rules = [
             'username' => 'required|string',
-            'password' => 'required|string|min:8|max:20'
+            'password' => 'required|string|min:6|max:20'
         ];
         $pass = validateData(data: $_POST, rules: $rules);
         if ($pass) {

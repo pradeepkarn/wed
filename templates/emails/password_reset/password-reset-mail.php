@@ -1,6 +1,6 @@
 <?php 
 $ctx = $context;
-$link = "https:/".home.route('createNewPassword',['prt'=>$ctx->token]);
+$link = SERVER_DOMAIN.home.route('createNewPassword',['prt'=>$ctx->token]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
