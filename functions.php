@@ -1256,3 +1256,45 @@ function isNotSpamEmail($email)
   // Check if the extracted domain is in the list of allowed domains
   return in_array($domain, $allowedDomains);
 }
+function compressImage($sourceFile, $maxFileSize)
+{
+  list($width, $height, $imageType) = getimagesize($sourceFile);
+  switch ($imageType) {
+    case IMAGETYPE_JPEG:
+      $image = imagecreatefromjpeg($sourceFile);
+      break;
+    case IMAGETYPE_PNG:
+      $image = imagecreatefrompng($sourceFile);
+      break;
+    case IMAGETYPE_GIF:
+      $image = imagecreatefromgif($sourceFile);
+      break;
+    default:
+      return false; // Unsupported image type
+  }
+
+  $compressionQuality = 90; // Adjust this value as needed
+
+  $targetFile = tempnam(sys_get_temp_dir(), 'compressed_image');
+
+  // Save the compressed image to a temporary file
+  switch ($imageType) {
+    case IMAGETYPE_JPEG:
+      imagejpeg($image, $targetFile, $compressionQuality);
+      break;
+    case IMAGETYPE_PNG:
+      imagepng($image, $targetFile);
+      break;
+    case IMAGETYPE_GIF:
+      imagegif($image, $targetFile);
+      break;
+  }
+
+  if (filesize($targetFile) > $maxFileSize) {
+    return false; // Compression failed to reduce the size
+  }
+
+  imagedestroy($image);
+
+  return $targetFile;
+}

@@ -58,6 +58,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
 </head>
 
 <body>
+
     <div id="global-progress-bar" style="height: 5px;" class="progress bg-primary fixed-top">
         <div class="progress-bar"></div>
     </div>
@@ -66,8 +67,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
         <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
             <a href="/<?php echo home . route('home'); ?>" class="logo d-flex align-items-center">
-                <!-- <img src="/<?php // echo MEDIA_URL; ?>/logo/logo.svg" alt=""> -->
-                <span><?php echo SITE_NAME; ?></span>
+                <img src="/<?php echo MEDIA_URL; ?>/logo/logo.png" alt="Logo">
             </a>
 
             <nav id="navbar" class="navbar">
@@ -135,6 +135,18 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
                             </li>
                         </ul>
                     </li>
+                    <li><?php if (isset($_COOKIE['lang']) && $_COOKIE['lang'] == 'en') : ?>
+                            <a id="set-lang-hi" class="nav-link scrollto pk-pointer">HI</a>
+                        <?php else : ?>
+                            <a id="set-lang-en" class="nav-link scrollto pk-pointer">EN</a>
+                        <?php endif; ?>
+                    </li>
+                    <input type="hidden" class="lang" name="lang" value="">
+                    <div id="res-lang"></div>
+                    <?php
+                    pkAjax("#set-lang-en", route('setLang', ['lang' => 'en']), ".lang", "#res-lang");
+                    pkAjax("#set-lang-hi", route('setLang', ['lang' => 'hi']), ".lang", "#res-lang");
+                    ?>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->

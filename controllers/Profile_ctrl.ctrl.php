@@ -7,8 +7,8 @@ class Profile_ctrl
         $prof = null;
         if (USER) {
             $prof = $this->profile_detail($id = USER['id']);
-            if ($prof==null) {
-                header("Location:/" . home.route('home'));
+            if ($prof == null) {
+                header("Location:/" . home . route('home'));
                 return;
             }
             $myfrnds = $this->my_friend_list($my_id = USER['id']);
@@ -29,8 +29,8 @@ class Profile_ctrl
         $prof = null;
         if (USER) {
             $prof = $this->profile_detail($id = USER['id']);
-            if ($prof==null) {
-                header("Location:/" . home.route('home'));
+            if ($prof == null) {
+                header("Location:/" . home . route('home'));
                 return;
             }
             $myfrnds = $this->my_friend_list($my_id = USER['id']);
@@ -54,15 +54,15 @@ class Profile_ctrl
             $prof = $this->profile_detail($id = $req->profile_id);
             $is_public = $prof['is_public'];
             if (USER) {
-                if ($prof==null) {
-                    header("Location:/" . home.route('home'));
+                if ($prof == null) {
+                    header("Location:/" . home . route('home'));
                     return;
                 }
                 $myfrnds = $this->my_friend_list($my_id = USER['id']);
             }
-        } 
+        }
         $context = (object) array(
-            'page' => $is_public==1?'public-profile.php':'mask-public-profile.php',
+            'page' => $is_public == 1 ? 'public-profile.php' : 'mask-public-profile.php',
             'data' => (object) array(
                 'req' => obj($req),
                 'my_profile' => $prof,
@@ -120,6 +120,12 @@ class Profile_ctrl
                 if ($imgfl->error == 0) {
                     $ext = pathinfo($imgfl->name, PATHINFO_EXTENSION);
                     $imgname = uniqid('profile_') . "_" . $u->id . "." . $ext;
+                    $maxFileSize = 1024 * 1024 * 5.5;
+                    if ($imgfl->size > $maxFileSize) {
+                        msg_set('Image should not be more than 5 mb');
+                        echo js_alert(msg_ssn(return: true));
+                        exit;
+                    }
                     if (move_uploaded_file($imgfl->tmp_name, MEDIA_ROOT . "images/profiles/$imgname")) {
                         if ($u->image != '') {
                             if (file_exists(MEDIA_ROOT . "images/profiles/$u->image")) {
@@ -350,7 +356,7 @@ class Profile_ctrl
             $db->insertData['state'] = sanitize_remove_tags($post->state);
             $db->insertData['country'] = sanitize_remove_tags($post->country);
             $db->insertData['bio'] = sanitize_remove_tags($post->about_me);
-            $db->insertData['is_public']  = isset($post->is_public)?1:0;
+            $db->insertData['is_public']  = isset($post->is_public) ? 1 : 0;
 
             if (isset($post->mool)) {
                 $db->insertData['mool'] = sanitize_remove_tags($post->mool);
@@ -397,8 +403,8 @@ class Profile_ctrl
             $db->pk(USER['id']);
             try {
                 $db->update();
-                $completed_percentage = profile_completed($id=USER['id']);
-                if ($completed_percentage==0) {
+                $completed_percentage = profile_completed($id = USER['id']);
+                if ($completed_percentage == 0) {
                     msg_set("check your date of birth and gender");
                     msg_set("Your age must be grater than or equals to 18");
                 }
@@ -426,9 +432,9 @@ class Profile_ctrl
         $db->tableName = 'pk_user';
         try {
             $user = $db->pk($id);
-            if ($user['user_group']=='user') {
+            if ($user['user_group'] == 'user') {
                 return $user;
-            }else{
+            } else {
                 return null;
             }
         } catch (PDOException $th) {

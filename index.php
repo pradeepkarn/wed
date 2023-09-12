@@ -11,6 +11,7 @@ define("direct_access", 1);
 define('DEFAULT_LANG', 'hi');
 $home = home;
 $languages = ["hi", "en"];
+define('LANG_ARR',$languages);
 if (!isset($_COOKIE['lang'])) {
   setcookie('lang', DEFAULT_LANG, time() + (86400 * 30 * 12), "/");
 }
@@ -20,22 +21,38 @@ if (isset($_COOKIE['lang'])) {
   }
 }
 
+// function lang($dir)
+// {
+//   if (!isset($_COOKIE['lang'])) {
+//     $lang = 'hi';
+//   } else {
+//     $lang = $_COOKIE['lang'];
+//   }
+
+//   $filePath = RPATH . "/data/json/lang/$dir/{$lang}.json";
+
+//   if (!is_file($filePath)) {
+//     $lang = DEFAULT_LANG;
+//     $filePath = RPATH . "/data/json/lang/$dir/{$lang}.json";
+//   }
+
+//   return json_decode(file_get_contents($filePath));
+// }
 function lang($dir)
 {
   if (!isset($_COOKIE['lang'])) {
-    $lang = 'hi';
+    $lang = DEFAULT_LANG;
   } else {
     $lang = $_COOKIE['lang'];
   }
-
-  $filePath = RPATH . "/data/json/lang/$dir/{$lang}.json";
+  $filePath = RPATH . "/data/php/lang/$dir/{$lang}.php";
 
   if (!is_file($filePath)) {
     $lang = DEFAULT_LANG;
-    $filePath = RPATH . "/data/json/lang/$dir/{$lang}.json";
+    $filePath = RPATH . "/data/php/lang/$dir/{$lang}.php";
   }
-
-  return json_decode(file_get_contents($filePath));
+  include $filePath;
+  return obj($lang);
 }
 
 // define('lang', $lang_file);
