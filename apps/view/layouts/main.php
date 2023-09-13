@@ -189,7 +189,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
                             <img src="/<?php echo STATIC_URL; ?>/view/assets/img/logo.png" alt="">
                             <span><?php echo SITE_NAME; ?></span>
                         </a>
-                        <p>Welcome to <?php echo SITE_NAME; ?></p>
+                        <p><?php echo lang('global')->welcome_to_site??"Welcome to ".SITE_NAME; ?></p>
                         <div class="social-links mt-3">
                             <a href="https://fb.com/pradeepkarn" class="twitter"><i class="bi bi-twitter"></i></a>
                             <a href="https://fb.com/itsme.pkarn" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -199,12 +199,12 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
                     </div>
 
                     <div class="col-lg-4 col-12 footer-links">
-                        <h4>Useful Links</h4>
+                        <h4><?php echo lang('global')->useful_links??"Useful_links"; ?></h4>
                         <ul>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('home'); ?>">Home</a></li>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'about']); ?>">About us</a></li>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'terms-of-use']); ?>">Terms of service</a></li>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'privacy-policy']); ?>">Privacy policy</a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('home'); ?>"><?php echo lang('nav')->home??"Home"; ?></a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'about']); ?>"><?php echo lang('nav')->about??"About"; ?></a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'terms-of-use']); ?>"><?php echo lang('global')->terms_of_use??"Terms of use"; ?></a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'privacy-policy']); ?>"><?php echo lang('global')->privacy_policy??"Privacy Policy"; ?></a></li>
                         </ul>
                     </div>
 
@@ -220,13 +220,12 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
                     </div> -->
 
                     <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-                        <h4>Contact Us</h4>
+                        <h4><?php echo lang('global')->contact_us??"Contact us"; ?></h4>
                         <p>
                             Darbhanga <br>
                             Bihar<br>
                             India <br><br>
-                            <strong>Phone:</strong> +91 8825137323<br>
-                            <strong>Email:</strong> pkarn@live.in<br>
+                            <strong><?php echo lang('global')->email??"Email"; ?>:</strong> pkarn@live.in<br>
                         </p>
 
                     </div>
@@ -237,10 +236,10 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
 
         <div class="container">
             <div class="copyright">
-                &copy; Copyright <strong><span>Pradeep Karn</span></strong>. All Rights Reserved
+                &copy; <?php echo lang('global')->copy_right??"Copyright"; ?> <strong><span><?php echo lang('global')->me??"Pradeep Karn"; ?></span></strong>. <?php echo lang('global')->all_rights_reserved." ".date("Y")??"All rights reserved"; ?>
             </div>
             <div class="credits">
-                Designed by <a href="https://fb.com/itsme.pkarn">Pradeep Karn</a>
+            <?php echo lang('global')->developed_by??"Developed by"; ?> <a href="https://fb.com/itsme.pkarn"><?php echo lang('global')->me??"Pradeep Karn"; ?></a>
             </div>
         </div>
     </footer><!-- End Footer -->

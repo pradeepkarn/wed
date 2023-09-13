@@ -11,14 +11,14 @@
                         <option data-districts='<?php echo json_encode($st->districts); ?>' value="<?php echo $st->state; ?>"><?php echo $st->state; ?></option>
                     <?php  } ?>
                 </select>
-                <label for="state-select">State</label>
+                <label for="state-select"><?php echo lang('global')->state??"State"; ?></label>
             </div>
         </div>
         <div class="col-6 my-2">
             <div class="form-floating">
                 <select class="form-select" name="city" id="district-select" aria-label="Floating label select example">
                 </select>
-                <label for="district-select">City</label>
+                <label for="district-select"><?php echo lang('global')->city??"City"; ?></label>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
                         echo "<option value='$i'>$i</option>";
                     } ?>
                 </select>
-                <label for="ageFromSelect">Age From</label>
+                <label for="ageFromSelect"><?php echo lang('global')->age_from??"Age from"; ?></label>
             </div>
         </div>
         <div class="col-6 my-2">
@@ -40,7 +40,7 @@
                         echo "<option value='$i'>$i</option>";
                     } ?>
                 </select>
-                <label for="ageToSelect">Age To</label>
+                <label for="ageToSelect"><?php echo lang('global')->age_to??"Age to"; ?></label>
             </div>
         </div>
     </div>
@@ -48,12 +48,12 @@
         <div class="text-center col text-white my-2 d-grid">
         <?php if (authenticate()) : ?>
             <button <?php if (authenticate()) {echo "type='submit'";} else{echo "type='button'";} ?>  class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                    <span>Search</span>
+                    <span><?php echo lang('global')->search??"Search"; ?></span>
                     <i class="bi bi-search"></i>
             </button>
             <?php else : ?>
             <a href="/<?php echo home.route('userLogin'); ?>" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                    <span>Login/Register</span>
+                    <span><?php echo lang('nav')->login??"Login"; ?>/<?php echo lang('nav')->register??"Register"; ?></span>
                     <i class="bi bi-person"></i>
             </a>
             <?php endif; ?>

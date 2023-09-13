@@ -1,8 +1,8 @@
 <?php
 $lang = array(
     "home" => "घर",
-    "about" => "हमारे बारे में",
-    "contact" => "संपर्क करें",
+    "about" => "हमारा परिचय",
+    "contact" => "संपर्क",
     "account" => "खाता",
     "login" => "लॉगिन",
     "register" => "रजिस्टर",
