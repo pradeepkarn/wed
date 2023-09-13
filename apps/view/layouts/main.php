@@ -73,7 +73,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
             <nav id="navbar" class="navbar">
                 <ul>
                     <li><a class="nav-link scrollto active" href="/<?php echo home . route('home'); ?>"><?php echo lang("nav")->home; ?></a></li>
-                    <li><a class="nav-link scrollto" href="/<?php echo home . route('home'); ?>/about">About</a></li>
+                    <li><a class="nav-link scrollto" href="/<?php echo home . route('home'); ?>/about"><?php echo lang("nav")->about; ?></a></li>
                     <!-- <li><a class="nav-link scrollto" href="/<?php //echo home . route('home'); 
                                                                     ?>/#services">Services</a></li> -->
                     <!-- <li><a class="nav-link scrollto" href="/<?php //echo home . route('home'); 
@@ -108,9 +108,9 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
                         </ul>
                     </li> -->
 
-                    <li><a class="nav-link scrollto" href="/<?php echo home . route('home'); ?>/#contact">Contact</a></li>
+                    <li><a class="nav-link scrollto" href="/<?php echo home . route('home'); ?>/#contact"><?php echo lang("nav")->contact; ?></a></li>
                     <!-- <li><a class="getstarted scrollto" href="#about">Get Started</a></li> -->
-                    <li class="dropdown"><a href="#"><span>Account</span> <i class="bi bi-chevron-down"></i></a>
+                    <li class="dropdown"><a href="#"><span><?php echo lang("nav")->account; ?></span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                             <!-- <li><a href="#">Drop Down 1</a></li>
                             <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
@@ -125,20 +125,20 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
                             <li>
 
                                 <?php if (USER) : ?>
-                                    <a href="/<?php echo home . route('userProfile'); ?>">Profile</a>
-                                    <a href="/<?php echo home . route('userProfileEdit'); ?>">Profile Edit</a>
-                                    <a href="/<?php echo home . route('logout'); ?>">Logout</a>
+                                    <a href="/<?php echo home . route('userProfile'); ?>"><?php echo lang("nav")->profile ?? "Profile"; ?></a>
+                                    <a href="/<?php echo home . route('userProfileEdit'); ?>"><?php echo lang("nav")->profile_edit ?? "Profile Edit"; ?></a>
+                                    <a href="/<?php echo home . route('logout'); ?>"><?php echo lang("nav")->logout ?? "Logout"; ?></a>
                                 <?php else : ?>
-                                    <a href="/<?php echo home . route('userLogin'); ?>">Login</a>
-                                    <a href="/<?php echo home . route('register'); ?>">Register</a>
+                                    <a href="/<?php echo home . route('userLogin'); ?>"><?php echo lang("nav")->login ?? "Login"; ?></a>
+                                    <a href="/<?php echo home . route('register'); ?>"><?php echo lang("nav")->register ?? "Register"; ?></a>
                                 <?php endif; ?>
                             </li>
                         </ul>
                     </li>
                     <li><?php if (isset($_COOKIE['lang']) && $_COOKIE['lang'] == 'en') : ?>
-                            <a id="set-lang-hi" class="nav-link scrollto pk-pointer">HI</a>
+                            <a id="set-lang-hi" class="nav-link scrollto pk-pointer"><?php echo lang("nav")->hi ?? "Hi"; ?></a>
                         <?php else : ?>
-                            <a id="set-lang-en" class="nav-link scrollto pk-pointer">EN</a>
+                            <a id="set-lang-en" class="nav-link scrollto pk-pointer"><?php echo lang("nav")->en ?? "En"; ?></a>
                         <?php endif; ?>
                     </li>
                     <input type="hidden" class="lang" name="lang" value="">

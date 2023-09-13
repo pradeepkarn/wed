@@ -45,11 +45,11 @@ function lang($dir)
   } else {
     $lang = $_COOKIE['lang'];
   }
-  $filePath = RPATH . "/data/php/lang/$dir/{$lang}.php";
+  $filePath = RPATH . "/data/php/lang/{$lang}/{$dir}/lang.php";
 
   if (!is_file($filePath)) {
     $lang = DEFAULT_LANG;
-    $filePath = RPATH . "/data/php/lang/$dir/{$lang}.php";
+    $filePath = RPATH .  "/data/php/lang/{$lang}/{$dir}/lang.php";
   }
   include $filePath;
   return obj($lang);

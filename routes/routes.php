@@ -6,6 +6,7 @@
 $home = home;
 // Define the routes
 $login_routes = [
+    "/set-language/{lang}" => "Lang_ctrl@set_lang@name.setLang",
     "/login" => 'Auth@user_login_page@name.userLogin',
     "/logout" => 'Auth@logout@name.logout',
     "/user-login-ajax" => 'Auth@user_login@name.userLoginAjax',
@@ -24,7 +25,6 @@ $public_routes = [
     "" => "Home_ctrl@index@name.home",
     "/" => "Home_ctrl@index@name.homeSlash",
     // "/about" => "About_ctrl@index@name.about",
-    "/set-language/{lang}" => "Lang_ctrl@set_lang@name.setLang",
     "/contact" => "ContactController@index@name.contact",
     "/category/{slug}" => "CategoryController@index@name.category",
     "/category/{slug}/load-page-on-scroll" => "CategoryController@load_cat_on_scroll@name.catOnScroll",
