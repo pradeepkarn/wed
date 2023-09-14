@@ -1,8 +1,9 @@
 <?php
+$open_chat = false;
 $prof = obj($context->data->my_profile);
 $frnds = $context->data->my_friends ? obj($context->data->my_friends) : [];
 $me = null;
-if (authenticate()) {
+if ($open_chat) {
     $me = USER ? obj(USER) : null;
     $myreq = obj(check_request($myid = USER['id'], $req_to = $prof->id));
     $is_liked = is_liked($myid = USER['id'], $obj_id = $prof->id, $obj_group = 'profile');
@@ -167,7 +168,7 @@ import(
                                             <?php // echo  $frnd->is_accepted == true ? "<i class='bi bi-person-check-fill'></i> Connected" : null; 
                                             ?>
                                         </h4> -->
-                                        <?php if (authenticate()) : ?>
+                                        <?php if ($open_chat) : ?>
 
 
                                             <div class="frnd-icons">
@@ -340,7 +341,7 @@ import(
 
 
             </div>
-            <?php if (authenticate()) : ?>
+            <?php if ($open_chat) : ?>
                 <div class="col-md-2">
                     <!-- Contact List -->
                     <img id="user-icon" src="/<?php echo MEDIA_URL; ?>/images/profiles/default-user.png" alt="">
@@ -419,7 +420,7 @@ import(
 
 <?php
 import("apps/view/components/profile/js/public-profile.js.php");
-if (authenticate()) {
+if ($open_chat) {
     import(
         "apps/view/components/profile/js/chatbox.js.php",
         obj([

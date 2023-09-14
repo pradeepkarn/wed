@@ -98,7 +98,7 @@
     text-decoration: none;
   }
   #main-nav{
-    min-height: 80px !important;
+    min-height: 100px !important;
   }
   .nav-bg{
      background-color:#00424A;
@@ -119,4 +119,7 @@
     .mobile-hide {
       display: none !important;
     }
+  }
+  .footer-logo img{
+    max-height: 100px;
   }

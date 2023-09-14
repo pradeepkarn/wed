@@ -64,7 +64,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
     </div>
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top">
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+        <div class="nav-div container-fluid container-xl d-flex align-items-center justify-content-between">
 
             <a href="/<?php echo home . route('home'); ?>" class="logo d-flex align-items-center">
                 <img src="/<?php echo MEDIA_URL; ?>/logo/logo.png" alt="Logo">
@@ -125,7 +125,8 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
                             <li>
 
                                 <?php if (USER) : ?>
-                                    <a href="/<?php echo home . route('userProfile'); ?>"><?php echo lang("nav")->profile ?? "Profile"; ?></a>
+                                    <a href="/<?php echo home . route('showPublicProfile',['profile_id'=>USER['id']]); ?>"><?php echo lang("nav")->public_profile ?? "Public Profile"; ?></a>
+                                    <!-- <a href="/<?php //echo home . route('userProfile'); ?>"><?php //echo lang("nav")->profile ?? "Profile"; ?></a> -->
                                     <a href="/<?php echo home . route('userProfileEdit'); ?>"><?php echo lang("nav")->profile_edit ?? "Profile Edit"; ?></a>
                                     <a href="/<?php echo home . route('logout'); ?>"><?php echo lang("nav")->logout ?? "Logout"; ?></a>
                                 <?php else : ?>
@@ -185,11 +186,10 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
             <div class="container">
                 <div class="row gy-4">
                     <div class="col-lg-5 col-md-12 footer-info">
-                        <a href="index.html" class="logo d-flex align-items-center">
-                            <img src="/<?php echo STATIC_URL; ?>/view/assets/img/logo.png" alt="">
-                            <span><?php echo SITE_NAME; ?></span>
+                        <a href="/<?php echo home.route('home'); ?>" class="footer-logo d-flex align-items-center">
+                            <img src="/<?php echo MEDIA_URL; ?>/logo/logo.png" alt="logo">
                         </a>
-                        <p><?php echo lang('global')->welcome_to_site??"Welcome to ".SITE_NAME; ?></p>
+                        <p><?php echo lang('global')->welcome_to_site ?? "Welcome to " . SITE_NAME; ?></p>
                         <div class="social-links mt-3">
                             <a href="https://fb.com/pradeepkarn" class="twitter"><i class="bi bi-twitter"></i></a>
                             <a href="https://fb.com/itsme.pkarn" class="facebook"><i class="bi bi-facebook"></i></a>
@@ -199,12 +199,12 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
                     </div>
 
                     <div class="col-lg-4 col-12 footer-links">
-                        <h4><?php echo lang('global')->useful_links??"Useful_links"; ?></h4>
+                        <h4><?php echo lang('global')->useful_links ?? "Useful_links"; ?></h4>
                         <ul>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('home'); ?>"><?php echo lang('nav')->home??"Home"; ?></a></li>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'about']); ?>"><?php echo lang('nav')->about??"About"; ?></a></li>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'terms-of-use']); ?>"><?php echo lang('global')->terms_of_use??"Terms of use"; ?></a></li>
-                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'privacy-policy']); ?>"><?php echo lang('global')->privacy_policy??"Privacy Policy"; ?></a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('home'); ?>"><?php echo lang('nav')->home ?? "Home"; ?></a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'about']); ?>"><?php echo lang('nav')->about ?? "About"; ?></a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'terms-of-use']); ?>"><?php echo lang('global')->terms_of_use ?? "Terms of use"; ?></a></li>
+                            <li><i class="bi bi-chevron-right"></i> <a href="/<?php echo home . route('pageBySlug', ['slug' => 'privacy-policy']); ?>"><?php echo lang('global')->privacy_policy ?? "Privacy Policy"; ?></a></li>
                         </ul>
                     </div>
 
@@ -220,12 +220,11 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
                     </div> -->
 
                     <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-                        <h4><?php echo lang('global')->contact_us??"Contact us"; ?></h4>
+                        <h4><?php echo lang('global')->contact_us ?? "Contact us"; ?></h4>
                         <p>
-                            Darbhanga <br>
-                            Bihar<br>
-                            India <br><br>
-                            <strong><?php echo lang('global')->email??"Email"; ?>:</strong> pkarn@live.in<br>
+                            <?php echo lang('global')->darbhanga ?? "Darbhanga"; ?><br>
+                            <?php echo lang('global')->bihar ?? "Bharat"; ?><br>
+                            <?php echo lang('global')->bharat ?? "Bharat"; ?><br><br>
                         </p>
 
                     </div>
@@ -236,10 +235,10 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
 
         <div class="container">
             <div class="copyright">
-                &copy; <?php echo lang('global')->copy_right??"Copyright"; ?> <strong><span><?php echo lang('global')->me??"Pradeep Karn"; ?></span></strong>. <?php echo lang('global')->all_rights_reserved." ".date("Y")??"All rights reserved"; ?>
+                &copy; <?php echo lang('global')->copy_right ?? "Copyright"; ?> <strong><span><?php echo lang('global')->me ?? "Pradeep Karn"; ?></span></strong>. <?php echo lang('global')->all_rights_reserved . " " . date("Y") ?? "All rights reserved"; ?>
             </div>
             <div class="credits">
-            <?php echo lang('global')->developed_by??"Developed by"; ?> <a href="https://fb.com/itsme.pkarn"><?php echo lang('global')->me??"Pradeep Karn"; ?></a>
+                <?php echo lang('global')->developed_by ?? "Developed by"; ?> <a href="https://fb.com/itsme.pkarn"><?php echo lang('global')->me ?? "Pradeep Karn"; ?></a>
             </div>
         </div>
     </footer><!-- End Footer -->
