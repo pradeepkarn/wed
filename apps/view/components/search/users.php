@@ -59,7 +59,7 @@ import(
                                         <div class="row">
                                             <div class="col"><?php echo lang('global')->age??"Age"; ?>:</div>
                                             <div class="col">
-                                                <?php echo $prof->is_public == 1 ? $age : "**"; ?> <?php echo lang('global')->yrs??"Yrs"; ?>
+                                                <?php echo $prof->is_public == 1 ? getAgeFromDOB($prof->dob) : "**"; ?> <?php echo lang('global')->yrs??"Yrs"; ?>
                                             </div>
                                         </div>
                                         <div class="row">
