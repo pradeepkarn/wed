@@ -5,20 +5,20 @@
         <div class="card">
 
           <div class="card-header">
-            Login <div id="res"></div>
+            <?php echo lang('nav')->login??'Login'; ?> <div id="res"></div>
           </div>
           <div class="card-body">
             <form id="my-form" action="/<?php echo home . route('userLoginAjax'); ?>" method="post">
               <div class="mb-3">
-                <label for="username" class="form-label">Email/Username</label>
+                <label for="username" class="form-label"><?php echo lang('global')->email??'Email'; ?>/<?php echo lang('global')->username??'Username'; ?></label>
                 <input type="text" class="form-control" id="username" name="username" required>
               </div>
               <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label"><?php echo lang('global')->password??'Password'; ?></label>
                 <input type="password" class="form-control" id="password" name="password" required>
               </div>
               <div class="d-grid gap-2">
-                <button id="login-btn" type="button" class="btn btn-primary">Login</button>
+                <button id="login-btn" type="button" class="btn btn-primary"> <?php echo lang('nav')->login??'Login'; ?></button>
                 <!-- <button type="button" class="btn btn-primary" onclick="openFacebookLoginPopup()">
                   <i class="bi bi-facebook"></i>
                 </button> -->
@@ -26,8 +26,8 @@
                 <script>
                   document.getElementById('popup').style.display = 'none';
                 </script>
-                <a class="my-3" href="/<?php echo home.route('register'); ?>">Register</a>
-                <a class="my-3" href="/<?php echo home.route('resetPassword'); ?>">Reset password</a>
+                <a class="my-3" href="/<?php echo home.route('register'); ?>"><?php echo lang('nav')->register??'Register'; ?></a>
+                <a class="my-3" href="/<?php echo home.route('resetPassword'); ?>"><?php echo lang('global')->reset_password??'Reset password'; ?></a>
               </div>
             </form>
           </div>

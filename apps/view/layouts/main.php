@@ -72,7 +72,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
 
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="/<?php echo home . route('home'); ?>"><?php echo lang("nav")->home; ?></a></li>
+                    <li><a class="nav-link scrollto" href="/<?php echo home . route('home'); ?>"><?php echo lang("nav")->home; ?></a></li>
                     <li><a class="nav-link scrollto" href="/<?php echo home . route('home'); ?>/about"><?php echo lang("nav")->about; ?></a></li>
                     <!-- <li><a class="nav-link scrollto" href="/<?php //echo home . route('home'); 
                                                                     ?>/#services">Services</a></li> -->

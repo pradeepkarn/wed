@@ -32,4 +32,11 @@ $lang = array(
     "copy_right" => "Copyright",
     "coming_soon" => "Coming soon",
     "please_wait" => "Please wait",
+    "username" => "Username",
+    "password" => "Password",
+    "confirm_password" => "Confirm password",
+    "reset_password" => "Reset password",
+    "registration" => "Registration",
+    "i_agree" => "I agree",
+    "and" => "and",
 );

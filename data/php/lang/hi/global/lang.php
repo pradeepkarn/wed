@@ -32,4 +32,11 @@ $lang = array(
     "copy_right" => "कॉपीराइट",
     "coming_soon" => "जल्द ही उपलब्ध होगा",
     "please_wait" => "कृपया रुकें",
+    "username" => "यूजरनेम",
+    "password" => "पासवर्ड",
+    "confirm_password" => "कन्फर्म पासवर्ड",
+    "reset_password" => "पासवर्ड बदलें",
+    "registration" => "अकाउंट बनायें",
+    "i_agree" => "मुझे स्वीकार है",
+    "and" => "और",
 );

@@ -5,31 +5,33 @@
         <div class="card">
 
           <div class="card-header">
-            Registration <div id="res"></div>
+          <?php echo lang('global')->registration??'Registration'; ?> <div id="res"></div>
           </div>
           <div class="card-body">
             <form id="my-form" action="/<?php echo home . route('registerAjax'); ?>" method="post">
               <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
+                <label for="email" class="form-label"><?php echo lang('global')->email??'Email'; ?></label>
                 <input type="email" class="form-control" id="email" name="email" required>
               </div>
               <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
+                <label for="password" class="form-label"><?php echo lang('global')->password??'Password'; ?></label>
                 <input type="password" class="form-control" id="password" name="password" required>
               </div>
               <div class="mb-3">
-                <label for="password" class="form-label">Confirm Password</label>
+                <label for="password" class="form-label"><?php echo lang('global')->confirm_password??'Confirm Password'; ?></label>
                 <input type="password" class="form-control" id="password" name="confirm_password" required>
               </div>
 
               <div class="my-4">
-                <input type="checkbox" name="terms_and_conditions_and_privacy_policy" id="tnc"> I have read 
-                <a target="_blank" href="/<?php echo home . route('pageBySlug', ['slug' => 'privacy-policy']); ?>">Privacy policy</a> and accepted
-                <a target="_blank" href="/<?php echo home . route('pageBySlug', ['slug' => 'terms-and-conditions']); ?>">Terms and conditions.</a>
+                <input type="checkbox" name="terms_and_conditions_and_privacy_policy" id="tnc">
+                <a target="_blank" href="/<?php echo home . route('pageBySlug', ['slug' => 'privacy-policy']); ?>"><?php echo lang('global')->privacy_policy??'Privacy policy'; ?></a> <?php echo lang('global')->and??'and'; ?> 
+                <a target="_blank" href="/<?php echo home . route('pageBySlug', ['slug' => 'terms-of-use']); ?>"><?php echo lang('global')->terms_of_use??'Termas of user'; ?>.</a>
+                <i class="fas fa-arrow-left"></i>
+                <?php echo lang('global')->i_agree??'I agree'; ?>
               </div>
               <div class="d-grid gap-2">
-                <button disabled id="login-btn" type="button" class="btn btn-primary">Register</button>
-                <a class="my-3" href="/<?php echo home . route('userLogin'); ?>">Login</a>
+                <button disabled id="login-btn" type="button" class="btn btn-primary"><?php echo lang('nav')->register??'Register'; ?></button>
+                <a class="my-3" href="/<?php echo home . route('userLogin'); ?>"><?php echo lang('nav')->login??'Login'; ?></a>
               </div>
             </form>
           </div>
