@@ -143,7 +143,7 @@ class Model
             return array();
         }
     }
-    public function show_unique_whr($col="",$whr_assoc_arr, $ord='DESC',$limit = 9999999)
+    public function show_unique_whr($col="",$whr_assoc_arr=[], $ord='DESC',$limit = 9999999)
     {
         $data = $this->dbTableObj->filter_distinct_whr($col,$whr_assoc_arr,$ord,$limit);
         if (count($data)>0) {

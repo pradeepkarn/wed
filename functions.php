@@ -244,7 +244,7 @@ function generate_dummy_email($prefix = null)
 {
   return uniqid($prefix . "_" . rand(1, 50)) . "@example.com";
 }
-function bsmodal($id = "", $title = "", $body = "", $btn_id, $btn_text = "Action", $btn_class = "btn btn-primary", $size = "modal-sm", $modalclasses = "")
+function bsmodal($id = "", $title = "", $body = "", $btn_id="", $btn_text = "Action", $btn_class = "btn btn-primary", $size = "modal-sm", $modalclasses = "")
 {
   $str = "
 <div class='modal fade' id='$id' tabindex='-1' aria-hidden='true'>
@@ -266,7 +266,7 @@ $body
 </div>";
   return $str;
 }
-function popmodal($id = "", $title = "", $body = "", $btn_id, $btn_text = "Action", $btn_class = "btn btn-primary", $size = "modal-sm", $close_btn_class = "")
+function popmodal($id = "", $title = "", $body = "", $btn_id="", $btn_text = "Action", $btn_class = "btn btn-primary", $size = "modal-sm", $close_btn_class = "")
 {
   $str = "
 <div class='modal fade' id='$id' tabindex='-1' aria-hidden='true'>
@@ -1070,6 +1070,9 @@ function getDOBFromAge($age)
 }
 function getAgeFromDOB($birthdate)
 {
+  if ($birthdate==null) {
+    return 0;
+  }
   $today = new DateTime();
   $birthdate = new DateTime($birthdate);
   $age = $today->diff($birthdate)->y;
@@ -1092,15 +1095,18 @@ function gender_view($gender)
 }
 function bride_or_grom($gender)
 {
+  if ($gender==null) {
+    return 'NA';
+  }
   switch (strtolower($gender)) {
     case 'm':
-      return 'Groom';
+      return lang('global')->groom??"Groom";
       break;
     case 'f':
-      return 'Bride';
+      return lang('global')->bride??"Bride";
       break;
     default:
-      return 'NA';
+      return lang('global')->na??"NA";
       break;
   }
 }

@@ -1,5 +1,5 @@
 <?php
-$lang = array(
+$common = array(
     "search" => "खोजें",
     "submit" => "प्रेषित",
     "filter" => "फ़िल्टर",
@@ -39,4 +39,67 @@ $lang = array(
     "registration" => "अकाउंट बनायें",
     "i_agree" => "मुझे स्वीकार है",
     "and" => "और",
+    "groom" => "वर",
+    "bride" => "वधू",
+    "na" => "अनुपलब्ध",
+);
+$profile = array(
+    "name" => 'नाम',
+    "age" => 'आयु',
+    "religion" => 'धर्म',
+    "caste" => 'जाति',
+    "caste_details" => 'जाति विवरण',
+    "location" => 'स्थान',
+    "education" => 'शिक्षा',
+    "profession" => 'पेशा',
+    "annual_income" => 'वार्षिक आय',
+    "yrs" => 'वर्ष',
+    "lpa" => 'लाख/वर्ष',
+    "interest" => "रूचि",
+    "request" => "आग्रह",
+    "private" => "निजी",
+    "locked" => "लॉक्ड",
+    "public" => "सार्वजनिक",
+);
+
+$biodata = array(
+    "personal_details" => 'व्यक्तिगत विवरण',
+    "caste" => 'जाति',
+    "caste_details" => 'जाति विवरण',
+    "details" => 'विवरण',
+    "occupation" => 'पेशा',
+    "mobile" => 'मोबाइल',
+    "gender" => 'लिंग',
+    "address" => 'पता',
+    "city" => 'शहर',
+    "state" => 'राज्य',
+    "country" => 'देश',
+    "about_me" => 'मेरे बारे में',
+    "mool" => 'मूल',
+    "family_details" => 'परिवार का विवरण',
+    "grand_father" => 'दादा',
+    "grand_father_details" => 'दादाजी के बारे में',
+    "father" => 'पिता',
+    "father_details" => 'पिताजी के बारे में',
+    "mother" => 'माँ',
+    "mother_details" => 'माताजी के बारे में',
+    "id" => 'आई. डी.',
+    "first_name" => 'पहला नाम',
+    "last_name" => 'आखिरी नाम',
+    "dob" => 'जन्म तिथि',
+    "more_family_details" => 'अतिरक्त परिवार विवरण',
+    "more_relations" => 'अधिक सम्बन्धी',
+);
+$relation_details = array(
+    "relation_type" => 'रिश्ता प्रकार',
+    "relative_name" => 'सम्बन्धी का नाम',
+    "work_details" => 'काम विवरण या किसी अन्य संबंधित जानकारी',
+    "relative_details" => 'कजन भाई, चाचा, आदि',
+);
+
+$lang = array_merge(
+    $common,
+    $profile,
+    $biodata,
+    $relation_details
 );

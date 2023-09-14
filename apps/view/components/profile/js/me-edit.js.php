@@ -1,24 +1,24 @@
-<?php 
+<?php
 $prof = $context->prof;
 ?>
 <script>
     // for relations
     const elmnts = `<div class="col-md-6">
     <div class="mb-3">
-        <label class="form-label">Relation Type:</label>
-        <input type="text" placeholder="Cousin brother, Uncle, etc.." class="form-control my-2" name="rel_type[]">
+        <label class="form-label"><?php echo lang('global')->relation_type ?? "Relation type"; ?>:</label>
+        <input type="text" placeholder="<?php echo lang('global')->relative_details ?? "Cousin Brother, Uncle, etc."; ?>" class="form-control my-2" name="rel_type[]">
     </div>
 </div>
 <div class="col-md-6">
     <div class="mb-3">
-        <label class="form-label">Name:</label>
-        <input type="text" placeholder="Name of this person" class="form-control my-2" name="rel_name[]">
+        <label class="form-label"><?php echo lang('global')->relative_name ?? "Name"; ?>:</label>
+        <input type="text" placeholder="<?php echo lang('global')->relative_name ?? "Name"; ?>" class="form-control my-2" name="rel_name[]">
     </div>
 </div>
 <div class="col-md-12">
     <div class="mb-3">
-        <label class="form-label">Details:</label>
-        <textarea class="form-control" placeholder="Work details or any other related information" name="about_rel[]" rows="4"></textarea>
+        <label class="form-label"><?php echo lang('global')->details ?? "details"; ?>:</label>
+        <textarea class="form-control" placeholder="<?php echo lang('global')->work_details ?? "Name"; ?>" name="about_rel[]" rows="4"></textarea>
     </div>
     <hr>
 </div>`;
@@ -32,7 +32,7 @@ $prof = $context->prof;
     // for mobiles
     const moreMobiles = `<div class="col-md-3">
                         <div class="mb-3">
-                            <label class="form-label">Mobile:</label>
+                            <label class="form-label"><?php echo lang('global')->mobile ?? "Mobile"; ?>:</label>
                             <input type="text" name="contacts[]" class="form-control my-2 custom-number-input">
                         </div>
                     </div>`;
@@ -134,7 +134,7 @@ $prof = $context->prof;
             const option = document.createElement("option");
             option.value = district;
             option.textContent = district;
-            if (district=="<?php echo $prof->city; ?>") {
+            if (district == "<?php echo $prof->city; ?>") {
                 option.selected = true;
             }
             districtSelect.appendChild(option);

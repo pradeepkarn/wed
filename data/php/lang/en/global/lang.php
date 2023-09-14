@@ -1,5 +1,5 @@
 <?php
-$lang = array(
+$common = array(
     "search" => "Search",
     "submit" => "Submit",
     "filter" => "Filter",
@@ -22,7 +22,7 @@ $lang = array(
     "always" => "Always",
     "message" => "Message",
     "send" => "Send",
-    "welcome_to_site" => "Welcome to ".SITE_NAME,
+    "welcome_to_site" => "Welcome to " . SITE_NAME,
     "useful_links" => "Useful Links",
     "all_rights_reserved" => "All rights reserved",
     "developed_by" => "Developed by",
@@ -39,4 +39,67 @@ $lang = array(
     "registration" => "Registration",
     "i_agree" => "I agree",
     "and" => "and",
+    "groom" => "Groom",
+    "bride" => "Bride",
+    "na" => "NA",
+);
+$profile = array(
+    "name" => 'Name',
+    "age" => 'Age',
+    "religion" => 'Religion',
+    "catse" => 'Catse',
+    "religion" => 'Religion',
+    "caste_details" => "Caste details",
+    "location" => "Location",
+    "education" => "Education",
+    "profession" => "Profession",
+    "annual_income" => "Annual Income",
+    "yrs" => "Yrs",
+    "lpa" => "LPA",
+    "interest" => "Interest",
+    "request" => "Request",
+    "private" => "Private",
+    "locked" => "Locked",
+    "public" => "Public"
+);
+$biodata = array(
+    "personal_details" => 'Personal Details',
+    "caste" => 'Caste',
+    "caste_details" => 'Caste Details',
+    "details" => 'Details',
+    "occupation" => 'Occupation',
+    "mobile" => 'Mobile',
+    "gender" => 'Gender',
+    "address" => 'Address',
+    "city" => 'City',
+    "state" => 'State',
+    "country" => 'Country',
+    "about_me" => 'About Me',
+    "mool" => 'Origin',
+    "family_details" => 'Family Details',
+    "grand_father" => 'Grandfather',
+    "grand_father_details" => 'About Grandfather',
+    "father" => 'Father',
+    "father_details" => 'About Father',
+    "mother" => 'Mother',
+    "mother_details" => 'About Mother',
+    "id" => 'ID',
+    "first_name" => 'First Name',
+    "last_name" => 'Last Name',
+    "dob" => 'Date of Birth',
+    "more_family_details" => 'More Family Details',
+    "more_relations" => 'More Relations',
+);
+$relation_details = array(
+    "relation_type" => 'Relation Type',
+    "relative_name" => 'Name of this person',
+    "work_details" => 'Work details or any other related information',
+    "relative_details" => 'Cousin Brother, Uncle, etc.',
+);
+
+$lang = array_merge(
+    $common,
+    $profile,
+    $biodata,
+    $relation_details
 );

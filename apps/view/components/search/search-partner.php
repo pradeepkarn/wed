@@ -11,14 +11,30 @@
                         <option data-districts='<?php echo json_encode($st->districts); ?>' value="<?php echo $st->state; ?>"><?php echo $st->state; ?></option>
                     <?php  } ?>
                 </select>
-                <label for="state-select">State</label>
+                <script>
+                    var exists = false;
+                    $('#state-select option').each(function() {
+                        if (this.value == '<?php echo $_GET['state']??'Bihar'; ?>') {
+                            $("#state-select").val("<?php echo $_GET['state']??'Bihar'; ?>");
+                        }
+                    });
+                </script>
+                <label for="state-select"><?php echo lang('global')->state??"State"; ?></label>
             </div>
         </div>
         <div class="col-6 my-2">
             <div class="form-floating">
                 <select class="form-select" name="city" id="district-select" aria-label="Floating label select example">
                 </select>
-                <label for="district-select">City</label>
+                <script>
+                    var exists = false;
+                    $('#district-select option').each(function() {
+                        if (this.value == '<?php echo $_GET['city']??'Darbhanga'; ?>') {
+                            $("#district-select").val("<?php echo $_GET['city']??'Darbhanga'; ?>");
+                        }
+                    });
+                </script>
+                <label for="district-select"><?php echo lang('global')->city??"City"; ?></label>
             </div>
         </div>
     </div>
@@ -30,7 +46,15 @@
                         echo "<option value='$i'>$i</option>";
                     } ?>
                 </select>
-                <label for="ageFromSelect">Age From</label>
+                <script>
+                    var exists = false;
+                    $('#ageFromSelect option').each(function() {
+                        if (this.value == '<?php echo $_GET['age_from']??'18'; ?>') {
+                            $("#ageFromSelect").val("<?php echo $_GET['age_from']??'18'; ?>");
+                        }
+                    });
+                </script>
+                <label for="ageFromSelect"><?php echo lang('global')->age_from??"Age from"; ?></label>
             </div>
         </div>
         <div class="col-6 my-2">
@@ -40,15 +64,23 @@
                         echo "<option value='$i'>$i</option>";
                     } ?>
                 </select>
-                <label for="ageToSelect">Age To</label>
+                <script>
+                    var exists = false;
+                    $('#ageToSelect option').each(function() {
+                        if (this.value == '<?php echo $_GET['age_to']??'18'; ?>') {
+                            $("#ageToSelect").val("<?php echo $_GET['age_to']??'18'; ?>");
+                        }
+                    });
+                </script>
+                <label for="ageToSelect"><?php echo lang('global')->age_to??"Age to"; ?></label>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="text-center col text-white my-2 d-grid">
             <button type="submit" class="btn btn-primary btn-lg">
-                    <span>Search</span>
-                    <i class="bi bi-search"></i>
+                <span><?php echo lang('global')->search??"Search"; ?></span>
+                <i class="bi bi-search"></i>
             </button>
         </div>
 
@@ -71,6 +103,17 @@
         updateDistrictOptions(districts, districtSelect);
     }
     // set the distric according to state
+    // function updateDistrictOptions(districts, districtSelect) {
+    //     // Clear existing options
+    //     districtSelect.innerHTML = "";
+    //     // Add new options based on the selected state's districts
+    //     districts.forEach(district => {
+    //         const option = document.createElement("option");
+    //         option.value = district;
+    //         option.textContent = district;
+    //         districtSelect.appendChild(option);
+    //     });
+    // }
     function updateDistrictOptions(districts, districtSelect) {
         // Clear existing options
         districtSelect.innerHTML = "";
@@ -79,6 +122,9 @@
             const option = document.createElement("option");
             option.value = district;
             option.textContent = district;
+            if (district=="<?php echo $_GET['city']??'Darbhanga'; ?>") {
+                option.selected = true;
+            }
             districtSelect.appendChild(option);
         });
     }

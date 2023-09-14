@@ -9,6 +9,12 @@
                     $slider->tableName = "pk_user";
                     $sldrqry['user_group'] = "user";
                     $sldrqry['is_active'] = 1;
+                    if (USER && USER['gender']=='f') {
+                        $sldrqry['gender'] = 'm';
+                    }
+                    else if (USER && USER['gender']=='m') {
+                        $sldrqry['gender'] = 'f';
+                    }
                     $slides = $slider->filter(assoc_arr: $sldrqry, limit: 20, ord: "RAND()");
                     // echo $slider->sql;
                     foreach ($slides as $key => $prof) :
@@ -70,7 +76,7 @@
                                                                 <div class="row">
                                                                     <div class="col">Age:</div>
                                                                     <div class="col">
-                                                                        <?php echo $prof->is_public == 1 ? $age : "**"; ?> Yrs
+                                                                        <?php echo $prof->is_public == 1 ? getAgeFromDOB($prof->dob) : "**"; ?> Yrs
                                                                     </div>
                                                                 </div>
                                                                 <div class="row">

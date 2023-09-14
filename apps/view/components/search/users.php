@@ -8,7 +8,7 @@ import(
 ?>
 <?php if (USER) : ?>
     <div id="send-req-response-users-component"></div>
-    <section>
+    <section class="mt-5">
         <div class="container py-5">
             <div class="row">
                 <div class="col-md-12">
@@ -53,40 +53,42 @@ import(
                                                 (<?php echo bride_or_grom($prof->gender); ?>)
                                             </small>
                                         </h5>
-                                        <?php echo $prof->is_public == 1 ? null : "<span class='badge text-bg-warning'>Private</span>"; ?>
+                                        <?php
+                                        $locked = lang('global')->locked??'Locked';
+                                        echo $prof->is_public == 1 ? null : "<span class='badge text-bg-warning'>{$locked}</span>"; ?>
                                         <div class="row">
-                                            <div class="col">Age:</div>
+                                            <div class="col"><?php echo lang('global')->age??"Age"; ?>:</div>
                                             <div class="col">
-                                                <?php echo $prof->is_public == 1 ? $age : "**"; ?> Yrs
+                                                <?php echo $prof->is_public == 1 ? $age : "**"; ?> <?php echo lang('global')->yrs??"Yrs"; ?>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col">Religion:</div>
+                                            <div class="col"><?php echo lang('global')->religion??"Religion"; ?>:</div>
                                             <div class="col"><?php echo $prof->is_public == 1 ? $prof->religion : "****"; ?></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col">Caste:</div>
+                                            <div class="col"><?php echo lang('global')->caste??"Caste"; ?>:</div>
                                             <div class="col"><?php echo $prof->is_public == 1 ? $prof->caste : "****"; ?></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col">Caste details:</div>
+                                            <div class="col"><?php echo lang('global')->caste_details??"Caste details"; ?>:</div>
                                             <div class="col"><?php echo $prof->is_public == 1 ? $prof->caste_detail:"****"; ?></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col">Location:</div>
+                                            <div class="col"><?php echo lang('global')->location??"Location"; ?>:</div>
                                             <div class="col"><?php echo $prof->is_public == 1 ? $prof->address:"****"; ?></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col">Education:</div>
+                                            <div class="col"><?php echo lang('global')->education??"Education"; ?>:</div>
                                             <div class="col"><?php echo $prof->is_public == 1 ? $prof->education:"****"; ?></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col">Profession:</div>
+                                            <div class="col"><?php echo lang('global')->profession??"Profession"; ?>:</div>
                                             <div class="col"><?php echo $prof->is_public == 1 ? $prof->occupation:"****"; ?></div>
                                         </div>
                                         <div class="row">
-                                            <div class="col">Annual Income:</div>
-                                            <div class="col"><?php echo $prof->is_public == 1 ? $prof->annual_income:"****"; ?> LPA</div>
+                                            <div class="col"><?php echo lang('global')->annual_income??"Annual income"; ?>:</div>
+                                            <div class="col"><?php echo $prof->is_public == 1 ? $prof->annual_income:"****"; ?> <?php echo lang('global')->lpa??"LPA"; ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -98,9 +100,9 @@ import(
                                         <i class="bi bi-person-check-fill"></i>
                                     <?php else : ?>
                                         <?php if ($myreq->success == true) : ?>
-                                            <i data-request="cancel" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-dash" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" data-bs-title="<b>Interest</b>"></i>
+                                            <i data-request="cancel" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-dash" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" data-bs-title="<b><?php echo lang('global')->request??"Request"; ?></b>"></i>
                                         <?php else : ?>
-                                            <i data-request="send" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-plus" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" data-bs-title="<b>Interest</b>"></i>
+                                            <i data-request="send" data-user-id="<?php echo $prof->id; ?>" class="my-icons person-icon bi bi-person-plus" data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top" data-bs-title="<b><?php echo lang('global')->request??"Request"; ?></b>"></i>
                                         <?php endif; ?>
                                     <?php endif; ?>
 

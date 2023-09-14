@@ -158,40 +158,40 @@ import(
                                     <div class="row">
                                        
                                         <div class="col-md-12">
-                                            <h3>Personal details:</h3>
-                                            <input type="checkbox" name="is_public" value="1" <?php echo $prof->is_public?'checked':null; ?>> Public
-                                            <b>Profile ID: <?php echo $prof->id; ?></b>
+                                            <h3><?php echo lang('global')->personal_details??"Personal details"; ?>:</h3>
+                                            <input type="checkbox" name="is_public" value="1" <?php echo $prof->is_public?'checked':null; ?>> <?php echo lang('global')->public??"Public"; ?>
+                                            <b><?php echo lang('nav')->profile??"Profile"; ?> <?php echo lang('global')->id??"ID"; ?>: <?php echo $prof->id; ?></b>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="first_name" class="form-label">First Name:</label>
+                                                <label for="first_name" class="form-label"><?php echo lang('global')->first_name??"First name"; ?> :</label>
                                                 <input type="text" class="form-control my-2" id="first_name" name="first_name" value="<?php echo $prof->first_name; ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="first_name" class="form-label">Last Name:</label>
+                                                <label for="first_name" class="form-label"><?php echo lang('global')->last_name??"Last name"; ?> :</label>
                                                 <input type="text" class="form-control my-2" id="first_name" name="last_name" value="<?php echo $prof->last_name; ?>">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="mb-3">
-                                                <label for="dob" class="form-label">Date of birth:</label>
+                                                <label for="dob" class="form-label"><?php echo lang('global')->dob??"Date of birth"; ?>:</label>
                                                 <input type="date" value="<?php echo $prof->dob; ?>" name="dob" class="form-control my-2" id="dob">
                                             </div>
                                         </div>
                                         <div class="col-md-3">
                                             <div class="mb-3">
-                                                <label for="gender" class="form-label">Gender:</label>
+                                                <label for="gender" class="form-label"><?php echo lang('global')->gender??"Gender"; ?>:</label>
                                                 <select name="gender" id="gender" class="form-select my-2">
-                                                    <option <?php echo $prof->gender == 'm' ? 'selected' : null; ?> value="m">Male</option>
-                                                    <option <?php echo $prof->gender == 'f' ? 'selected' : null; ?> value="f">Female</option>
+                                                    <option <?php echo $prof->gender == 'm' ? 'selected' : null; ?> value="m"><?php echo lang('global')->male??"Male"; ?></option>
+                                                    <option <?php echo $prof->gender == 'f' ? 'selected' : null; ?> value="f"><?php echo lang('global')->female??"Female"; ?></option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="mb-3">
-                                                <label for="caste" class="form-label">Castse:</label>
+                                                <label for="caste" class="form-label"><?php echo lang('global')->caste??"Caste"; ?>:</label>
                                                 <?php
                                                 $jsncaste = json_decode(jsonData($file = "/caste/caste.json"));
                                                 $allCastes =  ($jsncaste->religion[0]->castes); ?>
@@ -205,13 +205,13 @@ import(
                                         </div>
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label for="occupation" class="form-label">Caste Detail:</label>
+                                                <label for="occupation" class="form-label"><?php echo lang('global')->caste_details??"Caste details"; ?>:</label>
                                                 <textarea class="form-control my-2" id="occupation" name="caste_detail"><?php echo $prof->caste_detail; ?></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label for="occupation" class="form-label">Occupation:</label>
+                                                <label for="occupation" class="form-label"><?php echo lang('global')->occupation??"Occupation"; ?>:</label>
                                                 <textarea class="form-control my-2" id="occupation" name="occupation"><?php echo $prof->occupation; ?></textarea>
                                             </div>
                                         </div>
@@ -220,12 +220,12 @@ import(
 
                                                 <div class="col-md-3">
                                                     <div class="mb-3">
-                                                        <label for="mobile" class="form-label">Mobile:</label>
+                                                        <label for="mobile" class="form-label"><?php echo lang('global')->mobile??"Mobile"; ?>:</label>
                                                         <input type="text" name="mobile" value="<?php echo $prof->mobile; ?>" class="form-control my-2 custom-number-input" id="mobile">
                                                     </div>
                                                 </div>
                                                 <?php
-                                                $jsn = json_decode($prof->jsn);
+                                                $jsn = json_decode($prof->jsn??"{}");
                                                 if (isset($jsn->contacts)) {
                                                     foreach ($jsn->contacts as $key => $cnt) { ?>
                                                         <div class="col-md-3">
@@ -238,7 +238,7 @@ import(
                                                 }
                                                 ?>
                                             </div>
-                                            <button id="add-more-mobiles" type="button" class="btn btn-primary">Add More Number</button>
+                                            <button id="add-more-mobiles" type="button" class="btn btn-primary"><?php echo lang('global')->add_more_number??"Add more number"; ?></button>
                                         </div>
 
 
@@ -246,7 +246,7 @@ import(
 
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label for="address" class="form-label">Address:</label>
+                                                <label for="address" class="form-label"><?php echo lang('global')->address??"Address"; ?>:</label>
                                                 <textarea class="form-control" name="address" id="address" rows="4"><?php echo $prof->address; ?></textarea>
                                             </div>
                                         </div>
@@ -266,7 +266,7 @@ import(
                                                         <option <?php echo $prof->state == $st->state ? 'selected' : null; ?> data-districts='<?php echo json_encode($st->districts); ?>' value="<?php echo $st->state; ?>"><?php echo $st->state; ?></option>
                                                     <?php  } ?>
                                                 </select>
-                                                <label for="state-select">State</label>
+                                                <label for="state-select"><?php echo lang('global')->state??"State"; ?></label>
                                             </div>
                                         </div>
                                         <div class="col-6 my-2">
@@ -274,7 +274,7 @@ import(
                                                 <select class="form-select" name="city" id="district-select" aria-label="Floating label select example">
 
                                                 </select>
-                                                <label for="district-select">City</label>
+                                                <label for="district-select"><?php echo lang('global')->city??"City"; ?></label>
                                             </div>
                                         </div>
 
@@ -282,84 +282,84 @@ import(
 
                                         <div class="col-md-4">
                                             <div class="mb-3">
-                                                <label for="country" class="form-label">Country:</label>
+                                                <label for="country" class="form-label"><?php echo lang('global')->country??"Country"; ?>:</label>
                                                 <input type="text" class="form-control my-2" id="country" name="country" value="<?php echo $prof->country; ?>">
                                             </div>
                                         </div>
 
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label for="bio" class="form-label">About Me:</label>
+                                                <label for="bio" class="form-label"><?php echo lang('global')->about_me??"Aboute me"; ?>:</label>
                                                 <textarea class="form-control" id="bio" name="about_me" rows="4"><?php echo $prof->bio; ?></textarea>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label for="mool" class="form-label">Mool:</label>
+                                                <label for="mool" class="form-label"><?php echo lang('global')->mool??"Mool"; ?>:</label>
                                                 <textarea class="form-control" id="mool" name="mool" rows="4"><?php echo $prof->mool; ?></textarea>
                                             </div>
                                         </div>
                                         <hr>
                                         <div class="col-md-12">
-                                            <h3>Family details:</h3>
+                                            <h3><?php echo lang('global')->family_details??"Family details"; ?>:</h3>
                                             <div class="row" id="more-rel-div">
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="country" class="form-label">Grand father:</label>
+                                                        <label for="country" class="form-label"><?php echo lang('global')->grand_father??"Grand father"; ?>:</label>
                                                         <input type="text" class="form-control my-2" id="gfather" name="grand_father" value="<?php echo $prof->grand_father; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="abtgf" class="form-label">About grand father (Details):</label>
+                                                        <label for="abtgf" class="form-label"><?php echo lang('global')->grand_father_details??"Grand father details"; ?> (<?php echo lang('global')->details??"Details"; ?>):</label>
                                                         <textarea class="form-control my-2" id="abtgf" name="about_grand_father" rows="4"><?php echo $prof->about_grand_father; ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="country" class="form-label">Father:</label>
+                                                        <label for="country" class="form-label"><?php echo lang('global')->father??"Father"; ?>:</label>
                                                         <input type="text" class="form-control my-2" id="father" name="father" value="<?php echo $prof->father; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="abtfather" class="form-label">About father (Details):</label>
+                                                        <label for="abtfather" class="form-label"><?php echo lang('global')->father_details??"Father details"; ?> (<?php echo lang('global')->details??"Details"; ?>):</label>
                                                         <textarea class="form-control my-2" id="abtfather" name="about_father" rows="4"><?php echo $prof->about_father; ?></textarea>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="mother" class="form-label">Mother:</label>
-                                                        <input type="text" class="form-control my-2" id="mother" name="mother" value="<?php echo $prof->father; ?>">
+                                                        <label for="mother" class="form-label"><?php echo lang('global')->mother??"Mother"; ?>:</label>
+                                                        <input type="text" class="form-control my-2" id="mother" name="mother" value="<?php echo $prof->mother; ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <div class="mb-3">
-                                                        <label for="abtmother" class="form-label">About mother (Details):</label>
+                                                        <label for="abtmother" class="form-label"><?php echo lang('global')->mother_details??"Mother details"; ?> (<?php echo lang('global')->details??"Details"; ?>):</label>
                                                         <textarea class="form-control my-2" id="abtmother" name="about_mother" rows="4"><?php echo $prof->about_mother; ?></textarea>
                                                     </div>
                                                     <hr>
                                                 </div>
-                                                <h3>More family details:</h3>
+                                                <h3><?php echo lang('global')->more_family_details??"More family details"; ?>:</h3>
                                                 <?php
-                                                $jsn = json_decode($prof->jsn);
+                                                $jsn = json_decode($prof->jsn??"{}");
                                                 if (isset($jsn->family_members)) {
                                                     foreach ($jsn->family_members as $key => $rlv) { ?>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Relation Type:</label>
+                                                                <label class="form-label"><?php echo lang('global')->relation_type??"Relation type"; ?>:</label>
                                                                 <input type="text" placeholder="Cousin brother, Uncle, etc.." class="form-control my-2" name="rel_type[]" value="<?php echo $rlv->relation; ?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-6">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Name:</label>
-                                                                <input type="text" placeholder="Name of this person" class="form-control my-2" name="rel_name[]" value="<?php echo $rlv->name; ?>">
+                                                                <label class="form-label"><?php echo lang('global')->relative_name??"Name"; ?>:</label>
+                                                                <input type="text" placeholder="<?php echo lang('global')->relative_name??"Name"; ?>" class="form-control my-2" name="rel_name[]" value="<?php echo $rlv->name; ?>">
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
                                                             <div class="mb-3">
-                                                                <label class="form-label">Details:</label>
+                                                                <label class="form-label"><?php echo lang('global')->details??"Details"; ?>:</label>
                                                                 <textarea class="form-control my-2" placeholder="Work details or any other related information" name="about_rel[]" rows="4"><?php echo $rlv->about; ?></textarea>
                                                             </div>
                                                             <hr>
@@ -370,15 +370,15 @@ import(
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4 ms-auto text-end">
-                                                    <button type="button" id="add-more-relations" class="btn btn-primary">Add More Relations <i class="bi bi-plus"></i></button>
+                                                    <button type="button" id="add-more-relations" class="btn btn-primary"><?php echo lang('global')->more_relations??"More relations"; ?> <i class="bi bi-plus"></i></button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <div id="profile-update-spinner">
-                                        Please wait ... <img src="/<?php echo MEDIA_URL; ?>/site/loading.gif" alt="loading">
+                                    <?php echo lang('contact')->please_wait??"Please wait"; ?> ... <img src="/<?php echo MEDIA_URL; ?>/site/loading.gif" alt="loading">
                                     </div>
-                                    <button id="update-my-profile" class="btn btn-primary">Update</button>
+                                    <button id="update-my-profile" class="btn btn-primary"><?php echo lang('global')->update??"Update"; ?></button>
                                 </form>
 
                                 <?php
