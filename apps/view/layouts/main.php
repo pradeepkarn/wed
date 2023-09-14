@@ -14,7 +14,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
     <meta content="<?php echo $meta->keywords; ?>" name="keywords">
 
     <!-- Favicons -->
-    <link href="/<?php echo STATIC_URL; ?>/view/assets/img/favicon.png" rel="icon">
+    <link href="/<?php echo MEDIA_URL; ?>/logo/logo.png" rel="icon">
     <link href="/<?php echo STATIC_URL; ?>/view/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
