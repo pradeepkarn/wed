@@ -340,10 +340,15 @@ import(
                                 <button type="button" onclick="backWindow();" class="btn btn-light">Back</button>
                             </div>
                             <script>
-                                function backWindow() {
-                                    window.history.back();
+                                function backOrHomepage() {
+                                    if (window.history.length > 1) {
+                                        window.history.back();
+                                    } else {
+                                        window.location.href = "/<?php echo $home; ?>";
+                                    }
                                 }
                             </script>
+
 
                         </div>
 
