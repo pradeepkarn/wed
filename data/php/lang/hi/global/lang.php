@@ -87,7 +87,7 @@ $biodata = array(
     "first_name" => 'पहला नाम',
     "last_name" => 'आखिरी नाम',
     "dob" => 'जन्म तिथि',
-    "more_family_details" => 'अतिरक्त परिवार विवरण',
+    "more_family_details" => 'अतिरिक्त परिवार विवरण',
     "more_relations" => 'अधिक सम्बन्धी',
 );
 $relation_details = array(
