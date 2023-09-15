@@ -337,14 +337,14 @@ import(
                         </div>
                         <div class="row">
                             <div class="col-md-6 mx-auto text-center">
-                                <button type="button" onclick="backWindow();" class="btn btn-light">Back</button>
+                                <button type="button" onclick="backOrHomepage();" class="btn btn-light">Back</button>
                             </div>
                             <script>
                                 function backOrHomepage() {
                                     if (window.history.length > 1) {
                                         window.history.back();
                                     } else {
-                                        window.location.href = "/<?php echo $home; ?>";
+                                        window.location.href = "/<?php echo home; ?>";
                                     }
                                 }
                             </script>
