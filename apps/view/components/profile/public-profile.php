@@ -337,7 +337,7 @@ import(
                         </div>
                         <div class="row">
                             <div class="col-md-6 mx-auto text-center">
-                                <button type="button" onclick="backWindow();" class="btn btn-light">Close</button>
+                                <button type="button" onclick="backWindow();" class="btn btn-light">Back</button>
                             </div>
                             <script>
                                 function backWindow() {
