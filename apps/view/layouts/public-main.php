@@ -6,9 +6,11 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
 <html lang="en">
 
 <head>
+
+
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
+    <?php echo $GLOBALS['ogdata'] ?? null; ?>
     <title><?php echo $meta->title; ?></title>
     <meta content="<?php echo $meta->description; ?>" name="description">
     <meta content="<?php echo $meta->keywords; ?>" name="keywords">
@@ -55,6 +57,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
             })
         }
     </script>
+
 </head>
 
 <body>
@@ -62,7 +65,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
     <div id="global-progress-bar" style="height: 5px;" class="progress bg-primary fixed-top">
         <div class="progress-bar"></div>
     </div>
-    
+
 
     <?php
     // if (USER == false) {

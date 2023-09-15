@@ -50,6 +50,9 @@ class Profile_ctrl
         $req = obj($req);
         $prof = null;
         $myfrnds = null;
+
+
+
         if (isset($req->profile_id) && intval($req->profile_id)) {
             $prof = $this->profile_detail($id = $req->profile_id);
             $is_public = $prof['is_public'];
@@ -61,6 +64,18 @@ class Profile_ctrl
                 $myfrnds = $this->my_friend_list($my_id = USER['id']);
             }
         }
+        $prof = obj($prof);
+        $profileLink = SERVER_DOMAIN . home . route('showPublicProfile', ['profile_id' => $prof->id]);
+        $profileImageLink = SERVER_DOMAIN . MEDIA_URL . "/images/profiles/$prof->image";
+        $oghtml = <<<OGHTML
+                    <meta property="og:title" content="$prof->first_name">
+                    <meta property="og:description" content="Description of your page">
+                    <meta property="og:image" content="$profileImageLink">
+                    <meta property="og:url" content="$profileLink">
+                    <meta property="og:type" content="website">
+                    OGHTML;
+        $GLOBALS['ogdata'] = $oghtml;
+        $GLOBALS['meta_seo'] = (object) array('title' => "$prof->first_name", 'description' => 'Welcome to shubhavivaah', 'keywords' => 'matrimonial');
         $context = (object) array(
             'page' => $is_public == 1 ? 'public-profile.php' : 'mask-public-profile.php',
             'data' => (object) array(
@@ -69,7 +84,7 @@ class Profile_ctrl
                 'my_friends' => $myfrnds
             )
         );
-        $this->render_main($context,'public-main.php');
+        $this->render_main($context, 'public-main.php');
     }
     public function upload_cover_image_ajax($req = null)
     {
@@ -422,7 +437,7 @@ class Profile_ctrl
             exit;
         }
     }
-    public function render_main($context = null,$layout='main.php')
+    public function render_main($context = null, $layout = 'main.php')
     {
         import("apps/view/layouts/$layout", $context);
     }
