@@ -18,6 +18,7 @@ $login_routes = [
     "/reset-password-ajax" => 'Auth@reset_password_ajax@name.resetPasswordAjax',
     "/cnp/{prt}" => 'Auth@create_new_password_page@name.createNewPassword',
     "/send-temp-pass-on-ajax" => 'Auth@send_me_temp_password_ajax@name.sendMeTempPassAjax',
+    "/send-otp-on-ajax" => 'Auth@send_otp@name.sendOtpAjax',
 ];
 $public_routes = [
     // "" => "Home_ctrl@redirect_to_lang@name.homeNolang",

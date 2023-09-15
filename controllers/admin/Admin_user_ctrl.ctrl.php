@@ -53,7 +53,7 @@ class Admin_user_ctrl
     }
 
     // User search list
-    public function user_search_list($user_group='user',$keyword, $ord = "DESC", $limit = 5, $active = 1)
+    public function user_search_list($user_group='user',$keyword='', $ord = "DESC", $limit = 5, $active = 1)
     {
         $cntobj = new Model('pk_user');
         $search_arr['username'] = $keyword;

@@ -152,7 +152,30 @@ function send_to_server($button, $data, $callback, $event = 'click')
 </script>";
   echo $ajax;
 }
-
+function send_to_server_wotf($button, $data, $callback, $url="/", $event = 'click',$method='post')
+{
+  $home = home;
+  $ajax = "<script>
+  $(document).ready(function() {
+      $('{$button}').on('{$event}',function(event) {
+          event.preventDefault();
+          if (typeof tinyMCE != 'undefined') {
+            tinyMCE.triggerSave();
+          }
+          $.ajax({
+              url: '/{$home}{$url}',
+              method: '$method',
+              data: $('{$data}').serializeArray(),
+              dataType: 'json',
+              success:function(res){
+                {$callback}(res); 
+              }
+          });
+      });
+  });
+  </script>";
+  echo $ajax;
+}
 function pkAjax_form($button, $data, $response, $event = 'click', $progress = false)
 {
   $progress_code = "";
@@ -799,7 +822,7 @@ function validateData($data, $rules)
     foreach ($rulesArr as $singleRule) {
       // Check if rule has a parameter
       preg_match('/^([a-z]+)(?::([0-9]+))?$/i', $singleRule, $matches);
-      $ruleName = $matches[1];
+      $ruleName = $matches[1]??null;
       $ruleParam = isset($matches[2]) ? (int) $matches[2] : null;
 
       switch ($ruleName) {
@@ -1081,6 +1104,9 @@ function getAgeFromDOB($birthdate)
 
 function gender_view($gender)
 {
+  if ($gender==null) {
+    return "NA";
+  }
   switch (strtolower($gender)) {
     case 'm':
       return 'Male';

@@ -4,15 +4,93 @@ use PHPMailer\PHPMailer\PHPMailer;
 
 class Auth extends Main_ctrl
 {
+    function send_otp($req = null)
+    {
+        $req = obj($_POST);
+        $_SESSION['msg'] = null;
+        // $_SESSION['registration_otp'] = null;
+        $rules = [
+            'email' => 'required|email',
+        ];
+        $pass = validateData(data: $_POST, rules: $rules);
+        if (!$pass) {
+            $data['msg'] = msg_ssn(return: true, lnbrk: "<br>");
+            $data['success'] = false;
+            $data['data'] = null;
+            echo json_encode($data);
+            exit;
+        }
+        if (!email_has_valid_dns($req->email)) {
+            msg_set("Invalid email, we can not send email here");
+            $data['msg'] = msg_ssn(return: true, lnbrk: "<br>");
+            $data['success'] = false;
+            $data['data'] = null;
+            echo json_encode($data);
+            exit;
+        }
+        $obj = new stdClass;
+        $obj->col = 'email';
+        $obj->val = $req->email;
+        $emailcheck = $this->check_dup($obj);
+        if ($emailcheck) {
+            msg_set("This email has already been registered");
+            $data['msg'] = msg_ssn(return: true, lnbrk: "<br>");
+            $data['success'] = false;
+            $data['data'] = null;
+            echo json_encode($data);
+            exit;
+        } else {
+            $otp = random_int(100000, 999999);
+            $mail = php_mailer(new PHPMailer());
+            $mail->setFrom(email, SITE_NAME . "OTP");
+            $mail->isHTML(true);
+            $mail->Subject = 'One Time Password';
+            $mail->Body = "<b>$otp</b>";
+            $mail->addAddress($req->email, "$req->email");
+            if (isset($_SESSION['otp_sent_count'])) {
+                if ($_SESSION['otp_sent_count'] > 6) {
+                    msg_set("You have sent OTP so many times, please check your email and try after an hour");
+                    $data['msg'] = msg_ssn(return: true, lnbrk: "<br>");
+                    $data['success'] = false;
+                    $data['data'] = null;
+                    echo json_encode($data);
+                    exit;
+                }
+            }
+            if ($mail->send()) {
+                if (!isset($_SESSION['otp_sent_count'])) {
+                    $_SESSION['otp_sent_count'] = 1;
+                } else {
+                    $_SESSION['otp_sent_count'] += 1;
+                }
+                msg_set("An OTP has been sent to $req->email.");
+                $_SESSION['registration_otp'] = $otp;
+                $data['msg'] = msg_ssn(return: true, lnbrk: "<br>");
+                $data['success'] = true;
+                $data['data'] = null;
+                echo json_encode($data);
+                exit;
+            } else {
+                // $_SESSION['registration_otp'] = null;
+                msg_set("Email sending error");
+                $data['msg'] = msg_ssn(return: true, lnbrk: "<br>");
+                $data['success'] = false;
+                $data['data'] = null;
+                echo json_encode($data);
+                exit;
+            }
+        }
+    }
     public function register()
     {
         $data = null;
         $data = $_POST;
         $rules = [
             'email' => 'required|email',
-            'password' => 'required|string|min:8|max:20',
+            'otp' => 'required|integer|min:4|max:6',
+            'password' => 'required|string|min:6|max:20',
             'confirm_password' => 'required|string|min:8|max:20',
-            'terms_and_conditions_and_privacy_policy' => 'required'
+            'terms_and_conditions_and_privacy_policy' => 'required',
         ];
         $pass = validateData(data: $_POST, rules: $rules);
         if ($pass) {
@@ -35,11 +113,21 @@ class Auth extends Main_ctrl
                 $_SESSION['msg'][] = 'This email is already taken';
                 msg_ssn();
                 exit;
-            } else {
-                $username = generate_username_by_email($data->email);
-                $password = md5($data->password);
-                $role = 'subscriber';
             }
+            if (!isset($_SESSION['registration_otp'])) {
+                $_SESSION['msg'][] = 'Otp not created yet';
+                msg_ssn();
+                exit;
+            }
+            if ($_SESSION['registration_otp'] != $data->otp) {
+                $_SESSION['msg'][] = 'Invalid otp, please try again';
+                msg_ssn();
+                exit;
+            }
+            $username = generate_username_by_email($data->email);
+            $password = md5($data->password);
+            $role = 'subscriber';
+
             try {
                 $user_id = (new Model('pk_user'))->store(
                     array(
@@ -72,7 +160,7 @@ class Auth extends Main_ctrl
         if (authenticate()) {
             header("Location:/" . home);
             exit;
-        }   
+        }
         $context = (object) array(
             'page' => 'auth/reset-password.php',
             'data' => (object) array(
@@ -170,7 +258,7 @@ class Auth extends Main_ctrl
     function send_me_temp_password_ajax($req = null)
     {
         $req = obj($req);
-        $req->prt = isset($this->post->prt)?$this->post->prt:null;
+        $req->prt = isset($this->post->prt) ? $this->post->prt : null;
         if (!isset($req->prt)) {
             $data['msg'] = "Token not found";
             $data['success'] = false;
@@ -180,8 +268,8 @@ class Auth extends Main_ctrl
         }
         $db = new Dbobjects;
         $res = $this->email_temp_passwod($req, $db);
-        $msg = str_replace("\n","<br>",msg_ssn(return: true));
-        $msg = str_replace("\\n","<br>",$msg);
+        $msg = str_replace("\n", "<br>", msg_ssn(return: true));
+        $msg = str_replace("\\n", "<br>", $msg);
         if ($res === true) {
             $data['msg'] = $msg;
             $data['success'] = true;
@@ -207,14 +295,14 @@ class Auth extends Main_ctrl
         $db = new Dbobjects;
         $email = $this->verify_reset_token($req, $db);
         $page = 'auth/create-new-password.php';
-        if ($email==false) {
+        if ($email == false) {
             $page = "auth/link-expired-to-create-new-password.php";
         }
         $context = (object) array(
             'page' => $page,
             'data' => (object) array(
                 'req' => obj($req),
-                'email'=>maskEmailBy50Percent($email)
+                'email' => maskEmailBy50Percent($email)
             )
         );
         $this->render_main($context);

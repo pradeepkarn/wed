@@ -11,7 +11,14 @@
             <form id="my-form" action="/<?php echo home . route('registerAjax'); ?>" method="post">
               <div class="mb-3">
                 <label for="email" class="form-label"><?php echo lang('global')->email??'Email'; ?></label>
-                <input type="email" class="form-control" id="email" name="email" required>
+                <input type="email" class="form-control email" id="email" name="email" required>
+                <div class="d-grid">
+                  <button type="button" id="send-otp-btn" class="btn btn-sm btn-primary my-2">Send OTP</button>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label"><?php echo lang('global')->otp??'OTP'; ?></label>
+                <input type="email" class="form-control" id="email" name="otp" required>
               </div>
               <div class="mb-3">
                 <label for="password" class="form-label"><?php echo lang('global')->password??'Password'; ?></label>
@@ -54,8 +61,35 @@
     });
   });
 </script>
+<script>
+  function handleOtpSend(res) {
+    if (res.success === true) {
+      swalert({
+        title: 'Success',
+        msg: res.msg,
+        icon: 'success'
+      });
+    } else if (res.success === false) {
+      swalert({
+        title: 'Failed',
+        msg: res.msg,
+        icon: 'error'
+      });
+    } else {
+      swalert({
+        title: 'Failed',
+        msg: 'Something went wrong',
+        icon: 'error'
+      });
+    }
+  }
+</script>
+<?php 
 
-<?php pkAjax_form("#login-btn", "#my-form", "#res"); ?>
+send_to_server_wotf("#send-otp-btn",".email","handleOtpSend",route('sendOtpAjax'));
+
+pkAjax_form("#login-btn", "#my-form", "#res"); 
+?>
 <script>
   document.getElementById('popup').style.display = 'none';
 </script>
