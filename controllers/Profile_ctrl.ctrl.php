@@ -69,10 +69,10 @@ class Profile_ctrl
         $profileImageLink = SERVER_DOMAIN  . "/media/images/profiles/$prof->image";
         $oghtml = <<<OGHTML
                     <meta property="og:title" content="$prof->first_name">
-                    <meta property="og:description" content="Description of your page">
+                    <meta property="og:description" content="$prof->bio">
                     <meta property="og:image" content="$profileImageLink">
                     <meta property="og:url" content="$profileLink">
-                    <meta property="og:type" content="website">
+                    <meta property="og:type" content="profile">
                     OGHTML;
         $GLOBALS['ogdata'] = $oghtml;
         $GLOBALS['meta_seo'] = (object) array('title' => "$prof->first_name", 'description' => 'Welcome to shubhavivaah', 'keywords' => 'matrimonial');
