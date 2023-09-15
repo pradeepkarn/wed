@@ -89,7 +89,7 @@ class Auth extends Main_ctrl
             'email' => 'required|email',
             'otp' => 'required|integer|min:4|max:6',
             'password' => 'required|string|min:6|max:20',
-            'confirm_password' => 'required|string|min:8|max:20',
+            'confirm_password' => 'required|string|min:6|max:20',
             'terms_and_conditions_and_privacy_policy' => 'required',
         ];
         $pass = validateData(data: $_POST, rules: $rules);
