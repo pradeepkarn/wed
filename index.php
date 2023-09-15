@@ -1,6 +1,6 @@
 <?php
-// error_reporting(E_ALL);
-// ini_set('display_errors', 1);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 session_start();
 require_once(__DIR__ . "/config.php");
 require_once(__DIR__ . "/settings.php");
@@ -82,6 +82,13 @@ if (isset($_COOKIE['remember_token'])) {
 }
 $acnt = $acnt->getLoggedInAccount();
 define('USER', $acnt);
+if (authenticate()) {
+  if (!USER) {
+    session_destroy();
+    header("location:/".home);
+    exit;
+  }
+}
 $checkaccess = ['admin', 'subadmin'];
 if (authenticate() == true) {
   if (isset(USER['user_group'])) {
