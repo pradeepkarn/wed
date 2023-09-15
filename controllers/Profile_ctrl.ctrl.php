@@ -66,7 +66,7 @@ class Profile_ctrl
         }
         $prof = obj($prof);
         $profileLink = SERVER_DOMAIN . home . route('showPublicProfile', ['profile_id' => $prof->id]);
-        $profileImageLink = SERVER_DOMAIN . MEDIA_URL . "/images/profiles/$prof->image";
+        $profileImageLink = SERVER_DOMAIN  . "media/images/profiles/$prof->image";
         $oghtml = <<<OGHTML
                     <meta property="og:title" content="$prof->first_name">
                     <meta property="og:description" content="Description of your page">
