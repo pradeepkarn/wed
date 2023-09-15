@@ -65,6 +65,10 @@ class Profile_ctrl
             }
         }
         $prof = obj($prof);
+        $prof->bio=$is_public?$prof->bio:'User info is hidden by user';
+        $prof->image=$is_public?$prof->image:'default-user.png';
+        $prof->cover=$is_public?$prof->cover:'default-cover.jpg';
+
         $profileLink = SERVER_DOMAIN . route('showPublicProfile', ['profile_id' => $prof->id]);
         $profileImageLink = SERVER_DOMAIN  . "/media/images/profiles/$prof->image";
         $oghtml = <<<OGHTML
