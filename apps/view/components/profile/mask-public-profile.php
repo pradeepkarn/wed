@@ -193,14 +193,24 @@ import(
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <h1 class="text-center">This user has set profile to private mode</h1>
+                                        <h1 class="text-center">Profile is locked by user</h1>
                                     </div>
                                 </div>
 
                             </div>
 
                         </div>
+                        <div class="row">
+                            <div class="col-md-6 mx-auto text-center">
+                                <button type="button" onclick="backWindow();" class="btn btn-light">Close</button>
+                            </div>
+                            <script>
+                                function backWindow() {
+                                    window.history.back();
+                                }
+                            </script>
 
+                        </div>
                     </div>
                 </div>
 

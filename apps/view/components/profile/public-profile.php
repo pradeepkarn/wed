@@ -335,6 +335,17 @@ import(
                             </div>
 
                         </div>
+                        <div class="row">
+                            <div class="col-md-6 mx-auto text-center">
+                                <button type="button" onclick="backWindow();" class="btn btn-light">Close</button>
+                            </div>
+                            <script>
+                                function backWindow() {
+                                    window.history.back();
+                                }
+                            </script>
+
+                        </div>
 
                     </div>
                 </div>
