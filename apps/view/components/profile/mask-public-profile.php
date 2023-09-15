@@ -198,7 +198,7 @@ import(
                                 </div>
 
                             </div>
-<?php echo SERVER_DOMAIN.route('createNewPassword',['prt'=>$ctx->token]); ?>
+<?php echo SERVER_DOMAIN.route('createNewPassword',['prt'=>"hjh"]); ?>
                         </div>
                         <div class="row">
                             <div class="col-md-6 mx-auto text-center">
