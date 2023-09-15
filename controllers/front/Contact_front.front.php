@@ -56,10 +56,22 @@ class Contact_front extends Main_ctrl
         if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
             $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'];
         }
-
+        $obj = new stdClass;
+        $obj->col = 'email';
+        $obj->val = $post->email;
+        $auth = new Auth;
+        $ourmenber = $auth->check_dup($obj);
+        if (!$ourmenber) {
+            msg_set("Currently our member can send message.");
+            $data['msg'] = msg_ssn(return: true, lnbrk: "<br>");
+            $data['success'] = false;
+            $data['data'] = null;
+            echo json_encode($data);
+            exit;
+        }
         $db = new Dbobjects;
         $db->tableName = 'contact';
-        
+
         $db->insertData['name'] = sanitize_remove_tags($post->name);
         $db->insertData['email'] = sanitize_remove_tags($post->email);
         $db->insertData['subject'] = sanitize_remove_tags($post->subject);

@@ -95,6 +95,7 @@
         msg: res.msg,
         icon: 'success'
       });
+      document.getElementById("send-my-message-form").reset();
     } else if (res.success === false) {
       swalert({
         title: 'Failed',
