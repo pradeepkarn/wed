@@ -74,7 +74,7 @@
               <!-- <div class="error-message"></div>
               <div class="sent-message">Your message has been sent. Thank you!</div> -->
 
-              <button type="submit" class="btn btn-primary my-5" id="send-my-message-btn"><?php echo lang('contact')->send_message??"Send message"; ?></button>
+              <button type="submit" class="btn btn-primary mb-5" id="send-my-message-btn"><?php echo lang('contact')->send_message??"Send message"; ?></button>
             </div>
 
           </div>
