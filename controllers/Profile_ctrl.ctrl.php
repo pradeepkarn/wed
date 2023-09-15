@@ -69,7 +69,7 @@ class Profile_ctrl
                 'my_friends' => $myfrnds
             )
         );
-        $this->render_main($context);
+        $this->render_main($context,'public-main.php');
     }
     public function upload_cover_image_ajax($req = null)
     {
@@ -422,9 +422,9 @@ class Profile_ctrl
             exit;
         }
     }
-    public function render_main($context = null)
+    public function render_main($context = null,$layout='main.php')
     {
-        import("apps/view/layouts/main.php", $context);
+        import("apps/view/layouts/$layout", $context);
     }
     public function profile_detail($id)
     {
