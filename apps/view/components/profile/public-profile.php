@@ -208,6 +208,12 @@ import(
                                             <?php echo $prof->occupation; ?>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <b>Annual Income: </b>
+                                            <?php echo $prof->annual_income; ?>
+                                        </div>
+                                    </div>
                                     <div class="col-md-12">
                                         <div class="row" id="more-mobile-div">
 

@@ -341,6 +341,7 @@ class Profile_ctrl
             'caste' => 'required|string',
             'caste_detail' => 'required|string',
             'occupation' => 'required|string',
+            'annual_income' => 'required|string',
             'mobile' => 'required|integer',
             'gender' => 'required|string',
             'address' => 'required|string',
@@ -365,6 +366,7 @@ class Profile_ctrl
             $db->insertData['first_name'] = sanitize_remove_tags($post->first_name);
             $db->insertData['last_name'] = sanitize_remove_tags($post->last_name);
             $db->insertData['occupation'] = sanitize_remove_tags($post->occupation);
+            $db->insertData['annual_income'] = sanitize_remove_tags($post->annual_income);
             $db->insertData['mobile'] = sanitize_remove_tags($post->mobile);
             $db->insertData['gender'] = sanitize_remove_tags($post->gender);
             $db->insertData['address'] = sanitize_remove_tags($post->address);
