@@ -5,18 +5,19 @@
         <div class="carousel-inner">
             <div id="carouselExampleFade" class="carousel slide carousel-slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
-                    <?php $slider = new Dbobjects();
-                    $slider->tableName = "pk_user";
-                    $sldrqry['user_group'] = "user";
-                    $sldrqry['is_active'] = 1;
-                    if (USER && USER['gender'] == 'f') {
-                        $sldrqry['gender'] = 'm';
-                    } else if (USER && USER['gender'] == 'm') {
-                        $sldrqry['gender'] = 'f';
-                    }
-                    $slides = $slider->filter(assoc_arr: $sldrqry, limit: 20, ord: "RAND()");
+                    <?php 
+                    // $slider = $slider = new Dbobjects();
+                    // $slider->tableName = "pk_user";
+                    // $sldrqry['user_group'] = "user";
+                    // $sldrqry['is_active'] = 1;
+                    // if (USER && USER['gender'] == 'f') {
+                    //     $sldrqry['gender'] = 'm';
+                    // } else if (USER && USER['gender'] == 'm') {
+                    //     $sldrqry['gender'] = 'f';
+                    // }
+                    // $slides = $slider->filter(assoc_arr: $sldrqry, limit: 20, ord: "RAND()");
                     // echo $slider->sql;
-                    foreach ($slides as $key => $prof) :
+                    foreach ($context->sliders as $key => $prof) :
                         // echo $key;
                         $prof = obj($prof);
                         // $age = getAgeFromDOB($prof->dob);

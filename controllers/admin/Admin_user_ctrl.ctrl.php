@@ -126,6 +126,8 @@ class Admin_user_ctrl
         $request = null;
         $data = null;
         $data = $_POST;
+        
+
         $data['image'] = $_FILES['image'];
         $rules = [
             'email' => 'required|email',
@@ -142,6 +144,7 @@ class Admin_user_ctrl
             echo js_alert(msg_ssn("msg", true));
             exit;
         }
+       
         $request = obj($data);
         $username_exists = (new Model('pk_user'))->exists(['username' => generate_clean_username($request->username)]);
         $email_exists = (new Model('pk_user'))->exists(['email' => $request->email]);
@@ -180,6 +183,7 @@ class Admin_user_ctrl
                 }
                 echo js_alert('User created');
                 echo go_to(route('userList',['ug'=>$req->ug]));
+                return true;
             } else {
                 echo js_alert('Post not created');
                 return false;
