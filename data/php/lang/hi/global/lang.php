@@ -60,6 +60,7 @@ $profile = array(
     "private" => "निजी",
     "locked" => "लॉक्ड",
     "public" => "सार्वजनिक",
+    "my_album" => "मेरा एल्बम"
 );
 
 $biodata = array(

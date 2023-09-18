@@ -128,6 +128,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
                                     <a href="/<?php echo home . route('showPublicProfile',['profile_id'=>USER['id']]); ?>"><?php echo lang("nav")->public_profile ?? "Public Profile"; ?></a>
                                     <!-- <a href="/<?php //echo home . route('userProfile'); ?>"><?php //echo lang("nav")->profile ?? "Profile"; ?></a> -->
                                     <a href="/<?php echo home . route('userProfileEdit'); ?>"><?php echo lang("nav")->profile_edit ?? "Profile Edit"; ?></a>
+                                    <a href="/<?php echo home . route('userProfileGallery'); ?>"><?php echo lang("global")->my_album ?? "My Album"; ?></a>
                                     <a href="/<?php echo home . route('logout'); ?>"><?php echo lang("nav")->logout ?? "Logout"; ?></a>
                                 <?php else : ?>
                                     <a href="/<?php echo home . route('userLogin'); ?>"><?php echo lang("nav")->login ?? "Login"; ?></a>

@@ -240,8 +240,6 @@ import(
                                                     <option value="85-90">85-90 Lakhs</option>
                                                     <option value="90-95">90-95 Lakhs</option>
                                                     <option value="95-100">95-100 Lakhs</option>
-
-
                                                 </select>
                                                 <script>
                                                     var exists = false;

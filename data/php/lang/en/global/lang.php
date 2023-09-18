@@ -60,7 +60,8 @@ $profile = array(
     "request" => "Request",
     "private" => "Private",
     "locked" => "Locked",
-    "public" => "Public"
+    "public" => "Public",
+    "my_album" => "My album"
 );
 $biodata = array(
     "personal_details" => 'Personal Details',

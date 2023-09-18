@@ -65,9 +65,9 @@ class Profile_ctrl
             }
         }
         $prof = obj($prof);
-        $prof->bio=$is_public?$prof->bio:'User info is hidden by user';
-        $prof->image=$is_public?$prof->image:'default-user.png';
-        $prof->cover=$is_public?$prof->cover:'default-cover.jpg';
+        $prof->bio = $is_public ? $prof->bio : 'User info is hidden by user';
+        $prof->image = $is_public ? $prof->image : 'default-user.png';
+        $prof->cover = $is_public ? $prof->cover : 'default-cover.jpg';
 
         $profileLink = SERVER_DOMAIN . route('showPublicProfile', ['profile_id' => $prof->id]);
         $profileImageLink = SERVER_DOMAIN  . "/media/images/profiles/$prof->image";
@@ -536,5 +536,113 @@ class Profile_ctrl
         } catch (PDOException $th) {
             return [];
         }
+    }
+    function gallery($req = null)
+    {
+        $prof = null;
+        if (USER) {
+            $prof = $this->profile_detail($id = USER['id']);
+            if ($prof == null) {
+                header("Location:/" . home . route('home'));
+                return;
+            }
+            $db = new Dbobjects;
+            $db->tableName='album';
+            $my_album = $db->filter(['user_id'=>USER['id'],'is_active'=>1,'status'=>'approved']);
+            $album_groups = $db->filter_distinct_whr(col:'album_group',assoc_arr:['user_id'=>USER['id'],'is_active'=>1,'status'=>'approved']);
+        }
+        $context = (object) array(
+            'page' => 'profile-gallery.php',
+            'data' => (object) array(
+                'req' => obj($req),
+                'my_profile' => $prof,
+                'my_album' => $my_album,
+                'album_groups' => $album_groups,
+            )
+        );
+        $this->render_main($context);
+    }
+    function gallery_upload_ajax($req = null)
+    {
+        $prof = null;
+        $req = obj($_POST);
+        $postdata = $_POST;
+        $postdata['croppedImage'] = $_FILES['croppedImage']??[];
+        $rules = [
+            'album_group' => 'required|string|min:3|max:100',
+            'croppedImage' => 'required|file',
+            'croppedHeight' => 'required|numeric',
+            'croppedWidth' => 'required|numeric',
+        ];
+        if ($req->album_group=='CREATE_NEW_ALBUM') {
+            $rules['new_album_name'] = 'required|string|min:3|max:100';
+            $req->album_group = $req->new_album_name;
+        }
+        $pass = validateData(data: $postdata, rules: $rules);
+        if (!$pass) {
+            $data['msg'] = msg_ssn(return:true,lnbrk:"<br>");
+            $data['success'] = false;
+            $data['data'] = null;
+            echo json_encode($data);
+            exit;
+        }
+        if (USER) {
+            $u = obj(USER);
+            if (isset($_FILES['croppedImage']) && isset($req->croppedHeight) && isset($req->croppedWidth)) {
+                $fl = obj($_FILES['croppedImage']);
+                if ($fl->error === UPLOAD_ERR_OK) {
+                    $ext = pathinfo($fl->name, PATHINFO_EXTENSION);
+                    $imgname = uniqid('album_') . "_" . $u->id . "." . $ext;
+                    $maxFileSize = 1024 * 1024 * 5.5;
+                    if ($fl->size > $maxFileSize) {
+                        msg_set('Image should not be more than 5 mb');
+                        $data['msg'] = msg_ssn(return: true, lnbrk: "<br>");
+                        $data['success'] = true;
+                        $data['data'] = null;
+                        echo json_encode($data);
+                        exit;
+                    }
+                    if (move_uploaded_file($fl->tmp_name, MEDIA_ROOT . "images/profiles/$imgname")) {
+                        $album = new Dbobjects;
+                        $album->tableName = "album";
+                        $album->insertData['user_id'] = "$u->id";
+                        $album->insertData['title'] = "birthday";
+                        $album->insertData['album_group']=$req->album_group;
+                        $album->insertData['caption'] = null;
+                        $album->insertData['image'] = $imgname;
+                        $album->insertData['ext'] = $ext;
+                        $album->insertData['size'] = $fl->size;
+                        $album->insertData['height'] = $req->croppedHeight;
+                        $album->insertData['width'] = $req->croppedWidth;
+                        $album->insertData['status'] = "approved";
+                        $album->insertData['is_active'] = 1;
+                        $album->create();
+                        $data['msg'] = "Image uploaded";
+                        $data['success'] = true;
+                        $data['data'] = null;
+                        echo json_encode($data);
+                        exit;
+                    }else{
+                        $data['msg'] = "Image not uploaded";
+                        $data['success'] = false;
+                        $data['data'] = null;
+                        echo json_encode($data);
+                        exit;
+                    }
+                   
+                } else {
+                    $data['msg'] = "Image not cropped";
+                    $data['success'] = false;
+                    $data['data'] = null;
+                    echo json_encode($data);
+                    exit;
+                }
+            }
+        }
+        $data['msg'] = "You are not logged in";
+        $data['success'] = false;
+        $data['data'] = null;
+        echo json_encode($data);
+        exit;
     }
 }
