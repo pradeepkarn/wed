@@ -34,7 +34,9 @@
   </head>
 
   <body>
-
+    <div id="global-progress-bar" style="height: 5px;" class="progress fixed-top" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>
+    </div>
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center">
 
@@ -253,7 +255,7 @@
               </li>
 
               <li>
-                <a class="dropdown-item d-flex align-items-center" href="/<?php echo home.route('logout'); ?>">
+                <a class="dropdown-item d-flex align-items-center" href="/<?php echo home . route('logout'); ?>">
                   <i class="bi bi-box-arrow-right"></i>
                   <span>Sign Out</span>
                 </a>
@@ -323,7 +325,7 @@
                 <i class="bi bi-circle"></i><span>All Page</span>
               </a>
             </li>
-          
+
           </ul>
         </li>
         <!-- Slider components -->
@@ -342,7 +344,7 @@
                 <i class="bi bi-circle"></i><span>All Sliders</span>
               </a>
             </li>
-          
+
           </ul>
         </li>
         <!-- Porducts components -->
@@ -351,68 +353,68 @@
             <i class="bi bi-menu-button-wide"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
           </a>
           <ul id="products-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            
-              <a href="/<?php echo home . route('productCatCreate'); ?>">
-                <i class="bi bi-circle"></i><span>Add Category</span>
-              </a>
-            </li>
-            <li>
-              <a href="/<?php echo home . route('productCatList'); ?>">
-                <i class="bi bi-circle"></i><span>All Categories</span>
-              </a>
-            </li>
-          </ul>
-        </li>
-        <!-- End Components  -->
-        <!-- user components -->
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#components-users" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-menu-button-wide"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
-          </a>
-          <ul id="components-users" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="/<?php echo home . route('userCreate', ['ug' => 'user']); ?>">
-                <i class="bi bi-circle"></i><span>Add user</span>
-              </a>
-            </li>
-            <li>
-              <a href="/<?php echo home . route('userList', ['ug' => 'user']); ?>">
-                <i class="bi bi-circle"></i><span>All users</span>
-              </a>
-            </li>
-            <li>
-              <a href="/<?php echo home . route('userCreate', ['ug' => 'admin']); ?>">
-                <i class="bi bi-circle"></i><span>Add Admin</span>
-              </a>
-            </li>
-            <li>
-              <a href="/<?php echo home . route('userList', ['ug' => 'admin']); ?>">
-                <i class="bi bi-circle"></i><span>All admin</span>
-              </a>
-            </li>
 
-          </ul>
+            <a href="/<?php echo home . route('productCatCreate'); ?>">
+              <i class="bi bi-circle"></i><span>Add Category</span>
+            </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link collapsed" data-bs-target="#components-comments" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-menu-button-wide"></i><span>Comments</span><i class="bi bi-chevron-down ms-auto"></i>
+        <li>
+          <a href="/<?php echo home . route('productCatList'); ?>">
+            <i class="bi bi-circle"></i><span>All Categories</span>
           </a>
-          <ul id="components-comments" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-            <li>
-              <a href="/<?php echo home . route('commentList', ['cg' => 'post']); ?>">
-                <i class="bi bi-menu-button-wide"></i><span>Inbox</span>
-              </a>
-            </li>
-            <li>
-              <a href="/<?php echo home . route('commentList', ['cg' => 'spam']); ?>">
-                <i class="bi bi-menu-button-wide"></i><span>Spam</span>
-              </a>
-            </li>
-
-          </ul>
         </li>
-        <!-- End Components  -->
-       
+      </ul>
+      </li>
+      <!-- End Components  -->
+      <!-- user components -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-users" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Users</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-users" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/<?php echo home . route('userCreate', ['ug' => 'user']); ?>">
+              <i class="bi bi-circle"></i><span>Add user</span>
+            </a>
+          </li>
+          <li>
+            <a href="/<?php echo home . route('userList', ['ug' => 'user']); ?>">
+              <i class="bi bi-circle"></i><span>All users</span>
+            </a>
+          </li>
+          <li>
+            <a href="/<?php echo home . route('userCreate', ['ug' => 'admin']); ?>">
+              <i class="bi bi-circle"></i><span>Add Admin</span>
+            </a>
+          </li>
+          <li>
+            <a href="/<?php echo home . route('userList', ['ug' => 'admin']); ?>">
+              <i class="bi bi-circle"></i><span>All admin</span>
+            </a>
+          </li>
+
+        </ul>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-comments" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Comments</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-comments" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="/<?php echo home . route('commentList', ['cg' => 'post']); ?>">
+              <i class="bi bi-menu-button-wide"></i><span>Inbox</span>
+            </a>
+          </li>
+          <li>
+            <a href="/<?php echo home . route('commentList', ['cg' => 'spam']); ?>">
+              <i class="bi bi-menu-button-wide"></i><span>Spam</span>
+            </a>
+          </li>
+
+        </ul>
+      </li>
+      <!-- End Components  -->
+
       </ul>
 
     </aside><!-- End Sidebar-->
@@ -577,6 +579,27 @@
       });
     </script>
     <script src="/<?php echo STATIC_URL; ?>/admin/assets/js/helper.js"></script>
+
+    <?php
+    ajaxActive("#global-progress-bar");
+    ?>
+    <script>
+      $.ajaxSetup({
+        xhr: function() {
+          var xhr = new XMLHttpRequest();
+          xhr.upload.addEventListener('progress', function(evt) {
+            if (evt.lengthComputable) {
+              var percentComplete = Math.round((evt.loaded / evt.total) * 100);
+              // Update the width of the progress bar inside #global-progress-bar
+              $('#global-progress-bar .progress-bar').css('width', percentComplete + '%');
+              // Update the text inside the progress bar (if needed)
+              // $('#global-progress-bar .progress-bar').html(percentComplete + '%');
+            }
+          }, false);
+          return xhr;
+        }
+      });
+    </script>
   </body>
 
   </html>

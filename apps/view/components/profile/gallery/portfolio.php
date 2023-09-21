@@ -135,7 +135,7 @@ $album_groups = $context->data->album_groups;
       ?>
         <div class="col-lg-4 col-md-6 portfolio-item filter-<?php echo $alb->album_group; ?>">
           <div class="edit-tool">
-            <i data-edit-imgsrc="<?php echo $alb->image; ?>" data-edit-userid="<?php echo $alb->user_id; ?>" data-edit-albumid="<?php echo $alb->id; ?>" class="fas fa-pen edit-album-img"></i>
+            <!-- <i data-edit-imgsrc="<?php echo $alb->image; ?>" data-edit-userid="<?php echo $alb->user_id; ?>" data-edit-albumid="<?php echo $alb->id; ?>" class="fas fa-pen edit-album-img"></i> -->
             <i data-remove-imgsrc="<?php echo $alb->image; ?>" data-remove-userid="<?php echo $alb->user_id; ?>" data-edit-albumid="<?php echo $alb->id; ?>"  data-remove-albumid="<?php echo $alb->id; ?>" class="fas fa-trash remove-album-img"></i>
           </div>
           <div class="portfolio-wrap">
