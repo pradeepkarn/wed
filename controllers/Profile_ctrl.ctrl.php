@@ -606,7 +606,7 @@ class Profile_ctrl
                         $album = new Dbobjects;
                         $album->tableName = "album";
                         $album->insertData['user_id'] = "$u->id";
-                        $album->insertData['title'] = "birthday";
+                        $album->insertData['title'] = $req->album_group;
                         $album->insertData['album_group']=$req->album_group;
                         $album->insertData['caption'] = null;
                         $album->insertData['image'] = $imgname;
@@ -644,5 +644,73 @@ class Profile_ctrl
         $data['data'] = null;
         echo json_encode($data);
         exit;
+    }
+    function remove_album_img($req = null)
+    {
+        header('Content-Type: application/json');
+        $datavald = $_POST;
+        $req = obj($_POST);
+        $rules = [
+            'id' => 'required|integer',
+            'src' => 'required|string',
+            'userid' => 'required|integer',
+        ];
+        $pass = validateData(data: $datavald, rules: $rules);
+        $data = null;
+        if (!$pass) {
+            $data['msg'] = msg_ssn(return: true, lnbrk: "<br>");
+            $data['success'] = false;
+            $data['data'] = null;
+            echo json_encode($data);
+            exit;
+        }
+        $db = new Dbobjects;
+        $pdo = $db->conn;
+        $pdo->beginTransaction();
+        $db->tableName = "album";
+        $album = $db->pk($req->id);
+        if ($album) {
+            $album = obj($album);
+            if ($album->image !== '' && $req->src==$album->image && $req->userid==USER['id']) {
+                $imgpath = RPATH . "/media/images/pages/" . $album->image;
+                if ($req->src != null && file_exists($imgpath)) {
+                    unlink($imgpath);
+                }
+                try {
+                    $db->pk($req->id);
+                    $db->delete();
+                    $pdo->commit();
+                    msg_set("Image deleted");
+                    $data['msg'] = msg_ssn(return: true,lnbrk:"\n");
+                    $data['success'] = true;
+                    $data['data'] = null;
+                    echo json_encode($data);
+                    exit;
+                } catch (PDOException $th) {
+                    $pdo->rollback();
+                    msg_set("Image not deleted");
+                    $data['msg'] = msg_ssn(return: true,lnbrk:"\n");
+                    $data['success'] = false;
+                    $data['data'] = null;
+                    echo json_encode($data);
+                    exit;
+                }
+            }
+            else {
+                msg_set("You are not authorised to delete this image");
+                $data['msg'] = msg_ssn(return: true,lnbrk:"\n");
+                $data['success'] = false;
+                $data['data'] = null;
+                echo json_encode($data);
+                exit;
+            }
+        } else {
+            msg_set("content not found");
+            $data['msg'] = msg_ssn(return: true,lnbrk:"\n");
+            $data['success'] = false;
+            $data['data'] = null;
+            echo json_encode($data);
+            exit;
+        }
     }
 }

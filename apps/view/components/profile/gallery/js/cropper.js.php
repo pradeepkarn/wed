@@ -163,3 +163,34 @@
         });
     });
 </script>
+
+<script>
+     $(document).ready(function() {
+        $('.remove-album-img').on('click', function() {
+            var imgSrc = $(this).data('remove-imgsrc');
+            var albumId = $(this).data('remove-albumid');
+            var userId = $(this).data('remove-userid');
+            $.ajax({
+                url: '/<?php echo home . route('removeAlbumImgAjax'); ?>', // Replace with your server URL
+                type: 'POST', 
+                data: {
+                    id: albumId,
+                    src: imgSrc,
+                    userid: userId,
+                }, 
+                success: function(res) {
+                    if (res.success === true) {
+                        handleAlbumUpload(res);
+                    } else if (res.success === false) {
+                        handleAlbumUpload(res);
+                    } else {
+                        handleAlbumUpload(res);
+                    }
+                },
+                error: function(error) {
+                    console.error('AJAX error:', error);
+                }
+            });
+        });
+    });
+</script>

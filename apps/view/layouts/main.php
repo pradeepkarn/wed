@@ -59,8 +59,8 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
 
 <body>
 
-    <div id="global-progress-bar" style="height: 5px;" class="progress bg-primary fixed-top">
-        <div class="progress-bar"></div>
+    <div id="global-progress-bar" style="height: 5px;" class="progress fixed-top" role="progressbar" aria-label="Animated striped example" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+        <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: 0%"></div>
     </div>
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top">
@@ -125,8 +125,10 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
                             <li>
 
                                 <?php if (USER) : ?>
-                                    <a href="/<?php echo home . route('showPublicProfile',['profile_id'=>USER['id']]); ?>"><?php echo lang("nav")->public_profile ?? "Public Profile"; ?></a>
-                                    <!-- <a href="/<?php //echo home . route('userProfile'); ?>"><?php //echo lang("nav")->profile ?? "Profile"; ?></a> -->
+                                    <a href="/<?php echo home . route('showPublicProfile', ['profile_id' => USER['id']]); ?>"><?php echo lang("nav")->public_profile ?? "Public Profile"; ?></a>
+                                    <!-- <a href="/<?php //echo home . route('userProfile'); 
+                                                    ?>"><?php //echo lang("nav")->profile ?? "Profile"; 
+                                                                                                    ?></a> -->
                                     <a href="/<?php echo home . route('userProfileEdit'); ?>"><?php echo lang("nav")->profile_edit ?? "Profile Edit"; ?></a>
                                     <a href="/<?php echo home . route('userProfileGallery'); ?>"><?php echo lang("global")->my_album ?? "My Album"; ?></a>
                                     <a href="/<?php echo home . route('logout'); ?>"><?php echo lang("nav")->logout ?? "Logout"; ?></a>
@@ -187,7 +189,7 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
             <div class="container">
                 <div class="row gy-4">
                     <div class="col-lg-5 col-md-12 footer-info">
-                        <a href="/<?php echo home.route('home'); ?>" class="footer-logo d-flex align-items-center">
+                        <a href="/<?php echo home . route('home'); ?>" class="footer-logo d-flex align-items-center">
                             <img src="/<?php echo MEDIA_URL; ?>/logo/logo.png" alt="logo">
                         </a>
                         <p><?php echo lang('global')->welcome_to_site ?? "Welcome to " . SITE_NAME; ?></p>
@@ -303,6 +305,23 @@ $meta = isset($GLOBALS['meta_seo']) ? $GLOBALS['meta_seo'] : $default_meta;
     <?php
     ajaxActive("#global-progress-bar");
     ?>
+    <script>
+        $.ajaxSetup({
+            xhr: function() {
+                var xhr = new XMLHttpRequest();
+                xhr.upload.addEventListener('progress', function(evt) {
+                    if (evt.lengthComputable) {
+                        var percentComplete = Math.round((evt.loaded / evt.total) * 100);
+                        // Update the width of the progress bar inside #global-progress-bar
+                        $('#global-progress-bar .progress-bar').css('width', percentComplete + '%');
+                        // Update the text inside the progress bar (if needed)
+                        // $('#global-progress-bar .progress-bar').html(percentComplete + '%');
+                    }
+                }, false);
+                return xhr;
+            }
+        });
+    </script>
 </body>
 
 </html>

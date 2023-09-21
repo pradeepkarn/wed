@@ -18,6 +18,12 @@ $album_groups = $context->data->album_groups;
     border: 1px solid #ccc;
     margin-right: 10px;
   }
+  .edit-tool{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px 0 10px 0;
+  }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.js"></script>
@@ -52,13 +58,14 @@ $album_groups = $context->data->album_groups;
             </div>
             <div class="modal-body p-5">
               <div class="container-fluid">
+                <ul class="tabs">
+                  <li class="tab" data-aspect-ratio="noCrop">Free</li>
+                  <li class="tab" data-aspect-ratio="ratio1x1">1:1</li>
+                  <li class="tab" data-aspect-ratio="ratio16x9">16:9</li>
+                </ul>
+                <input accept=".jpeg,.jpg,.png,.webp" type="file" id="imageInput" class="form-control">
                 <form id="upload-album" action="/<?php echo home . route('uploadGalleryFile'); ?>" enctype="multipart/form-data">
-                  <ul class="tabs">
-                    <li class="tab" data-aspect-ratio="noCrop">Free</li>
-                    <li class="tab" data-aspect-ratio="ratio1x1">1:1</li>
-                    <li class="tab" data-aspect-ratio="ratio16x9">16:9</li>
-                  </ul>
-                  <input accept=".jpeg,.jpg,.png,.webp" type="file" id="imageInput" class="form-control">
+
                   <label for="albumDropdown">Select an album or add a new one:</label>
                   <select name="album_group" id="albumDropdown" class="form-select my-2" onchange="handleDropdownChange()">
                     <option value="CREATE_NEW_ALBUM">Add New Album</option>
@@ -127,11 +134,16 @@ $album_groups = $context->data->album_groups;
         $alb->album_group = str_replace(" ", "-", $alb->album_group);
       ?>
         <div class="col-lg-4 col-md-6 portfolio-item filter-<?php echo $alb->album_group; ?>">
+          <div class="edit-tool">
+            <i data-edit-imgsrc="<?php echo $alb->image; ?>" data-edit-userid="<?php echo $alb->user_id; ?>" data-edit-albumid="<?php echo $alb->id; ?>" class="fas fa-pen edit-album-img"></i>
+            <i data-remove-imgsrc="<?php echo $alb->image; ?>" data-remove-userid="<?php echo $alb->user_id; ?>" data-edit-albumid="<?php echo $alb->id; ?>"  data-remove-albumid="<?php echo $alb->id; ?>" class="fas fa-trash remove-album-img"></i>
+          </div>
           <div class="portfolio-wrap">
             <img style="height: 300px; width:100%; object-fit:cover;" src="<?php echo SERVER_DOMAIN; ?>/media/images/profiles/<?php echo $alb->image; ?>" class="img-fluid" alt="<?php echo $alb->title; ?>">
             <div class="portfolio-info">
               <h4><?php echo $grp; ?></h4>
               <p><?php echo $grp; ?></p>
+
               <div class="portfolio-links">
                 <a href="<?php echo SERVER_DOMAIN; ?>/media/images/profiles/<?php echo $alb->image; ?>" data-gallery="portfolioGallery" class="portfokio-lightbox" title="<?php echo $alb->title; ?>"><i class="bi bi-plus"></i></a>
                 <a href="#" title="<?php echo $alb->title; ?>"><i class="bi bi-link"></i></a>
@@ -141,11 +153,8 @@ $album_groups = $context->data->album_groups;
         </div>
       <?php endforeach; ?>
 
-
-     
-
     </div>
 
   </div>
-
+ 
 </section><!-- End Portfolio Section -->
