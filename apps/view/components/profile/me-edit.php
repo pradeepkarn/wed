@@ -163,14 +163,14 @@ import(
                                                 </div>
                                                 <div class="modal-body">
                                                 
-                                                    <div id="gallerySlider" class="carousel slide" data-bs-ride="carousel">
+                                                    <div id="gallerySlider"  class="carousel slide" data-bs-ride="carousel">
                                                     <div class="carousel-inner">
                                                         <?php
                                                         // Loop through the array and create carousel items
                                                         foreach ($album as $key => $object) {
                                                             $activeClass = ($key == 0) ? 'active' : ''; // Add 'active' class to the first item
                                                             echo '<div class="carousel-item ' . $activeClass . '">';
-                                                            echo '<img src="/' .MEDIA_URL."/images/profiles/". $object['image'] . '" class="d-block w-100" alt="Image ' . $object['id'] . '">';
+                                                            echo '<img style="width:100%;" src="/' .MEDIA_URL."/images/profiles/". $object['image'] . '" class="d-block w-100" alt="Image ' . $object['id'] . '">';
                                                             // echo '<div class="carousel-caption">';
                                                             // echo '<h3>Image ' . $object['id'] . '</h3>';
                                                             // echo '<p>' . $object['title'] . '</p>';
