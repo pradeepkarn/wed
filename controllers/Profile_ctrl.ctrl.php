@@ -672,7 +672,7 @@ class Profile_ctrl
         if ($album) {
             $album = obj($album);
             if ($album->image !== '' && $req->src==$album->image && $req->userid==USER['id']) {
-                $imgpath = RPATH . "/media/images/pages/" . $album->image;
+                $imgpath = RPATH . "/media/images/profiles/" . $req->src;
                 if ($req->src != null && file_exists($imgpath)) {
                     unlink($imgpath);
                 }
