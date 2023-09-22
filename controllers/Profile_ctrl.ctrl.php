@@ -571,8 +571,8 @@ class Profile_ctrl
         $rules = [
             'album_group' => 'required|string|min:3|max:100',
             'croppedImage' => 'required|file',
-            'croppedHeight' => 'required|numeric',
-            'croppedWidth' => 'required|numeric',
+            // 'croppedHeight' => 'required|numeric',
+            // 'croppedWidth' => 'required|numeric',
         ];
         if ($req->album_group=='CREATE_NEW_ALBUM') {
             $rules['new_album_name'] = 'required|string|min:3|max:100';
@@ -588,7 +588,7 @@ class Profile_ctrl
         }
         if (USER) {
             $u = obj(USER);
-            if (isset($_FILES['croppedImage']) && isset($req->croppedHeight) && isset($req->croppedWidth)) {
+            if (isset($_FILES['croppedImage'])) {
                 $fl = obj($_FILES['croppedImage']);
                 if ($fl->error === UPLOAD_ERR_OK) {
                     $ext = pathinfo($fl->name, PATHINFO_EXTENSION);
@@ -612,8 +612,8 @@ class Profile_ctrl
                         $album->insertData['image'] = $imgname;
                         $album->insertData['ext'] = $ext;
                         $album->insertData['size'] = $fl->size;
-                        $album->insertData['height'] = $req->croppedHeight;
-                        $album->insertData['width'] = $req->croppedWidth;
+                        $album->insertData['height'] = $req->croppedHeight??null;
+                        $album->insertData['width'] = $req->croppedWidth??null;
                         $album->insertData['status'] = "approved";
                         $album->insertData['is_active'] = 1;
                         $album->create();

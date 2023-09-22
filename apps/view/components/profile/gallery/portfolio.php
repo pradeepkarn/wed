@@ -18,7 +18,8 @@ $album_groups = $context->data->album_groups;
     border: 1px solid #ccc;
     margin-right: 10px;
   }
-  .edit-tool{
+
+  .edit-tool {
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -58,14 +59,26 @@ $album_groups = $context->data->album_groups;
             </div>
             <div class="modal-body p-5">
               <div class="container-fluid">
-                <ul class="tabs">
-                  <li class="tab" data-aspect-ratio="noCrop">Free</li>
-                  <li class="tab" data-aspect-ratio="ratio1x1">1:1</li>
-                  <li class="tab" data-aspect-ratio="ratio16x9">16:9</li>
-                </ul>
-                <input accept=".jpeg,.jpg,.png,.webp" type="file" id="imageInput" class="form-control">
-                <form id="upload-album" action="/<?php echo home . route('uploadGalleryFile'); ?>" enctype="multipart/form-data">
+                <div class="btn-group my-3" role="group" aria-label="Aspect Ratio Options">
+                  <input type="radio" class="btn-check tab" name="aspect-ratio" id="aspectKeepOriginal" autocomplete="off" data-aspect-ratio="keepOriginal" checked>
+                  <label class="btn btn-outline-primary" for="aspectKeepOriginal">Keep Original</label>
 
+                  <input type="radio" class="btn-check tab" name="aspect-ratio" id="aspectNoCrop" autocomplete="off" data-aspect-ratio="noCrop">
+                  <label class="btn btn-outline-primary" for="aspectNoCrop">Free <i class="bi bi-crop"></i></label>
+
+                  <input type="radio" class="btn-check tab" name="aspect-ratio" id="aspect1x1" autocomplete="off" data-aspect-ratio="ratio1x1">
+                  <label class="btn btn-outline-primary" for="aspect1x1">1:1 (Profile Image)<i class="bi bi-crop"></i></label>
+
+                  <input type="radio" class="btn-check tab" name="aspect-ratio" id="aspect16x9" autocomplete="off" data-aspect-ratio="ratio16x9">
+                  <label class="btn btn-outline-primary" for="aspect16x9">16:9 (Cover Image)<i class="bi bi-crop"></i></label>
+
+
+                </div>
+
+
+
+                <form id="upload-album" action="/<?php echo home . route('uploadGalleryFile'); ?>" enctype="multipart/form-data">
+                  <input name="croppedImage" accept=".jpeg,.jpg,.png,.webp" type="file" id="imageInput" class="form-control">
                   <label for="albumDropdown">Select an album or add a new one:</label>
                   <select name="album_group" id="albumDropdown" class="form-select my-2" onchange="handleDropdownChange()">
                     <option value="CREATE_NEW_ALBUM">Add New Album</option>
@@ -136,7 +149,7 @@ $album_groups = $context->data->album_groups;
         <div class="col-lg-4 col-md-6 portfolio-item filter-<?php echo $alb->album_group; ?>">
           <div class="edit-tool">
             <!-- <i data-edit-imgsrc="<?php echo $alb->image; ?>" data-edit-userid="<?php echo $alb->user_id; ?>" data-edit-albumid="<?php echo $alb->id; ?>" class="fas fa-pen edit-album-img"></i> -->
-            <i data-remove-imgsrc="<?php echo $alb->image; ?>" data-remove-userid="<?php echo $alb->user_id; ?>" data-edit-albumid="<?php echo $alb->id; ?>"  data-remove-albumid="<?php echo $alb->id; ?>" class="fas fa-trash remove-album-img"></i>
+            <i data-remove-imgsrc="<?php echo $alb->image; ?>" data-remove-userid="<?php echo $alb->user_id; ?>" data-edit-albumid="<?php echo $alb->id; ?>" data-remove-albumid="<?php echo $alb->id; ?>" class="fas fa-trash remove-album-img pk-pointer"></i>
           </div>
           <div class="portfolio-wrap">
             <img style="height: 300px; width:100%; object-fit:cover;" src="<?php echo SERVER_DOMAIN; ?>/media/images/profiles/<?php echo $alb->image; ?>" class="img-fluid" alt="<?php echo $alb->title; ?>">
@@ -156,5 +169,5 @@ $album_groups = $context->data->album_groups;
     </div>
 
   </div>
- 
+
 </section><!-- End Portfolio Section -->
