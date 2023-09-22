@@ -606,12 +606,12 @@ class Profile_ctrl
                         $album = new Dbobjects;
                         $album->tableName = "album";
                         $album->insertData['user_id'] = "$u->id";
-                        $album->insertData['title'] = $req->album_group;
-                        $album->insertData['album_group']=$req->album_group;
+                        $album->insertData['title'] = $req->album_group??"My pic";
+                        $album->insertData['album_group']=$req->album_group??"misc";
                         $album->insertData['caption'] = null;
                         $album->insertData['image'] = $imgname;
                         $album->insertData['ext'] = $ext;
-                        $album->insertData['size'] = $fl->size;
+                        $album->insertData['size'] = $fl->size??null;
                         $album->insertData['height'] = $req->croppedHeight??null;
                         $album->insertData['width'] = $req->croppedWidth??null;
                         $album->insertData['status'] = "approved";
