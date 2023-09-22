@@ -149,7 +149,7 @@ $album_groups = $context->data->album_groups;
         <div class="col-lg-4 col-md-6 portfolio-item filter-<?php echo $alb->album_group; ?>">
           <div class="edit-tool">
             <!-- <i data-edit-imgsrc="<?php echo $alb->image; ?>" data-edit-userid="<?php echo $alb->user_id; ?>" data-edit-albumid="<?php echo $alb->id; ?>" class="fas fa-pen edit-album-img"></i> -->
-            <i data-remove-imgsrc="<?php echo $alb->image; ?>" data-remove-userid="<?php echo $alb->user_id; ?>" data-edit-albumid="<?php echo $alb->id; ?>" data-remove-albumid="<?php echo $alb->id; ?>" class="fas fa-trash remove-album-img pk-pointer"></i>
+            <i data-remove-imgsrc="<?php echo $alb->image; ?>" data-remove-userid="<?php echo $alb->user_id; ?>" data-edit-albumid="<?php echo $alb->id; ?>" data-remove-albumid="<?php echo $alb->id; ?>" class="fas fa-trash remove-album-img pk-pointer text-danger"></i>
           </div>
           <div class="portfolio-wrap">
             <img style="height: 300px; width:100%; object-fit:cover;" src="<?php echo SERVER_DOMAIN; ?>/media/images/profiles/<?php echo $alb->image; ?>" class="img-fluid" alt="<?php echo $alb->title; ?>">
