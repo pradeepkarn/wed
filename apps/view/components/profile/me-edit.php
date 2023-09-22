@@ -1,5 +1,6 @@
 <?php
 $prof = obj($context->data->my_profile);
+$album = obj($context->data->album);
 if ($prof->cover != '') {
     $imagePath = MEDIA_ROOT . "images/profiles/" . $prof->cover;
     if (file_exists($imagePath)) {
@@ -151,7 +152,50 @@ import(
                                         </b>
                                     </div>
 
-
+                                    <!-- Album -->
+                                    <i data-bs-toggle="modal" data-bs-target="#galleryModalId" style="font-size: 50px; color:dodgerblue;" class="bi bi-images"></i>
+                                   
+                                    <div class="modal fade" id="galleryModalId" tabindex="-1" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                
+                                                    <div id="gallerySlider" class="carousel slide" data-bs-ride="carousel">
+                                                    <div class="carousel-inner">
+                                                        <?php
+                                                        // Loop through the array and create carousel items
+                                                        foreach ($album as $key => $object) {
+                                                            $activeClass = ($key == 0) ? 'active' : ''; // Add 'active' class to the first item
+                                                            echo '<div class="carousel-item ' . $activeClass . '">';
+                                                            echo '<img src="/' .MEDIA_URL."/images/profiles/". $object['image'] . '" class="d-block w-100" alt="Image ' . $object['id'] . '">';
+                                                            // echo '<div class="carousel-caption">';
+                                                            // echo '<h3>Image ' . $object['id'] . '</h3>';
+                                                            // echo '<p>' . $object['title'] . '</p>';
+                                                            // echo '</div>';
+                                                            echo '</div>';
+                                                        }
+                                                        ?>
+                                                    </div>
+                                            
+                                                    <!-- Add navigation controls (optional) -->
+                                                    <a class="carousel-control-prev" href="#gallerySlider" role="button" data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Previous</span>
+                                                    </a>
+                                                    <a class="carousel-control-next" href="#gallerySlider" role="button" data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Next</span>
+                                                    </a>
+                                                </div>
+                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Album end -->
                                 </div>
 
                                 <form id="update-my-profile-form" action="/<?php echo home . route('updateMyProfileAjax'); ?>">
@@ -159,7 +203,7 @@ import(
 
                                         <div class="col-md-12">
                                             <h3><?php echo lang('global')->personal_details ?? "Personal details"; ?>:</h3>
-                                            <input type="checkbox" name="is_public" value="1" <?php echo $prof->is_public ? 'checked' : null; ?>> <?php echo lang('global')->public ?? "Public"; ?>
+                                            <input type="checkbox" name="is_public" value="1" <?php echo $prof->is_public ? 'checked' : null; ?>> <?php echo lang('global')->public_with_album ?? "Public"; ?>
                                             <b><?php echo lang('nav')->profile ?? "Profile"; ?> <?php echo lang('global')->id ?? "ID"; ?>: <?php echo $prof->id; ?></b>
                                         </div>
                                         <div class="col-md-6">

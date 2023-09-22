@@ -34,13 +34,17 @@ class Profile_ctrl
                 return;
             }
             $myfrnds = $this->my_friend_list($my_id = USER['id']);
+            $db = new Dbobjects;
+            $db->tableName='album';
+            $album = $db->filter(['user_id'=>$prof['id'],'is_active'=>1,'status'=>'approved']);
         }
         $context = (object) array(
             'page' => 'profile-edit.php',
             'data' => (object) array(
                 'req' => obj($req),
                 'my_profile' => $prof,
-                'my_friends' => $myfrnds
+                'my_friends' => $myfrnds,
+                'album' => $album,
             )
         );
         $this->render_main($context);
@@ -50,8 +54,6 @@ class Profile_ctrl
         $req = obj($req);
         $prof = null;
         $myfrnds = null;
-
-
 
         if (isset($req->profile_id) && intval($req->profile_id)) {
             $prof = $this->profile_detail($id = $req->profile_id);
@@ -69,6 +71,13 @@ class Profile_ctrl
         $prof->image = $is_public ? $prof->image : 'default-user.png';
         $prof->cover = $is_public ? $prof->cover : 'default-cover.jpg';
 
+
+        $db = new Dbobjects;
+        $db->tableName='album';
+        $album = $db->filter(['user_id'=>$prof->id,'is_active'=>1,'status'=>'approved']);
+        // $album_groups = $db->filter_distinct_whr(col:'album_group',assoc_arr:['user_id'=>USER['id'],'is_active'=>1,'status'=>'approved']);
+
+
         $profileLink = SERVER_DOMAIN . route('showPublicProfile', ['profile_id' => $prof->id]);
         $profileImageLink = SERVER_DOMAIN  . "/media/images/profiles/$prof->image";
         $oghtml = <<<OGHTML
@@ -85,7 +94,8 @@ class Profile_ctrl
             'data' => (object) array(
                 'req' => obj($req),
                 'my_profile' => $prof,
-                'my_friends' => $myfrnds
+                'my_friends' => $myfrnds,
+                'album' => $album
             )
         );
         $this->render_main($context, 'public-main.php');

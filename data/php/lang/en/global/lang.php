@@ -61,6 +61,7 @@ $profile = array(
     "private" => "Private",
     "locked" => "Locked",
     "public" => "Public",
+    "public_with_album" => "Public with album",
     "my_album" => "My album"
 );
 $biodata = array(

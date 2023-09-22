@@ -60,6 +60,7 @@ $profile = array(
     "private" => "निजी",
     "locked" => "लॉक्ड",
     "public" => "सार्वजनिक",
+    "public_with_album" => "सार्वजनिक तस्वीर के साथ",
     "my_album" => "मेरा एल्बम"
 );
 

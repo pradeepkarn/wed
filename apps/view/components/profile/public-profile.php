@@ -1,6 +1,7 @@
 <?php
 $open_chat = false;
 $prof = obj($context->data->my_profile);
+$album = obj($context->data->album);
 $frnds = $context->data->my_friends ? obj($context->data->my_friends) : [];
 $me = null;
 if ($open_chat) {
@@ -158,7 +159,52 @@ import(
                                         <?php echo $prof->first_name; ?> <?php echo $prof->last_name; ?>
                                     </h3>
                                     <b> <?php echo $prof->gender == 'm' ? '(Male)' : '(Female)'; ?> <?php echo $prof->dob; ?></b>
-
+                                    <?php if($prof->is_public): ?>
+                                    <i data-bs-toggle="modal" data-bs-target="#galleryModalId" style="font-size: 50px; color:dodgerblue;" class="bi bi-images"></i>
+                                   
+                                    <div class="modal fade" id="galleryModalId" tabindex="-1" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                                        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                
+                                                    <div id="gallerySlider" class="carousel slide" data-bs-ride="carousel">
+                                                    <div class="carousel-inner">
+                                                        <?php
+                                                        // Loop through the array and create carousel items
+                                                        foreach ($album as $key => $object) {
+                                                            $activeClass = ($key == 0) ? 'active' : ''; // Add 'active' class to the first item
+                                                            echo '<div class="carousel-item ' . $activeClass . '">';
+                                                            echo '<img src="/' .MEDIA_URL."/images/profiles/". $object['image'] . '" class="d-block w-100" alt="Image ' . $object['id'] . '">';
+                                                            // echo '<div class="carousel-caption">';
+                                                            // echo '<h3>Image ' . $object['id'] . '</h3>';
+                                                            // echo '<p>' . $object['title'] . '</p>';
+                                                            // echo '</div>';
+                                                            echo '</div>';
+                                                        }
+                                                        ?>
+                                                    </div>
+                                            
+                                                    <!-- Add navigation controls (optional) -->
+                                                    <a class="carousel-control-prev" href="#gallerySlider" role="button" data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Previous</span>
+                                                    </a>
+                                                    <a class="carousel-control-next" href="#gallerySlider" role="button" data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Next</span>
+                                                    </a>
+                                                </div>
+                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+                                  
+                                
                                 </div>
 
                                 <div class="row">
