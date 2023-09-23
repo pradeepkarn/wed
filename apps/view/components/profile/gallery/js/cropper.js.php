@@ -236,6 +236,36 @@ updateImageAndCropper();
 
 <script>
      $(document).ready(function() {
+        $('.setting-album-img').on('click', function() {
+            var imgSrc = $(this).data('setting-imgsrc');
+            var albumId = $(this).data('setting-albumid');
+            var userId = $(this).data('setting-userid');
+            var settinAs = $(this).data('setting-as');
+            $.ajax({
+                url: '/<?php echo home . route('setAsAlbumImgAjax'); ?>', // Replace with your server URL
+                type: 'POST', 
+                data: {
+                    id: albumId,
+                    src: imgSrc,
+                    userid: userId,
+                    set_as: settinAs
+                }, 
+                success: function(res) {
+                    if (res.success === true) {
+                        handleAlbumUpload(res);
+                    } else if (res.success === false) {
+                        handleAlbumUpload(res);
+                    } else {
+                        handleAlbumUpload(res);
+                    }
+                },
+                error: function(error) {
+                    console.error('AJAX error:', error);
+                }
+            });
+        });
+    });
+     $(document).ready(function() {
         $('.remove-album-img').on('click', function() {
             var imgSrc = $(this).data('remove-imgsrc');
             var albumId = $(this).data('remove-albumid');

@@ -49,6 +49,7 @@ $user_routes = [
     "/dashboard/send-request-ajax" => 'Profile_ctrl@send_request_ajax@name.sendRequestAjax',
     "/dashboard/like-unlike-ajax" => 'Profile_ctrl@like_unlike_ajax@name.likeUnlikeProfileAjax',
     "/dashboard/remove-album-image" => 'Profile_ctrl@remove_album_img@name.removeAlbumImgAjax',
+    "/dashboard/setting-album-image" => 'Profile_ctrl@set_img_as@name.setAsAlbumImgAjax',
 
 ];
 $api_routes = [

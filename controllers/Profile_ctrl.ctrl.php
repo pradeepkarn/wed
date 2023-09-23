@@ -116,11 +116,26 @@ class Profile_ctrl
                     $ext = pathinfo($imgfl->name, PATHINFO_EXTENSION);
                     $imgname = uniqid('cover_') . "_" . $u->id . "." . $ext;
                     if (move_uploaded_file($imgfl->tmp_name, MEDIA_ROOT . "images/profiles/$imgname")) {
-                        if ($u->cover != '') {
-                            if (file_exists(MEDIA_ROOT . "images/profiles/$u->cover")) {
-                                unlink(MEDIA_ROOT . "images/profiles/$u->cover");
-                            }
-                        }
+                        $album = new Dbobjects;
+                        $album->tableName = "album";
+                        $album->insertData['user_id'] = "$u->id";
+                        $album->insertData['title'] = "My cover image";
+                        $album->insertData['album_group']="cover";
+                        $album->insertData['caption'] = null;
+                        $album->insertData['image'] = $imgname;
+                        $album->insertData['ext'] = $ext;
+                        $album->insertData['size'] = $imgfl->size??null;
+                        $album->insertData['height'] = $imgfl->height??null;
+                        $album->insertData['width'] = $imgfl->width??null;
+                        $album->insertData['status'] = "approved";
+                        $album->insertData['is_active'] = 1;
+                        $album->create();
+
+                        // if ($u->cover != '') {
+                        //     if (file_exists(MEDIA_ROOT . "images/profiles/$u->cover")) {
+                        //         unlink(MEDIA_ROOT . "images/profiles/$u->cover");
+                        //     }
+                        // }
                     }
                     try {
                         (new Model('pk_user'))->update($u->id, ['cover' => $imgname]);
@@ -156,11 +171,27 @@ class Profile_ctrl
                         exit;
                     }
                     if (move_uploaded_file($imgfl->tmp_name, MEDIA_ROOT . "images/profiles/$imgname")) {
-                        if ($u->image != '') {
-                            if (file_exists(MEDIA_ROOT . "images/profiles/$u->image")) {
-                                unlink(MEDIA_ROOT . "images/profiles/$u->image");
-                            }
-                        }
+
+                        $album = new Dbobjects;
+                        $album->tableName = "album";
+                        $album->insertData['user_id'] = "$u->id";
+                        $album->insertData['title'] = "My profile picture";
+                        $album->insertData['album_group']="profile";
+                        $album->insertData['caption'] = null;
+                        $album->insertData['image'] = $imgname;
+                        $album->insertData['ext'] = $ext;
+                        $album->insertData['size'] = $imgfl->size??null;
+                        $album->insertData['height'] = $imgfl->height??null;
+                        $album->insertData['width'] = $imgfl->width??null;
+                        $album->insertData['status'] = "approved";
+                        $album->insertData['is_active'] = 1;
+                        $album->create();
+
+                        // if ($u->image != '') {
+                        //     if (file_exists(MEDIA_ROOT . "images/profiles/$u->image")) {
+                        //         unlink(MEDIA_ROOT . "images/profiles/$u->image");
+                        //     }
+                        // }
                     }
                     try {
                         (new Model('pk_user'))->update($u->id, ['image' => $imgname]);
@@ -654,6 +685,89 @@ class Profile_ctrl
         $data['data'] = null;
         echo json_encode($data);
         exit;
+    }
+
+    function set_img_as($req = null)
+    {
+        header('Content-Type: application/json');
+        $datavald = $_POST;
+        $req = obj($_POST);
+        $rules = [
+            'id' => 'required|integer',
+            'src' => 'required|string',
+            'userid' => 'required|integer',
+            'set_as' => 'required|string',
+        ];
+        $pass = validateData(data: $datavald, rules: $rules);
+        $data = null;
+        if (!$pass) {
+            $data['msg'] = msg_ssn(return: true, lnbrk: "<br>");
+            $data['success'] = false;
+            $data['data'] = null;
+            echo json_encode($data);
+            exit;
+        }
+        $db = new Dbobjects;
+        $pdo = $db->conn;
+        $pdo->beginTransaction();
+        $db->tableName = "album";
+        $album = $db->pk($req->id);
+        if ($album) {
+            $album = obj($album);
+            if ($album->image !== '' && $req->src==$album->image && $req->userid==USER['id']) {
+                $imgpath = RPATH . "/media/images/profiles/" . $req->src;
+                if ($req->src == null || !file_exists($imgpath)) {
+                    msg_set("Image not found");
+                    $data['msg'] = msg_ssn(return: true,lnbrk:"\n");
+                    $data['success'] = false;
+                    $data['data'] = null;
+                    echo json_encode($data);
+                    exit;
+                }
+                try {
+                    $db->tableName='pk_user';
+                    $db->pk(USER['id']);
+                    if ($req->set_as=='profile') {
+                        $db->insertData['image']=$req->src;
+                    }
+                    if ($req->set_as=='cover') {
+                        $db->insertData['cover']=$req->src;
+                    }
+                    
+                    $db->update();
+                    $pdo->commit();
+                    msg_set("Image changed");
+                    $data['msg'] = msg_ssn(return: true,lnbrk:"\n");
+                    $data['success'] = true;
+                    $data['data'] = null;
+                    echo json_encode($data);
+                    exit;
+                } catch (PDOException $th) {
+                    $pdo->rollback();
+                    msg_set("Image not updated");
+                    $data['msg'] = msg_ssn(return: true,lnbrk:"\n");
+                    $data['success'] = false;
+                    $data['data'] = null;
+                    echo json_encode($data);
+                    exit;
+                }
+            }
+            else {
+                msg_set("You are not authorised to delete this image");
+                $data['msg'] = msg_ssn(return: true,lnbrk:"\n");
+                $data['success'] = false;
+                $data['data'] = null;
+                echo json_encode($data);
+                exit;
+            }
+        } else {
+            msg_set("content not found");
+            $data['msg'] = msg_ssn(return: true,lnbrk:"\n");
+            $data['success'] = false;
+            $data['data'] = null;
+            echo json_encode($data);
+            exit;
+        }
     }
     function remove_album_img($req = null)
     {
