@@ -146,7 +146,7 @@ $album_groups = $context->data->album_groups;
         $grp = ucfirst($alb->album_group);
         $alb->album_group = str_replace(" ", "-", $alb->album_group);
       ?>
-        <div class="col-lg-4 col-md-6 portfolio-item filter-<?php echo $alb->album_group; ?>">
+        <div class="col-lg-3 col-md-6 portfolio-item filter-<?php echo $alb->album_group; ?>">
           <div class="edit-tool">
             <button data-setting-imgsrc="<?php echo $alb->image; ?>" data-setting-userid="<?php echo $alb->user_id; ?>" data-setting-as="<?php echo 'cover'; ?>" data-setting-albumid="<?php echo $alb->id; ?>" type="button" class="setting-album-img button btn btn-primary btn-sm">Set Cover</button> 
             <button data-setting-imgsrc="<?php echo $alb->image; ?>" data-setting-userid="<?php echo $alb->user_id; ?>" data-setting-as="<?php echo 'profile'; ?>" data-setting-albumid="<?php echo $alb->id; ?>" type="button" class="setting-album-img button btn btn-primary btn-sm">Set Profile</button> 

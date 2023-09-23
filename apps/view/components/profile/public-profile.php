@@ -131,7 +131,40 @@ import(
 
 ?>
 
+<style>
+    /* Custom CSS to make the modal and backdrop transparent */
+.transparent-modal .modal-content {
+    background-color: transparent;
+    box-shadow: none; /* Remove the box shadow if you don't want it */
+}
 
+.transparent-modal.modal {
+    background: rgba(0, 0, 0, 0.5); /* Adjust the alpha value to control the modal's transparency */
+}
+
+.transparent-modal.modal.fade .modal-dialog {
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.transparent-modal.modal.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.transparent-modal.modal.fade .modal-content {
+    transform: translateY(-50px);
+    opacity: 0;
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.transparent-modal.modal.show .modal-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+</style>
 <div id="res"></div>
 <section style="min-height: 100vh;">
     <div class="profile-section">
@@ -160,14 +193,15 @@ import(
                                     </h3>
                                     <b> <?php echo $prof->gender == 'm' ? '(Male)' : '(Female)'; ?> <?php echo $prof->dob; ?></b>
                                     <?php if($prof->is_public): ?>
-                                    <i data-bs-toggle="modal" data-bs-target="#galleryModalId" style="font-size: 50px; color:dodgerblue;" class="bi bi-images"></i>
+                                    <i data-bs-toggle="modal" data-bs-target="#galleryModalId" style="font-size: 40px; color:dodgerblue;" class="bi bi-images pk-pointer"></i>
                                    
-                                    <div class="modal fade" id="galleryModalId" tabindex="-1" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+                                    <div class="modal fade transparent-modal" id="galleryModalId" tabindex="-1" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
                                         <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
                                             <div class="modal-content">
-                                                <div class="modal-header">
+                                            <i style="font-size: 30px; position:absolute; right:0; top:-20px;" data-bs-dismiss="modal" class="fas fa-times text-white"></i>
+                                                <!-- <div class="modal-header">
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
+                                                </div> -->
                                                 <div class="modal-body">
                                                 
                                                     <div id="gallerySlider" class="carousel slide" data-bs-ride="carousel">
